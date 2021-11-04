@@ -1,0 +1,70 @@
+{% extends "recipe/index.html.twig" %}
+
+{% block title %} Liste des recettes {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/recipes.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid p-0">
+		<header>
+        	<div>
+				<nav class="bg-dark row m-0">
+					<a class="col-2" href="#">
+						<img src="images/re7-logo.png" alt="logo" />
+					</a>
+					<div class="col-7 align-items-center desktopNav">
+						{# Desktop nav #}
+						<ul class="d-flex justify-content-between w-100">
+							<li>
+								<a href="#" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+							</li>
+							<li>
+								<a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+							</li>
+							<li>
+								<a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+							</li>
+							<li>
+								<a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col justify-content-end align-items-center burgerCol">
+						<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list text-warning burgerBtn" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+						</svg>
+						<div class="mobileNav bg-dark">
+							<div class="d-flex justify-content-end px-2">
+								<span class="closeBtn text-warning fs-1 fw-bold">X</span>
+							</div>
+							<ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
+								{# Mobile nav #}
+								<li>
+									<a href="#" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+								</li>
+								<li>
+									<a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+								</li>
+								<li>
+									<a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+								</li>
+								<li>
+									<a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+        	</div>
+		</header>
+		<h1 class="text-center">Créer une recette</h1>
+
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/header.js') }}"></script>
+{% endblock %}
