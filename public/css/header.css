@@ -2,7 +2,7 @@ header {
 	height: 80px;
 }
 
-.mobileNav {
+#mobileNav {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -17,8 +17,8 @@ header {
 	height: 30vh;
 }
 
-.burgerBtn,
-.closeBtn {
+#burgerBtn,
+#closeBtn {
 	cursor: pointer;
 }
 
@@ -30,7 +30,7 @@ header {
 	.burgerCol {
 		display: flex;
 	}
-	.mobileNav {
+	#mobileNav {
 		display: none;
 	}
 }

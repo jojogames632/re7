@@ -1,6 +1,6 @@
-let burgerBtn = document.querySelector('.burgerBtn');
-let closeBtn = document.querySelector('.closeBtn');
-let mobileNav = document.querySelector('.mobileNav');
+let burgerBtn = document.getElementById('burgerBtn');
+let closeBtn = document.getElementById('closeBtn');
+let mobileNav = document.getElementById('mobileNav');
 let isMobileOn = false;
 
 const toggleMobileNav = () => {

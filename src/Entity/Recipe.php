@@ -49,10 +49,17 @@ class Recipe
      */
     private $eveningPlannings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="RecipeId", orphanRemoval=true)
+     */
+    private $recipeFoods;
+
     public function __construct()
     {
         $this->middayPlannings = new ArrayCollection();
         $this->eveningPlannings = new ArrayCollection();
+        $this->foodId = new ArrayCollection();
+        $this->recipeFoods = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,6 +169,36 @@ class Recipe
             // set the owning side to null (unless already changed)
             if ($eveningPlanning->getEveningRecipe() === $this) {
                 $eveningPlanning->setEveningRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecipeFood[]
+     */
+    public function getRecipeFoods(): Collection
+    {
+        return $this->recipeFoods;
+    }
+
+    public function addRecipeFood(RecipeFood $recipeFood): self
+    {
+        if (!$this->recipeFoods->contains($recipeFood)) {
+            $this->recipeFoods[] = $recipeFood;
+            $recipeFood->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeFood(RecipeFood $recipeFood): self
+    {
+        if ($this->recipeFoods->removeElement($recipeFood)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeFood->getRecipe() === $this) {
+                $recipeFood->setRecipe(null);
             }
         }
 
