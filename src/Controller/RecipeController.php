@@ -21,6 +21,15 @@ class RecipeController extends AbstractController
     {
         $recipes = $recipeRepository->findAll();
 
+        if (isset($_POST['day']) && isset($_POST['when'])) {
+            $day = htmlspecialchars($_POST['day']);
+            $when = htmlspecialchars($_POST['when']);
+            $recipeName = htmlspecialchars($_POST['recipeName']);
+
+            $recipe = $recipeRepository->findOneByName($recipeName);
+            
+        }
+
         return $this->render('recipe/recipes.html.twig', [
             'recipes' => $recipes
         ]);
