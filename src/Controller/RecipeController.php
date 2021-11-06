@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use App\Entity\RecipeFood;
 use App\Form\RecipeType;
 use App\Repository\FoodRepository;
+use App\Repository\PlanningRepository;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(RecipeRepository $recipeRepository): Response
+    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository): Response
     {
         $recipes = $recipeRepository->findAll();
 
@@ -27,7 +28,17 @@ class RecipeController extends AbstractController
             $recipeName = htmlspecialchars($_POST['recipeName']);
 
             $recipe = $recipeRepository->findOneByName($recipeName);
+            $planning = $planningRepository->findOneByName($day);
+            if ($when === 'midi') {
+                $planning->setMiddayRecipe($recipe);
+            }
+            else {
+                $planning->setEveningRecipe($recipe);
+            }
             
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($planning);
+            $entityManager->flush();
         }
 
         return $this->render('recipe/recipes.html.twig', [

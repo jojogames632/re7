@@ -63,7 +63,7 @@
 				{% for recipe in recipes %}
 					<div class="recipeContainer row fs-3 mb-2">
 						<div class="col-10 recipeNameCol">{{ recipe.name }}</div>
-						<div class="col-1">
+						<div class="col-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" id="{{ recipe.id }}" onclick="addToPlanning('{{ recipe.name }}')" class="bi bi-cart-plus-fill text-warning addToPlanningBtn" viewBox="0 0 16 16">
 								<path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
 							</svg>
@@ -78,18 +78,18 @@
 			</section>
 
 			<section id="addToPlanningSection">
-				<form class="mt-2 mx-auto">
+				<form class="mt-2 mx-auto" method="post">
 					<p class="text-center"><input type="text" id="recipeName" readOnly name="recipeName" class="mt-5"></input></p>
 					<div class="d-flex justify-content-around align-items-center">
 						Prévu pour
 						<select id="day" name="day" required>
-							<option value="lundi">Lundi</option>
-							<option value="mardi">Mardi</option>
-							<option value="mercredi">Mercredi</option>
-							<option value="jeudi">Jeudi</option>
-							<option value="vendredi">Vendredi</option>
-							<option value="samedi">Samedi</option>
-							<option value="dimanche">Dimanche</option>
+							<option value="Lundi">Lundi</option>
+							<option value="Mardi">Mardi</option>
+							<option value="Mercredi">Mercredi</option>
+							<option value="Jeudi">Jeudi</option>
+							<option value="Vendredi">Vendredi</option>
+							<option value="Samedi">Samedi</option>
+							<option value="Dimanche">Dimanche</option>
 						</select>
 						<select id="when" name="when" required>
 							<option value="midi">Midi</option>

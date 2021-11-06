@@ -30,7 +30,7 @@ class Food
     private $section;
 
     /**
-     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="foodId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="food", orphanRemoval=true)
      */
     private $recipeFoods;
 

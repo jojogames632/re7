@@ -40,17 +40,17 @@ class Recipe
     private $persons;
 
     /**
-     * @ORM\OneToMany(targetEntity=Planning::class, mappedBy="midday_recipe")
+     * @ORM\OneToMany(targetEntity=Planning::class, mappedBy="middayRecipe")
      */
     private $middayPlannings;
     
     /**
-     * @ORM\OneToMany(targetEntity=Planning::class, mappedBy="evening_recipe")
+     * @ORM\OneToMany(targetEntity=Planning::class, mappedBy="eveningRecipe")
      */
     private $eveningPlannings;
 
     /**
-     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="RecipeId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="Recipe", orphanRemoval=true)
      */
     private $recipeFoods;
 
