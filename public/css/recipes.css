@@ -2,6 +2,7 @@ main {
 	height: calc(100vh - 80px);
 	background-color: #212528;
 	color: white;
+	overflow-x: scroll;
 }
 
 .recipeContainer {
@@ -16,4 +17,9 @@ main {
 
 #addToPlanningSection {
 	display: none;
+}
+
+.recipesSection {
+	max-height: 50vh;
+	overflow-x: scroll;
 }
