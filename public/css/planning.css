@@ -3,7 +3,7 @@ main {
 	background-color: #212528;
 	color: white;
 	width: 100vw;
-	overflow-x: scroll;
+	overflow: scroll;
 }
 
 .planningSection {
