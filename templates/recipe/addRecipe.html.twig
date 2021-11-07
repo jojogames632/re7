@@ -84,11 +84,11 @@
 		{{ form_widget(form.persons) }}
 		{{ form_errors(form.persons) }}
 
-		<p class="text-center text-white mt-3">Aliments</p>	
+		<p class="text-center text-warning mt-3">Aliments</p>	
 		<div id="foodInputsContainer" class="row">
 
-			<div class="col-4 d-flex flex-column align-items-center" id="foodCol">
-				<span>Aliment</span>
+			<div class="col-6 d-flex flex-column align-items-center" id="foodCol">
+				<span class="text-white mb-2">Aliment</span>
 				<select id="food1" name="food1" required>
 					{% for food in foods %}
 						<option value={{ food.name }}>{{ food.name }}</option>
@@ -96,13 +96,13 @@
 				</select>
 			</div>
 
-			<div class="col-4 d-flex flex-column align-items-center" id="quantityCol">
-				<span>Quantité</span>
+			<div class="col-2 d-flex flex-column align-items-center" id="quantityCol">
+				<span class="text-white mb-2">Quantité</span>
 				<input type="number" min="0" max="100000" id="quantity1" name="quantity1" required>
 			</div>
 
 			<div class="col-4 d-flex flex-column align-items-center" id="unitCol">
-				<span>Unité</span>
+				<span class="text-white mb-2">Unité</span>
 				<select id="unit1" name="unit1" required>
 					<option value="kg">kg</option>
 					<option value="g">g</option>

@@ -60,25 +60,39 @@
     <main>
         <h1 class="text-center mb-4">Planning</h1>
         <section class="planningSection">
-            <div class="row mb-2 border-bottom border-warning">
-                <div class="col-2"></div>
-                <div class="col-5 d-flex justify-content-center text-warning pb-3 fw-bold fs-6">
+            <div class="row mb-3 border-bottom border-warning">
+                <div class="col-3"></div>
+                <div class="col-4 d-flex justify-content-center text-warning pb-3 fw-bold fs-6">
                     Midi
                 </div>
-                <div class="col-5 d-flex justify-content-center text-warning pb-3 fw-bold fs-6">
+                <div class="col-4 d-flex justify-content-center text-warning pb-3 fw-bold fs-6">
                     Soir
                 </div>
             </div>
             {% for day in days %}
                 <div class="dayContainer row mb-4 border-bottom border-warning pb-3">
-                    <div class="col-2 text-warning">
+                    <div class="col-3 text-warning dayName">
                         {{ day.name }}
                     </div>
-                    <div class="col-5 d-flex justify-content-center align-items-center recipeName">
+                    <div class="col-4 d-flex justify-content-center align-items-center recipeName">
                         {{ day.middayRecipe.name ?? '-' }}
+                        {% if day.middayRecipe.name is defined %}
+                            <a href="{{ path('delete_recipe_in_planning', { 'day' : day.name, 'when' : 'midi' }) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-x-circle-fill text-danger deleteRecipeBtn" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                </svg>
+                            </a>
+                        {% endif %}
                     </div>
-                    <div class="col-5 d-flex justify-content-center align-items-center recipeName">
+                    <div class="col-4 d-flex justify-content-center align-items-center recipeName">
                         {{ day.eveningRecipe.name ?? '-' }}
+                        {% if day.eveningRecipe.name is defined %}
+                        <a href="{{ path('delete_recipe_in_planning', { 'day' : day.name, 'when' : 'soir' }) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-x-circle-fill text-danger deleteRecipeBtn" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                            </svg>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

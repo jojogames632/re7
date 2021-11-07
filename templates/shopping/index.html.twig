@@ -66,22 +66,26 @@
                 <div class="col-3 text-warning d-flex justify-content-center">Quantité</div>
                 <div class="col-3 text-warning d-flex justify-content-center">Unité</div>
             </div>
-            {% for food in shoppingArray %}
-                <div class="row">
-                    <div class="col-3 d-flex justify-content-center">
-                        {{ food[0] }}
+            {% if shoppingArray|length > 0 %}
+                {% for food in shoppingArray %}
+                    <div class="row">
+                        <div class="col-3 d-flex justify-content-center">
+                            {{ food[0] }}
+                        </div>
+                        <div class="col-3 d-flex justify-content-center">
+                            {{ food[1] }}
+                        </div>
+                        <div class="col-3 d-flex justify-content-center">
+                            {{ food[2] }}
+                        </div>
+                        <div class="col-3 d-flex justify-content-center">
+                            {{ food[3] }}
+                        </div>
                     </div>
-                    <div class="col-3 d-flex justify-content-center">
-                        {{ food[1] }}
-                    </div>
-                    <div class="col-3 d-flex justify-content-center">
-                        {{ food[2] }}
-                    </div>
-                    <div class="col-3 d-flex justify-content-center">
-                        {{ food[3] }}
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p class="text-center">Aucun repas planifié..</p> 
+            {% endif %}
         </section>
     </main>
 {% endblock %}

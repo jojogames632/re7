@@ -13,3 +13,11 @@ main {
 .recipeName {
 	font-size: 10px;
 }
+
+.deleteRecipeBtn {
+	margin-left: 5px;
+}
+
+.dayName {
+	font-size: 12px;
+}

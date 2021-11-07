@@ -63,14 +63,14 @@ class RecipeController extends AbstractController
             $foodFieldsCount = (count($_POST) - 1) / 3;
             $entityManager = $this->getDoctrine()->getManager();
 
-            for ($i = 0; $i < $foodFieldsCount; $i++) {
+            for ($i = 1; $i <= $foodFieldsCount; $i++) {
                 $recipeFood = new RecipeFood();
                 $recipeFood->setRecipe($recipe);
 
-                $food = $foodRepository->findOneByName(htmlspecialchars($_POST['food' . $i + 1]));
+                $food = $foodRepository->findOneByName(htmlspecialchars($_POST['food' . $i]));
                 $recipeFood->setFood($food);
-                $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i + 1]));
-                $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i + 1]));
+                $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
+                $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
                 $recipeFood->setSection($food->section);
 
                 $entityManager->persist($recipeFood);

@@ -25,6 +25,12 @@ class FoodController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // replace space by _
+            $foodName = htmlspecialchars($_POST['food']['name']);
+            $noSpaceFoodName = str_replace(' ', '_', $foodName);
+            $food->setName($noSpaceFoodName);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($food);
             $entityManager->flush();
