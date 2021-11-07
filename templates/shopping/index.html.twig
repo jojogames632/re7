@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Planning{% endblock %}
+{% block title %}Liste de courses{% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/planning.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/shopping.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -20,10 +20,10 @@
                         <a href="{{ path('home') }}" class="text-decoration-none text-warning fs-4 fw-bold">Recettes</a>
                     </li>
                     <li>
-                        <a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+                        <a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
                     </li>
                     <li>
-                        <a href="{{ path('shopping') }}" class="text-decoration-none text-white fs-4 fw-bold">Liste de courses</a>
+                        <a href="#" class="text-decoration-none text-white fs-4 fw-bold">Liste de courses</a>
                     </li>
                     <li>
                         <a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
@@ -44,10 +44,10 @@
                             <a href="{{ path('home') }}" class="text-decoration-none text-warning fs-4 fw-bold">Recettes</a>
                         </li>
                         <li>
-                            <a href="#" class="text-decoration-none text-white fs-4 fw-bold">Planning</a>
+                            <a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
                         </li>
                         <li>
-                            <a href="{{ path('shopping') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+                            <a href="#" class="text-decoration-none text-white fs-4 fw-bold">Liste de courses</a>
                         </li>
                         <li>
                             <a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
@@ -58,27 +58,27 @@
         </nav>
     </header>
     <main>
-        <h1 class="text-center mb-4">Planning</h1>
-        <section class="planningSection">
-            <div class="row mb-2 border-bottom border-warning">
-                <div class="col-2"></div>
-                <div class="col-5 d-flex justify-content-center text-warning pb-3 fw-bold fs-6">
-                    Midi
-                </div>
-                <div class="col-5 d-flex justify-content-center text-warning pb-3 fw-bold fs-6">
-                    Soir
-                </div>
+        <h1 class="text-center my-3">Liste de courses</h1>
+        <section class="shoppingSection row d-flex justify-content-center">
+            <div class="row mb-3">
+                <div class="col-3 text-warning">Rayon</div>
+                <div class="col-3 text-warning">Aliment</div>
+                <div class="col-3 text-warning">Quantité</div>
+                <div class="col-3 text-warning">Unité</div>
             </div>
-            {% for day in days %}
-                <div class="dayContainer row mb-4 border-bottom border-warning pb-3">
-                    <div class="col-2 text-warning">
-                        {{ day.name }}
+            {% for food in shoppingArray %}
+                <div class="row">
+                    <div class="col-3 d-flex justify-content-center">
+                        {{ food[0] }}
                     </div>
-                    <div class="col-5 d-flex justify-content-center align-items-center recipeName">
-                        {{ day.middayRecipe.name ?? '-' }}
+                    <div class="col-3 d-flex justify-content-center">
+                        {{ food[1] }}
                     </div>
-                    <div class="col-5 d-flex justify-content-center align-items-center recipeName">
-                        {{ day.eveningRecipe.name ?? '-' }}
+                    <div class="col-3 d-flex justify-content-center">
+                        {{ food[2] }}
+                    </div>
+                    <div class="col-3 d-flex justify-content-center">
+                        {{ food[3] }}
                     </div>
                 </div>
             {% endfor %}

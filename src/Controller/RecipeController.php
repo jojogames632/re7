@@ -71,6 +71,7 @@ class RecipeController extends AbstractController
                 $recipeFood->setFood($food);
                 $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i + 1]));
                 $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i + 1]));
+                $recipeFood->setSection($food->section);
 
                 $entityManager->persist($recipeFood);
             }

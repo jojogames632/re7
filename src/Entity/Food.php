@@ -22,12 +22,12 @@ class Food
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $section;
+    public $section;
 
     /**
      * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="food", orphanRemoval=true)

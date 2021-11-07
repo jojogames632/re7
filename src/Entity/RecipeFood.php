@@ -20,24 +20,29 @@ class RecipeFood
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    public $quantity;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $unit;
+    public $unit;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="recipeFoods")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Recipe;
+    private $recipe;
 
     /**
      * @ORM\ManyToOne(targetEntity=Food::class, inversedBy="recipeFoods")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $food;
+    public $food;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    public $section;
 
     public function getId(): ?int
     {
@@ -68,14 +73,14 @@ class RecipeFood
         return $this;
     }
 
-    public function getRecipe(): ?Recipe
+    public function getRecipe(): ?recipe
     {
-        return $this->Recipe;
+        return $this->recipe;
     }
 
-    public function setRecipe(?Recipe $Recipe): self
+    public function setRecipe(?Recipe $recipe): self
     {
-        $this->Recipe = $Recipe;
+        $this->recipe = $recipe;
 
         return $this;
     }
@@ -88,6 +93,18 @@ class RecipeFood
     public function setFood(?Food $food): self
     {
         $this->food = $food;
+
+        return $this;
+    }
+
+    public function getSection(): ?string
+    {
+        return $this->section;
+    }
+
+    public function setSection(string $section): self
+    {
+        $this->section = $section;
 
         return $this;
     }
