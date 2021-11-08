@@ -12,6 +12,11 @@ header {
 	width: 100vw;
 }
 
+img {
+	height: 80px;
+	width: 80px;
+}
+
 .mobileUl {
 	margin-top: 30vh;
 	height: 30vh;

@@ -10,7 +10,7 @@
 {% block body %}
 	<header class="bg-dark">
 		<nav class="row m-0 d-flex align-items-center">
-			<a class="col-2" href="#">
+			<a class="col-2" href="{{ path('home') }}">
 				<img src="../images/re7-logo.png" alt="logo" />
 			</a>
 			<div class="col-7 align-items-center desktopNav">
@@ -58,7 +58,7 @@
 		</nav>
 	</header>
 	<main>
-		<h1 class="text-center text-white fs-4 mb-4">Modification d'une recette</h1>
+		<h1 class="text-center text-white fs-4 my-4">Modification d'une recette</h1>
 
 		{{ form_start(form) }}
 
