@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
 use App\Form\RecipeType;
+use App\Form\UpdateFoodInRecipeType;
 use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
@@ -110,13 +111,49 @@ class RecipeController extends AbstractController
     }
 
     /**
+     * @Route("/update-food-in-recipe/{id<\d+>}/{recipeId<\d+>}", name="update_food_in_recipe")
+     */
+    public function updateFoodInRecipe(int $id, int $recipeId, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, Request $request)
+    {
+        if (!$recipeFood = $recipeFoodRepository->find($id)) {
+            throw $this->createNotFoundException('L\'aliment à mettre à jour n\'a pas été trouvé');
+        }
+
+        if (!$recipe = $recipeRepository->find($recipeId)) {
+            throw $this->createNotFoundException('La recette concernant l\'aliment à modifier n\'a pas été trouvée');
+        } 
+
+        $form = $this->createForm(UpdateFoodInRecipeType::class, $recipeFood);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_details', [
+                'id' => $recipeId
+            ]);
+        }
+
+        return $this->render('recipe/updateFood.html.twig', [
+            'food' => $recipeFood,
+            'recipe' => $recipe,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/delete-food-in-recipe/{id<\d+>}/{recipeId<\d+>}", name="delete_food_in_recipe")
      */
-    public function deleteFoodInRecipe(int $id, int $recipeId, RecipeFoodRepository $recipeFoodRepository)
+    public function deleteFoodInRecipe(int $id, int $recipeId, RecipeFoodRepository $recipeFoodRepository, RecipeRepository $recipeRepository)
     {
         if (!$food = $recipeFoodRepository->find($id)) {
             throw $this->createNotFoundException('Cet aliment n\'a pas été trouvé');
-        } 
+        }
+
+        if (!$recipe = $recipeRepository->find($recipeId)) {
+            throw $this->createNotFoundException('La recette concernant l\'aliment à supprimer n\'a pas été trouvée');
+        }
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($food);

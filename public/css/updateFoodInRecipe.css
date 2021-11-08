@@ -1,0 +1,30 @@
+main {
+	height: calc(100vh - 80px);
+	background-color: #212528;
+	color: white;
+	overflow: scroll;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 70vw;
+	margin: auto;
+	margin-top: 40px;
+}
+
+label {
+	margin-bottom: 5px;
+}
+
+input {
+	margin-bottom: 10px;
+	height: 20px;
+}
+
+input,
+select {
+	background-color: #212528;
+	border-color: #FFC108;
+	color: white;
+}
