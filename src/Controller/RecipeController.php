@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use App\Entity\RecipeFood;
 use App\Form\RecipeType;
 use App\Form\UpdateFoodInRecipeType;
+use App\Form\UpdateRecipeType;
 use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
@@ -161,6 +162,33 @@ class RecipeController extends AbstractController
 
         return $this->redirectToRoute('recipe_details', [
             'id' => $recipeId
+        ]);
+    }
+
+    /**
+     * @Route("/update-recipe/{id<\d+>}", name="update_recipe")
+     */
+    public function updateRecipe(int $id, RecipeRepository $recipeRepository, Request $request)
+    {
+        if (!$recipe = $recipeRepository->find($id)) {
+            throw $this->createNotFoundException('Cette recette n\'a pas été trouvée');
+        }
+
+        $form = $this->createForm(UpdateRecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_details', [
+                'id' => $id
+            ]);
+        }
+
+        return $this->render('recipe/updateRecipe.html.twig', [
+            'form' => $form->createView(),
+            'recipe' => $recipe
         ]);
     }
 }

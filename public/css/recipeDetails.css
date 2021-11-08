@@ -6,8 +6,16 @@ main {
 	overflow: scroll;
 }
 
+.clockImage {
+	height: 20px;
+	width: 20px;
+}
+
+.recipeFoodsSection {
+	height: 40vh;
+	overflow-y: scroll;
+}
+
 @media screen and (max-width: 1000px) {
-	.title {
-		display: none;
-	}
+	
 }

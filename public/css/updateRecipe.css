@@ -24,14 +24,3 @@ label {
 	margin-bottom: 5px;
 	color: white;
 }
-
-li {
-	color: red;
-	list-style: none;
-}
-
-#foodInputsContainer {
-	height: 30vh;
-	overflow-x: scroll;
-}
-

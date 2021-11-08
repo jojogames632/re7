@@ -1,17 +1,17 @@
 {% extends "recipe/index.html.twig" %}
 
-{% block title %} Mise à jour d'un aliment d'une recette {% endblock %}
+{% block title %} Mise à jour d'une recette {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/updateFoodInRecipe.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/updateRecipe.css') }}" />
 {% endblock %}
 
 {% block body %}
 	<header class="bg-dark">
 		<nav class="row m-0 d-flex align-items-center">
 			<a class="col-2" href="#">
-				<img src="../../images/re7-logo.png" alt="logo" />
+				<img src="../images/re7-logo.png" alt="logo" />
 			</a>
 			<div class="col-7 align-items-center desktopNav">
 				{# Desktop nav #}
@@ -58,24 +58,27 @@
 		</nav>
 	</header>
 	<main>
-		<h1 class="text-center fs-3 title mt-3 mb-4">Modification d'un aliment</h1>		
-		<p class="text-center"><span class="text-warning">Recette</span> : {{ recipe.name }}</p>
-		<p class="text-center"><span class="text-warning">Aliment</span> : {{ food.foodName }}</p>
-		
+		<h1 class="text-center text-white fs-4 mb-4">Modification d'une recette</h1>
+
 		{{ form_start(form) }}
 
-			{{ form_label(form.quantity, 'Quantité') }}
-			{{ form_widget(form.quantity) }}
+			{{ form_label(form.name, 'Nom') }}
+			{{ form_widget(form.name) }}
 
-			{{ form_label(form.unit, 'Unité') }}
-			{{ form_widget(form.unit) }}
+			{{ form_label(form.category, 'Catégorie') }}
+			{{ form_widget(form.category) }}
 
-			<p class="text-center mt-4">
-				<button type="submit" class="btn btn-outline-warning btn-sm">Valider les modifications</button>
+			{{ form_label(form.duration, 'Durée') }}
+			{{ form_widget(form.duration) }}
+
+			{{ form_label(form.persons, 'Pour') }}
+			{{ form_widget(form.persons) }}
+		
+			<p class="text-center mt-3">
+				<button type="submit" class="btn btn-sm btn-outline-warning">Valider les modifications</button>
 			</p>
 
 		{{ form_end(form) }}
-
 	</main>
 {% endblock %}
 
