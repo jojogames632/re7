@@ -1,0 +1,13 @@
+main {
+	height: calc(100vh - 80px);
+	background-color: #212528;
+	color: white;
+	width: 100vw;
+	overflow: scroll;
+}
+
+@media screen and (max-width: 1000px) {
+	.title {
+		display: none;
+	}
+}

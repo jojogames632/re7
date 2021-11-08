@@ -1,0 +1,95 @@
+{% extends "recipe/index.html.twig" %}
+
+{% block title %} Détails de la recette {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/recipeDetails.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<header class="bg-dark">
+		<nav class="row m-0 d-flex align-items-center">
+			<a class="col-2" href="#">
+				<img src="../images/re7-logo.png" alt="logo" />
+			</a>
+			<div class="col-7 align-items-center desktopNav">
+				{# Desktop nav #}
+				<ul class="d-flex justify-content-between w-100">
+					<li>
+						<a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+					</li>
+					<li>
+						<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+					</li>
+					<li>
+						<a href="{{ path('shopping') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+					</li>
+					<li>
+						<a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col justify-content-end align-items-center burgerCol">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list text-warning" id="burgerBtn" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+				</svg>
+				<div id="mobileNav" class="bg-dark">
+					<div class="d-flex justify-content-end px-2">
+						<span class="text-warning fs-1 fw-bold" id="closeBtn">X</span>
+					</div>
+					<ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
+						{# Mobile nav #}
+						<li>
+							<a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+						</li>
+						<li>
+							<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+						</li>
+						<li>
+							<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+						</li>
+						<li>
+							<a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<h1 class="text-center fs-2 title mb-2">Détails de la recette</h1>
+		<h2 class="text-center mb-3">{{ recipe.name }}</h2>
+		<p class="text-center">{{ recipe.category }}</p>
+		<p class="text-center">{{ recipe.duration }}</p>
+		<p class="text-center">{{ recipe.persons }}</p>
+		<div class="row border-bottom border-warning pb-3 mb-3">
+			<div class="col-5 text-warning d-flex justify-content-center">Aliment</div>
+			<div class="col-2 text-warning d-flex justify-content-center">quantité</div>
+			<div class="col-2 text-warning d-flex justify-content-center">unité</div>
+		</div>
+		{% for food in foods %}
+			<div class="row mb-2">
+				<div class="col-5 d-flex justify-content-center">{{ food.foodName }}</div>
+				<div class="col-2 d-flex justify-content-center">{{ food.quantity }}</div>
+				<div class="col-2 d-flex justify-content-center">{{ food.unit }}</div>
+				<div class="col-2 d-flex justify-content-between align-items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill text-warning" viewBox="0 0 16 16">
+						<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+					</svg>
+					<a href="{{ path('delete_food_in_recipe', { 'id' : food.id, 'recipeId' : recipe.id }) }}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-circle text-danger" viewBox="0 0 16 16">
+							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+						</svg>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+	</main>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/header.js') }}"></script>
+{% endblock %}

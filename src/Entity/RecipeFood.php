@@ -44,6 +44,11 @@ class RecipeFood
      */
     public $section;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $foodName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +110,18 @@ class RecipeFood
     public function setSection(string $section): self
     {
         $this->section = $section;
+
+        return $this;
+    }
+
+    public function getFoodName(): ?string
+    {
+        return $this->foodName;
+    }
+
+    public function setFoodName(string $foodName): self
+    {
+        $this->foodName = $foodName;
 
         return $this;
     }

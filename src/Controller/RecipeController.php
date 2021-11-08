@@ -7,6 +7,7 @@ use App\Entity\RecipeFood;
 use App\Form\RecipeType;
 use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
+use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,7 @@ class RecipeController extends AbstractController
                 $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
                 $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
                 $recipeFood->setSection($food->section);
+                $recipeFood->setFoodName($food->name);
 
                 $entityManager->persist($recipeFood);
             }
@@ -85,6 +87,43 @@ class RecipeController extends AbstractController
         return $this->render('recipe/addRecipe.html.twig', [
             'form' => $form->createView(),
             'foods' => $foods
+        ]);
+    }
+
+    /**
+     * @Route("/recipe-details/{id<\d+>}", name="recipe_details")
+     */
+    public function showRecipeDetails(int $id, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository)
+    {
+        if (!$recipe = $recipeRepository->find($id)) {
+            throw $this->createNotFoundException(sprintf('La recette avec l\'id %s n\'existe pas', $id));
+        }
+
+        $foods = $recipeFoodRepository->findBy([
+            'recipe' => $recipe
+        ]);
+
+        return $this->render('recipe/recipeDetails.html.twig', [
+            'recipe' => $recipe,
+            'foods' => $foods
+        ]);
+    }
+
+    /**
+     * @Route("/delete-food-in-recipe/{id<\d+>}/{recipeId<\d+>}", name="delete_food_in_recipe")
+     */
+    public function deleteFoodInRecipe(int $id, int $recipeId, RecipeFoodRepository $recipeFoodRepository)
+    {
+        if (!$food = $recipeFoodRepository->find($id)) {
+            throw $this->createNotFoundException('Cet aliment n\'a pas été trouvé');
+        } 
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($food);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('recipe_details', [
+            'id' => $recipeId
         ]);
     }
 }
