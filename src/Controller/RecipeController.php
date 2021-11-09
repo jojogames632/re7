@@ -25,18 +25,21 @@ class RecipeController extends AbstractController
     {
         $recipes = $recipeRepository->findAll();
 
-        if (isset($_POST['day']) && isset($_POST['when'])) {
+        if (isset($_POST['day']) && isset($_POST['when']) && isset($_POST['for'])) {
             $day = htmlspecialchars($_POST['day']);
             $when = htmlspecialchars($_POST['when']);
+            $for = htmlspecialchars(intval($_POST['for']));
             $recipeName = htmlspecialchars($_POST['recipeName']);
 
             $recipe = $recipeRepository->findOneByName($recipeName);
             $planning = $planningRepository->findOneByName($day);
             if ($when === 'midi') {
                 $planning->setMiddayRecipe($recipe);
+                $planning->setMiddayPersons($for);
             }
             else {
                 $planning->setEveningRecipe($recipe);
+                $planning->setEveningPersons($for);
             }
             
             $entityManager = $this->getDoctrine()->getManager();
@@ -76,6 +79,7 @@ class RecipeController extends AbstractController
                 $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
                 $recipeFood->setSection($food->section);
                 $recipeFood->setFoodName($food->name);
+                $recipeFood->setPersons($recipe->getPersons());
 
                 $entityManager->persist($recipeFood);
             }

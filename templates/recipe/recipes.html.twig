@@ -86,7 +86,7 @@
 			<form class="mt-2 mx-auto" method="post">
 				<p class="text-center"><input type="text" id="recipeName" readOnly name="recipeName" class="mt-5"></input></p>
 				<div class="d-flex justify-content-around align-items-center">
-					Prévu pour
+					Prévu
 					<select id="day" name="day" required>
 						<option value="Lundi">Lundi</option>
 						<option value="Mardi">Mardi</option>
@@ -100,6 +100,8 @@
 						<option value="midi">Midi</option>
 						<option value="soir">Soir</option>
 					</select>
+					<label for="for">Pour</label>
+					<input type="number" id="for" name="for" min="1" max="15" required>
 					<button type="submit" class="btn btn-sm btn-outline-warning">Ok</button>
 				</div>
 			</form>

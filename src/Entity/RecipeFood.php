@@ -49,6 +49,11 @@ class RecipeFood
      */
     private $foodName;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $persons;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +127,18 @@ class RecipeFood
     public function setFoodName(string $foodName): self
     {
         $this->foodName = $foodName;
+
+        return $this;
+    }
+
+    public function getPersons(): ?int
+    {
+        return $this->persons;
+    }
+
+    public function setPersons(int $persons): self
+    {
+        $this->persons = $persons;
 
         return $this;
     }

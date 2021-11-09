@@ -31,9 +31,11 @@ class PlanningController extends AbstractController
 
         if ($when === 'midi') {
             $planningDay->setMiddayRecipe(null);
+            $planningDay->setMiddayPersons(null);
         }
         else {
             $planningDay->setEveningRecipe(null);
+            $planningDay->setEveningPersons(null);
         } 
 
         $entityManager = $this->getDoctrine()->getManager();

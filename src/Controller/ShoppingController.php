@@ -20,71 +20,85 @@ class ShoppingController extends AbstractController
     { 
         $planning = $planningRepository->findAll();
         $planningRecipeIdArray = [];
-        
-        // get planning recipe id's
+        $planningRecipePersonsArray = [];
+
+        $shoppingArray = [];
+
+        // get planning recipe id's and persons
         foreach ($planning as $day) {
             if ($day->getMiddayRecipe() !== null) {
                 $planningRecipeIdArray[] = $day->getMiddayRecipe();
+                $planningRecipePersonsArray[] = $day->getMiddayPersons();
             }
             if ($day->getEveningRecipe() !== null) {
                 $planningRecipeIdArray[] = $day->getEveningRecipe();
+                $planningRecipePersonsArray[] = $day->getEveningPersons();
             }
         }
 
-        // get foods of alls recipes
-        $foods = [];
+        $allFoodNames = [];
+
+        $planningRecipeCount = 0;
+        // for each recipe in planning
         foreach ($planningRecipeIdArray as $id) {
+            $foods = [];
             $currentRecipeFoods = $recipeFoodRepository->findBy([
                 'recipe' => $id
             ]);
             foreach ($currentRecipeFoods as $currentRecipeFood) {
                 $foods[] = $currentRecipeFood;
             }
-        }
+            // TEST
+            $sections = [];
+            $foodNames = [];
+            $quantities = [];
+            $units = [];
 
-        $sections = [];
-        $foodNames = [];
-        $quantities = [];
-        $units = [];
+            foreach ($foods as $food) {
+                // get multiplier
+                $defaultRecipePersons = $food->getPersons();
+                $currentRecipePersons = $planningRecipePersonsArray[$planningRecipeCount];
+                $multiplier = $currentRecipePersons / $defaultRecipePersons;
 
-        // Fill previous arrays
-        foreach ($foods as $food) {
-            $foodName = $foodRepository->find($food->food)->name;
-            // stop doublon for addition
-            if (in_array($foodName, $foodNames)) {
-                $index = array_search($foodName, $foodNames);
-                // check unit
-                if ($food->unit === $units[$index]) {
-                    $quantities[$index] += $food->quantity;
+                $foodName = $foodRepository->find($food->food)->name;
+                // stop doublon for addition
+                if (in_array($foodName, $allFoodNames)) {
+                    $index = array_search($foodName, $allFoodNames);
+                    // check unit
+                    if ($food->unit === $shoppingArray[$index][3]) {
+                        $shoppingArray[$index][2] += $food->quantity * $multiplier;
+                    }
+                    // different units
+                    else {
+                        $foodNames[] = $foodName;
+                        $sections[] = $food->section;
+                        $quantities[] = $food->quantity * $multiplier;
+                        $units[] = $food->unit;
+                    }
                 }
-                // different units
+                // no doublon -> add to arrays
                 else {
                     $foodNames[] = $foodName;
                     $sections[] = $food->section;
-                    $quantities[] = $food->quantity;
+                    $quantities[] = $food->quantity * $multiplier;
                     $units[] = $food->unit;
+                    // Add to all food array
+                    $allFoodNames[] = $foodName;
                 }
             }
-            // no doublon -> add to arrays
-            else {
-                $foodNames[] = $foodName;
-                $sections[] = $food->section;
-                $quantities[] = $food->quantity;
-                $units[] = $food->unit;
+
+            // fill double array
+            for ($i = 0; $i < count($foodNames); $i++) {
+                $shoppingArray[] = [
+                    $sections[$i],
+                    $foodNames[$i],
+                    $quantities[$i],
+                    $units[$i]            
+                ];
             }
+            $planningRecipeCount++;
         }
 
-        // create double array
-        $shoppingArray = [];
-        for ($i = 0; $i < count($foodNames); $i++) {
-            $shoppingArray[] = [
-                $sections[$i],
-                $foodNames[$i],
-                $quantities[$i],
-                $units[$i]            
-            ];
-        }
-        
         // sort double array
         for ($j = count($shoppingArray) - 2; $j >= 0; $j--) {
             for ($i = 0; $i <= $j; $i++) {

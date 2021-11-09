@@ -32,6 +32,16 @@ class Planning
      */
     private $eveningRecipe;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $middayPersons;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $eveningPersons;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Planning
     public function setEveningRecipe(?Recipe $eveningRecipe): self
     {
         $this->eveningRecipe = $eveningRecipe;
+
+        return $this;
+    }
+
+    public function getMiddayPersons(): ?int
+    {
+        return $this->middayPersons;
+    }
+
+    public function setMiddayPersons(?int $middayPersons): self
+    {
+        $this->middayPersons = $middayPersons;
+
+        return $this;
+    }
+
+    public function getEveningPersons(): ?int
+    {
+        return $this->eveningPersons;
+    }
+
+    public function setEveningPersons(?int $eveningPersons): self
+    {
+        $this->eveningPersons = $eveningPersons;
 
         return $this;
     }
