@@ -12,6 +12,7 @@ use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,8 +22,20 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository): Response
+    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, Request $request)
     {
+        $title = $request->get('title');
+        
+        $recipes = $recipeRepository->getRecipesWithTitle($title);
+
+        if ($request->get('ajax')) {
+            return new JsonResponse([
+                "content" => $this->renderView('recipe/_recipesContent.html.twig', [
+                    'recipes' => $recipes
+                ])
+            ]);
+        }
+
         $recipes = $recipeRepository->findAll();
 
         if (isset($_POST['day']) && isset($_POST['when']) && isset($_POST['for'])) {
