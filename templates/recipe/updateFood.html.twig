@@ -58,9 +58,15 @@
 		</nav>
 	</header>
 	<main>
-		<h1 class="text-center fs-3 title mt-3 mb-4">Modification d'un aliment</h1>		
-		<p class="text-center"><span class="text-warning">Recette</span> : {{ recipe.name }}</p>
-		<p class="text-center"><span class="text-warning">Aliment</span> : {{ food.foodName }}</p>
+		<h1 class="text-center fs-3 title mt-4 mb-4">Modification d'un aliment</h1>		
+		<p class="text-center foodInfo">
+			<span class="text-warning">Recette</span>
+			: {{ recipe.name }}
+		</p>
+		<p class="text-center foodInfo">
+			<span class="text-warning">Aliment</span>
+			: {{ food.foodName }}
+		</p>
 		
 		{{ form_start(form) }}
 
@@ -70,9 +76,14 @@
 			{{ form_label(form.unit, 'Unité') }}
 			{{ form_widget(form.unit) }}
 
-			<p class="text-center mt-4">
-				<button type="submit" class="btn btn-outline-warning btn-sm">Valider les modifications</button>
-			</p>
+			<div class="row d-flex justify-content-evenly mt-4">
+				<div class="col-2 d-flex align-items-center">
+					<a href="{{ path('recipe_details', { 'id' : recipe.id }) }}" class="btn btn-sm btn-outline-warning updateFoodBtn">Annuler</a>
+				</div>
+				<div class="col-6 d-flex align-items-center">
+					<button type="submit" class="btn btn-outline-warning btn-sm updateFoodBtn">Valider les modifications</button>
+				</div>
+			</div>
 
 		{{ form_end(form) }}
 

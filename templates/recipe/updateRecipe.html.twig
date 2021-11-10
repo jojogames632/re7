@@ -74,9 +74,14 @@
 			{{ form_label(form.persons, 'Pour') }}
 			{{ form_widget(form.persons) }}
 		
-			<p class="text-center mt-3">
-				<button type="submit" class="btn btn-sm btn-outline-warning">Valider les modifications</button>
-			</p>
+			<div class="row d-flex justify-content-evenly mt-3">
+				<div class="col-2 d-flex align-items-center">
+					<a href="{{ path('recipe_details', { 'id' : recipe.id }) }}" class="btn btn-sm btn-outline-warning updateRecipeBtn">Annuler</a>
+				</div>
+				<div class="col-7 d-flex align-items-center">
+					<button type="submit" class="btn btn-sm btn-outline-warning updateRecipeBtn">Valider les modifications</button>
+				</div>
+			</div>
 
 		{{ form_end(form) }}
 	</main>
