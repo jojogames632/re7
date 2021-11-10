@@ -4,3 +4,56 @@ main {
 	color: white;
 	overflow: scroll;
 }
+
+#shoppingSection {
+	margin: auto;
+}
+
+@media screen and (min-width: 600px) and (max-width: 799px) {
+	#shoppingSection {
+		width: 75vw;
+	}
+}
+
+@media screen and (min-width: 800px) and (max-width: 999px) {
+	#shoppingSection {
+		width: 65vw;
+	}
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1399px) {
+	#shoppingSection {
+		width: 55vw;
+	}
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1799px) {
+	#shoppingSection {
+		width: 45vw;
+	}
+}
+
+@media screen and (min-width: 1800px) {
+	#shoppingSection {
+		width: 40vw;
+	}
+}
+
+/* all desktop sizes */
+@media screen and (min-width: 1000px) {
+	input,
+	select {
+		height: 30px;
+	}
+
+	input,
+	label,
+	select {
+		font-size: 20px;
+	}
+
+	#updateRecipeBtn {
+		font-size: 20px;
+		margin-top: 25px
+	}
+}
