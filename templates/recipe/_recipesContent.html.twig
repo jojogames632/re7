@@ -1,14 +1,18 @@
-<div>{% for recipe in recipes %}
-	<div class="recipeContainer row fs-3 mb-2">
-		<div class="col-10 recipeNameCol">
-			<a href="{{ path('recipe_details', { 'id' : recipe.id }) }}" class="text-decoration-none text-white">
-				{{ recipe.name }}
-			</a>
+{% if recipes|length > 0 %}
+	{% for recipe in recipes %}
+		<div class="recipeContainer row fs-3 mb-2">
+			<div class="col-10 recipeNameCol">
+				<a href="{{ path('recipe_details', { 'id' : recipe.id }) }}" class="text-decoration-none text-white">
+					{{ recipe.name }}
+				</a>
+			</div>
+			<div class="col-2 d-flex justify-content-end">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" id="{{ recipe.id }}" onclick="addToPlanning('{{ recipe.name }}')" class="bi bi-cart-plus-fill text-warning addToPlanningBtn" viewBox="0 0 16 16">
+					<path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM8.5 8.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5a.5.5 0 0 1 1 0z"/>
+				</svg>
+			</div>
 		</div>
-		<div class="col-2">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" id="{{ recipe.id }}" onclick="addToPlanning('{{ recipe.name }}')" class="bi bi-cart-plus-fill text-warning addToPlanningBtn" viewBox="0 0 16 16">
-				<path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
-			</svg>
-		</div>
-	</div>
-{% endfor %}<div>
+	{% endfor %}
+{% else %}
+	<p class="text-center fs-5">Aucune recette trouvée</p>
+{% endif %}

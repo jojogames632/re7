@@ -19,6 +19,15 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
+    public function findAllAsc()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function getRecipesWithTitle($title = null)
     {
         return $this->createQueryBuilder('r')

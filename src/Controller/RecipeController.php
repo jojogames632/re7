@@ -36,7 +36,7 @@ class RecipeController extends AbstractController
             ]);
         }
 
-        $recipes = $recipeRepository->findAll();
+        $recipes = $recipeRepository->findAllAsc();
 
         if (isset($_POST['day']) && isset($_POST['when']) && isset($_POST['for'])) {
             $day = htmlspecialchars($_POST['day']);
