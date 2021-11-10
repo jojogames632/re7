@@ -6,8 +6,14 @@ main {
 	overflow: scroll;
 }
 
-.planningSection {
+.title {
+	font-size: 30px;
+}
+
+#planningSection {
 	font-size: 14px;
+	margin: auto;
+	margin-top: calc(25vh - 80px);
 }
 
 .recipeName {
@@ -18,6 +24,49 @@ main {
 	margin-left: 5px;
 }
 
-.dayName {
+.dayName,
+.whenName {
 	font-size: 12px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 799px) {
+	#planningSection {
+		width: 90vw;
+	}
+}
+
+@media screen and (min-width: 800px) and (max-width: 999px) {
+	#planningSection {
+		width: 80vw;
+	}
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1399px) {
+	#planningSection {
+		width: 70vw;
+	}
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1799px) {
+	#planningSection {
+		width: 60vw;
+	}
+}
+
+@media screen and (min-width: 1800px) {
+	#planningSection {
+		width: 55vw;
+	}
+}
+
+/* all desktop sizes */
+@media screen and (min-width: 1000px) {
+	.dayName,
+	.whenName {
+		font-size: 25px;
+	}
+
+	.recipeName {
+		font-size: 20px;
+	}
 }
