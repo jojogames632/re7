@@ -14,8 +14,34 @@ main {
 .recipeFoodsSection {
 	height: 40vh;
 	overflow-y: scroll;
+	margin: auto;
 }
 
-@media screen and (max-width: 1000px) {
-	
+@media screen and (min-width: 600px) and (max-width: 999px) {
+	.recipeFoodsSection {
+		width: 60vw;
+	}
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1399px) {
+	.recipeFoodsSection {
+		width: 50vw;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.recipeFoodsSection {
+		width: 40vw;
+	}
+}
+
+/* All desktop */
+@media screen and (min-width: 1000px) {
+	.recipeFoodsSection {
+		height: 60vh;
+	}
+
+	.recipeInfo {
+		font-size: 20px;
+	}
 }
