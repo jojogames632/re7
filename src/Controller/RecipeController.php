@@ -70,7 +70,7 @@ class RecipeController extends AbstractController
      */
     public function addRecipe(Request $request, FoodRepository $foodRepository)
     {
-        $foods = $foodRepository->findAll();
+        $foods = $foodRepository->getSortedFoods();
 
         $recipe = new Recipe();
         
@@ -83,18 +83,20 @@ class RecipeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             for ($i = 1; $i <= $foodFieldsCount; $i++) {
-                $recipeFood = new RecipeFood();
-                $recipeFood->setRecipe($recipe);
+                if (htmlspecialchars($_POST['quantity' . $i]) > 0) {
+                    $recipeFood = new RecipeFood();
+                    $recipeFood->setRecipe($recipe);
 
-                $food = $foodRepository->findOneByName(htmlspecialchars($_POST['food' . $i]));
-                $recipeFood->setFood($food);
-                $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
-                $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
-                $recipeFood->setSection($food->section);
-                $recipeFood->setFoodName($food->name);
-                $recipeFood->setPersons($recipe->getPersons());
+                    $food = $foodRepository->findOneByName(htmlspecialchars($_POST['food' . $i]));
+                    $recipeFood->setFood($food);
+                    $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
+                    $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
+                    $recipeFood->setSection($food->section);
+                    $recipeFood->setFoodName($food->name);
+                    $recipeFood->setPersons($recipe->getPersons());
 
-                $entityManager->persist($recipeFood);
+                    $entityManager->persist($recipeFood);
+                }
             }
 
             $entityManager->persist($recipe);

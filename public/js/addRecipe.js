@@ -42,6 +42,7 @@ const addFields = () => {
 	input.id = "quantity" + fieldsCount;
 	input.name = "quantity" + fieldsCount;
 	input.required = "required"
+	input.value = 0;
 	quantityCol.appendChild(input);
 
 	// Add unit selector (3rd col)
@@ -56,7 +57,6 @@ const addFields = () => {
 		select.appendChild(option);
 	}
 	unitCol.appendChild(select);
-
 }
 
 addFieldsBtn.addEventListener('click', addFields);
