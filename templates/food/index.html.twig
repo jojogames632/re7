@@ -58,51 +58,46 @@
         </nav>
     </header>
     <main>
-        <h1 class="text-center mb-4 title">Aliments</h1>
-        <div class="row row-cols-1 row-cols-lg-2 mt-4">
-            <section class="col foodsSection">
-                <div class="row border-bottom border-warning pb-3 mb-3">
-                    <div class="col d-flex justify-content-center text-warning">
-                        Aliment
-                    </div>
-                    <div class="col d-flex justify-content-center text-warning">
-                        Rayon
-                    </div>
-                </div>
-                <div class="foodRowsContainer">
-                    {% for food in foods %}
-                        <div class="row mb-2">
-                            <div class="col d-flex justify-content-center">
-                                {{ food.name }}
-                            </div>
-                            <div class="col d-flex justify-content-center">
-                                {{ food.section }}
-                            </div>
+        <div class="row mt-5">
+            <section class="col-12 col-lg-6 foodsSection mb-5">
+                    <div class="row border-bottom border-warning pb-3 mb-3">
+                        <div class="col d-flex justify-content-center text-warning">
+                            Aliment
                         </div>
-                    {% endfor %}
-                </div>
+                        <div class="col d-flex justify-content-center text-warning">
+                            Rayon
+                        </div>
+                    </div>
+                    <div class="foodRowsContainer">
+                        {% for food in foods %}
+                            <div class="row mb-2">
+                                <div class="col d-flex justify-content-center">
+                                    {{ food.name }}
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    {{ food.section }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
             </section>
             {# add food form #}
-            <section class="formSection col mt-3">
-
-                {% for message in app.flashes('success') %}
-                    <div id="alertContainer" class="alert alert-success bg-dark border-0 text-center text-success" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-
+            <section class="formSection col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 {{ form_start(form) }}
-                
-                {{ form_label(form.name, 'Nom') }}
-                {{ form_widget(form.name) }}
+                    {% for message in app.flashes('success') %}
+                        <div id="alertContainer" class="alert alert-success bg-dark border-0 text-center text-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {{ form_label(form.name, 'Nom') }}
+                    {{ form_widget(form.name) }}
 
-                {{ form_label(form.section, 'Rayon') }}
-                {{ form_widget(form.section) }}
+                    {{ form_label(form.section, 'Rayon') }}
+                    {{ form_widget(form.section) }}
 
-                <p class="text-center mt-3">
-                    <button type="submit" class="btn btn-sm btn-outline-warning">Créer</button>
-                </p>
-
+                    <p class="text-center mt-3">
+                        <button type="submit" id="createFoodBtn" class="btn btn-sm btn-outline-warning">Créer</button>
+                    </p>
                 {{ form_end(form) }}
             </section>
         </div>
