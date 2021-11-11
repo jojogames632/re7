@@ -2,19 +2,19 @@ main {
 	height: calc(100vh - 80px);
 	background-color: #212528;
 	overflow: scroll;
+	color: white;
 }
 
 form {
 	display: flex;
 	flex-direction: column;
-	width: 80vw;
+	width: 60vw;
 	margin: auto;
 	margin-top: 35px;
 }
 
-input,
-select {
-	height: 20px;
+input {
+	height: 25px;
 	margin-bottom: 10px;
 	background-color: #212528;
 	border-color: #FFC108;
@@ -23,38 +23,23 @@ select {
 
 label {
 	margin-bottom: 5px;
-	color: white;
-}
-
-li {
-	color: red;
-	list-style: none;
-}
-
-#foodInputsContainer {
-	height: 30vh;
-	overflow-x: scroll;
-}
-
-#addFieldsBtn:hover {
-	cursor: pointer;
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
-	form {
-		width: 70vw;
-	}
-}
-
-@media screen and (min-width: 800px) and (max-width: 999px) {
 	form {
 		width: 50vw;
 	}
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 800px) and (max-width: 999px) {
 	form {
 		width: 30vw;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	form {
+		width: 20vw;
 		margin: auto;
 		margin-top: 35px;
 	}
@@ -68,4 +53,3 @@ li {
 		font-size: 20px;
 	}
 }
-

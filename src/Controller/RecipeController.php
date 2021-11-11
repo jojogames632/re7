@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
+use App\Form\CategoryType;
 use App\Form\RecipeType;
 use App\Form\UpdateFoodInRecipeType;
 use App\Form\UpdateRecipeType;
@@ -211,6 +213,28 @@ class RecipeController extends AbstractController
         return $this->render('recipe/updateRecipe.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe
+        ]);
+    }
+
+    /**
+     * @Route("/add-category", name="add_category")
+     */
+    public function addCategory(Request $request)
+    {   
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('add_recipe');
+        }
+
+        return $this->render('recipe/addCategory.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

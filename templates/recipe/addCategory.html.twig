@@ -1,0 +1,82 @@
+{% extends "recipe/index.html.twig" %}
+
+{% block title %} Liste des recettes {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/addCategory.css') }}" />
+{% endblock %}
+
+{% block body %}
+	<header class="bg-dark">
+		<nav class="row m-0 d-flex align-items-center">
+			<a class="col-2" href="{{ path('home') }}">
+				<img src="images/re7-logo.png" alt="logo" />
+			</a>
+			<div class="col-7 align-items-center desktopNav">
+				{# Desktop nav #}
+				<ul class="d-flex justify-content-between w-100">
+					<li>
+						<a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+					</li>
+					<li>
+						<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+					</li>
+					<li>
+						<a href="{{ path('shopping') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+					</li>
+					<li>
+						<a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col justify-content-end align-items-center burgerCol">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list text-warning" id="burgerBtn" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+				</svg>
+				<div id="mobileNav" class="bg-dark">
+					<div class="d-flex justify-content-end px-2">
+						<span class="text-warning fs-1 fw-bold" id="closeBtn">X</span>
+					</div>
+					<ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
+						{# Mobile nav #}
+						<li>
+							<a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+						</li>
+						<li>
+							<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+						</li>
+						<li>
+							<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+						</li>
+						<li>
+							<a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<h1 id="title" class="text-center mt-5 text-white fs-2">Créer une catégorie</h1>
+
+		{{ form_start(form) }}
+
+			{{ form_label(form.name, 'Nom') }}
+			{{ form_widget(form.name) }}
+			{{ form_errors(form.name) }}
+
+			<div class="d-flex justify-content-around mt-3">
+				<a href="{{ path('add_recipe') }}" class="btn btn-sm btn-outline-warning">Annuler</a>
+				<button type="submit" class="btn btn-sm btn-outline-warning">Créer</button>
+			</div>
+
+		{{ form_end(form) }}
+	</main>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/header.js') }}"></script>
+	<script src="{{ asset('js/addRecipe.js') }}"></script>
+{% endblock %}
