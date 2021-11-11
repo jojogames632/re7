@@ -54,6 +54,9 @@ const addFields = () => {
 		let option = document.createElement('option');
 		option.value = units[i];
 		option.textContent = units[i];
+		if (option.textContent == 'g') {
+			option.setAttribute('selected', '');
+		}
 		select.appendChild(option);
 	}
 	unitCol.appendChild(select);

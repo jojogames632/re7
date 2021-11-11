@@ -28,14 +28,23 @@ class RecipeRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getRecipesWithTitle($title = null)
+    public function getRecipesWithTitleAndCategory($title = null, $category = null)
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.name LIKE :val')
-            ->setParameter('val', '%'.$title.'%')
-            ->orderBy('r.name', 'ASC')
+        $query = $this->createQueryBuilder('r');
+
+        if ($title != null) {
+            $query->where('r.name LIKE :val')
+                ->setParameter(':val', '%'.$title.'%');
+        }
+        
+        if ($category != null) {
+            $query->andWhere('r.category = :val')
+                ->setParameter(':val', $category);
+        }
+            $query->orderBy('r.name', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
+        return $query->getQuery()->getResult();
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\RecipeFood;
 use App\Form\RecipeType;
 use App\Form\UpdateFoodInRecipeType;
 use App\Form\UpdateRecipeType;
+use App\Repository\CategoryRepository;
 use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
@@ -14,7 +15,6 @@ use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RecipeController extends AbstractController
@@ -22,16 +22,18 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, Request $request)
-    {
+    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
+    { 
+        $categories = $categoryRepository->findAll();
+
+        $category = $request->get('category');
         $title = $request->get('title');
-        
-        $recipes = $recipeRepository->getRecipesWithTitle($title);
+        $recipes = $recipeRepository->getRecipesWithTitleAndCategory($title, $category);
 
         if ($request->get('ajax')) {
             return new JsonResponse([
                 "content" => $this->renderView('recipe/_recipesContent.html.twig', [
-                    'recipes' => $recipes
+                    'recipes' => $recipes,
                 ])
             ]);
         }
@@ -61,7 +63,8 @@ class RecipeController extends AbstractController
         }
 
         return $this->render('recipe/recipes.html.twig', [
-            'recipes' => $recipes
+            'recipes' => $recipes,
+            'categories' => $categories
         ]);
     }
 

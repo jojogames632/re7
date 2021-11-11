@@ -61,9 +61,19 @@
 		<div class="d-flex justify-content-center mt-3">
 			<input type="text" id="recipeTitle" name="recipeTitle" placeholder="Titre de la recette" />
 		</div>
-		<section class="row mt-4" id="recipesSection">
-			{% include "recipe/_recipesContent.html.twig" %}
-		</section>
+		<div class="mt-4 d-flex flex-column align-items-center">
+			<section id="filtersSection">
+				<select id="categorySelector">
+					<option value="" selected>Toutes</option>
+					{% for category in categories %}
+						<option value="{{ category.name }}">{{ category.name|capitalize }}</option>
+					{% endfor %}
+				</select>
+			</section>
+			<section id="recipesSection">
+				{% include "recipe/_recipesContent.html.twig" %}
+			</section>
+		</div>
 		<p class="text-center">		
 			<a href="{{ path('add_recipe') }}">
 				<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus-circle-dotted text-warning" viewBox="0 0 16 16">
