@@ -27,6 +27,7 @@ class RecipeController extends AbstractController
     public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
     { 
         $categories = $categoryRepository->findAll();
+        $owners = $planningRepository->findAllOwners();
 
         $category = $request->get('category');
         $title = $request->get('title');
@@ -42,14 +43,15 @@ class RecipeController extends AbstractController
 
         $recipes = $recipeRepository->findAllAsc();
 
-        if (isset($_POST['day']) && isset($_POST['when']) && isset($_POST['for'])) {
+        if (isset($_POST['owner']) && isset($_POST['day']) && isset($_POST['when']) && isset($_POST['for'])) {
+            $owner = htmlspecialchars($_POST['owner']);
             $day = htmlspecialchars($_POST['day']);
             $when = htmlspecialchars($_POST['when']);
             $for = htmlspecialchars(intval($_POST['for']));
             $recipeName = htmlspecialchars($_POST['recipeName']);
 
             $recipe = $recipeRepository->findOneByName($recipeName);
-            $planning = $planningRepository->findOneByName($day);
+            $planning = $planningRepository->findOneByNameAndOwner($day, $owner);
             if ($when === 'midi') {
                 $planning->setMiddayRecipe($recipe);
                 $planning->setMiddayPersons($for);
@@ -66,7 +68,8 @@ class RecipeController extends AbstractController
 
         return $this->render('recipe/recipes.html.twig', [
             'recipes' => $recipes,
-            'categories' => $categories
+            'categories' => $categories,
+            'owners' => $owners
         ]);
     }
 

@@ -23,6 +23,7 @@ main {
 	max-height: 50vh;
 	overflow-x: scroll;
 	width: 100vw;
+	margin-top: 50px;
 }
 
 input,
@@ -33,18 +34,27 @@ select {
 	color: white;
 }
 
+select {
+	border: none;
+	color: #FFC108; 
+}
+
 #for {
 	width: 35px;
 }
 
 #recipeName {
 	border: none;
+	font-size: 25px;
+	height: 30px;
+	text-overflow: ellipsis;
 }
 
 @media screen and (min-width: 600px) and (max-width: 999px) {
 	#recipesSection {
 		width: 70vw;
 		margin: auto;
+		margin-top: 50px;
 		max-height: 55vh;
 	}
 
@@ -58,6 +68,7 @@ select {
 	#recipesSection {
 		width: 40vw;
 		margin: auto;
+		margin-top: 50px;
 		max-height: 55vh;
 	}
 

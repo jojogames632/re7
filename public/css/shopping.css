@@ -9,6 +9,12 @@ main {
 	margin: auto;
 }
 
+#planningSelect {
+	color: white;
+	border: none;
+	background-color: #212528;
+}
+
 @media screen and (min-width: 600px) and (max-width: 799px) {
 	#shoppingSection {
 		width: 75vw;

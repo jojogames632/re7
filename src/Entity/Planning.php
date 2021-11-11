@@ -42,6 +42,11 @@ class Planning
      */
     private $eveningPersons;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Planning
     public function setEveningPersons(?int $eveningPersons): self
     {
         $this->eveningPersons = $eveningPersons;
+
+        return $this;
+    }
+
+    public function getOwner(): ?string
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(string $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

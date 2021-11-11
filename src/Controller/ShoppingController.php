@@ -9,18 +9,18 @@ use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Length;
 
 class ShoppingController extends AbstractController
 {
     /**
-     * @Route("/shopping", name="shopping")
+     * @Route("/shopping/{planningOwner}", name="shopping")
      */
-    public function index(PlanningRepository $planningRepository, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository): Response
+    public function index(PlanningRepository $planningRepository, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository, string $planningOwner = 'Christophe'): Response
     { 
-        $planning = $planningRepository->findAll();
+        $planning = $planningRepository->getPlanningOf($planningOwner);
         $planningRecipeIdArray = [];
         $planningRecipePersonsArray = [];
+        $owners = $planningRepository->findAllOwners();
 
         $shoppingArray = [];
 
@@ -111,7 +111,9 @@ class ShoppingController extends AbstractController
         }
 
         return $this->render('shopping/index.html.twig', [
-            'shoppingArray' => $shoppingArray
+            'shoppingArray' => $shoppingArray,
+            'owners' => $owners,
+            'planningOwner' => $planningOwner
         ]);
     }
 }

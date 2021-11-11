@@ -19,32 +19,35 @@ class PlanningRepository extends ServiceEntityRepository
         parent::__construct($registry, Planning::class);
     }
 
-    // /**
-    //  * @return Planning[] Returns an array of Planning objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllOwners()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('p.owner')->distinct()
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Planning
+    public function getPlanningOf($owner)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('p.owner = :val')
+            ->setParameter(':val', $owner)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findOneByNameAndOwner($name, $owner)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.name = :name')
+            ->setParameter(':name', $name)
+            ->andWhere('p.owner = :owner')
+            ->setParameter(':owner', $owner)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }

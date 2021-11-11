@@ -13,7 +13,18 @@ main {
 #planningSection {
 	font-size: 14px;
 	margin: auto;
-	margin-top: calc(25vh - 80px);
+	margin-top: calc(12vh - 80px);
+}
+
+#createPlanningText {
+	margin-bottom: 130px;
+}
+
+#planningSelect {
+	background-color: #212528;
+	border: none;
+	color: white;
+	font-size: 20px;
 }
 
 .recipeName {
