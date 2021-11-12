@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Recipe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -9,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class UpdateRecipeType extends AbstractType
 {
@@ -18,12 +20,31 @@ class UpdateRecipeType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true
             ])
-            ->add('category', ChoiceType::class, [
+            ->add('type', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
-                    'entrée' => 'entrée',
-                    'plat' => 'plat',
-                    'dessert' => 'dessert'
+                    'Entrée' => 'Entrée',
+                    'Plat' => 'Plat',
+                    'Dessert' => 'Dessert',
+                    'Sauce' => 'Sauce',
+                    'Autre' => 'Autre'
+                ]
+            ])
+            ->add('category', EntityType::class, [
+                'required' => true,
+                'class' => Category::class,
+                'choice_label' => 'name'
+            ])
+            ->add('cookingType', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Robot cuiseur' => 'Robot cuiseur',
+                    'Four' => 'Four',
+                    'Sans cuisson' => 'Sans cuisson',
+                    'Vapeur' => 'Vapeur',
+                    'Gaz' => 'Gaz',
+                    'Autocuiseur' => 'Autocuiseur',
+                    'Autre' => 'Autre'
                 ]
             ])
             ->add('duration', NumberType::class, [

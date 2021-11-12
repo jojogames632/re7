@@ -30,8 +30,16 @@ class RecipeController extends AbstractController
         $owners = $planningRepository->findAllOwners();
 
         $category = $request->get('category');
+        $cookingType = $request->get('cookingType');
+        $type = $request->get('type');
         $title = $request->get('title');
-        $recipes = $recipeRepository->getRecipesWithTitleAndCategory($title, $category);
+
+        if ($title != null) {
+            $recipes = $recipeRepository->getRecipesWithTitle($title);
+        }
+        else {
+            $recipes = $recipeRepository->getRecipesWithFilters($category, $cookingType, $type); 
+        }
 
         if ($request->get('ajax')) {
             return new JsonResponse([

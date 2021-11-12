@@ -28,23 +28,36 @@ class RecipeRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getRecipesWithTitleAndCategory($title = null, $category = null)
+    public function getRecipesWithTitle($title)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.name LIKE :title')
+            ->setParameter(':title', '%'.$title.'%')
+            ->orderBy('r.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getRecipesWithFilters($category = null, $cookingType = null, $type = null)
     {
         $query = $this->createQueryBuilder('r');
 
-        if ($title != null) {
-            $query->where('r.name LIKE :val')
-                ->setParameter(':val', '%'.$title.'%');
-        }
-        
         if ($category != null) {
-            $query->andWhere('r.category = :val')
-                ->setParameter(':val', $category);
+            $query->where('r.category = :category')
+            ->setParameter(':category', $category);
         }
-            $query->orderBy('r.name', 'ASC')
+        if ($cookingType != null) {
+            $query->andWhere('r.cookingType = :cookingType')
+            ->setParameter(':cookingType', $cookingType);
+        } 
+        if ($type != null) {
+            $query->andWhere('r.type = :type')
+            ->setParameter(':type', $type);
+        } 
+            
+        return $query->orderBy('r.name', 'ASC')
             ->getQuery()
             ->getResult();
-
-        return $query->getQuery()->getResult();
     }
 }

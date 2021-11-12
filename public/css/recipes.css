@@ -36,6 +36,7 @@ select {
 
 select {
 	border: none;
+	text-align: center;
 	color: #FFC108; 
 }
 

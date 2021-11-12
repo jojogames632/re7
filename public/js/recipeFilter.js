@@ -1,10 +1,18 @@
 const recipeTitleInput = document.getElementById('recipeTitle');
 const recipesSection = document.getElementById('recipesSection');
+
 const categorySelector = document.getElementById('categorySelector');
+const cookingTypeSelector = document.getElementById('cookingTypeSelector');
+const typeSelector = document.getElementById('typeSelector');
+
 const Url = new URL(window.location.href);
 
-categorySelector.addEventListener('change', (e) => {
-	fetch(Url.pathname + "?category=" + e.target.value + "&ajax=1", {
+let category = "";
+let cookingType = "";
+let type = "";
+
+function fetching(e) {
+	fetch(Url.pathname + "?category=" + category + "&cookingType=" + cookingType + "&type=" + type + "&ajax=1", {
 		headers: {
 			'X-Requested-Width': 'XMLHttpRequest'
 		}
@@ -12,7 +20,22 @@ categorySelector.addEventListener('change', (e) => {
 		response.json()
 	).then(data => {
 		recipesSection.innerHTML = data.content;
-	}).catch(e => alert(e));	
+	}).catch(e => alert(e));
+}
+
+categorySelector.addEventListener('change', (e) => {
+	category = e.target.value
+	fetching(e);	
+});
+
+cookingTypeSelector.addEventListener('change', (e) => {
+	cookingType = e.target.value
+	fetching(e);
+});
+
+typeSelector.addEventListener('change', (e) => {
+	type = e.target.value
+	fetching(e);	
 });
 
 recipeTitleInput.addEventListener('input', (e) => { 

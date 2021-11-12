@@ -62,12 +62,31 @@
 			<input type="text" id="recipeTitle" name="recipeTitle" placeholder="Titre de la recette" />
 		</div>
 		<div class="mt-4 d-flex flex-column align-items-center">
-			<section id="filtersSection">
+			<section id="filtersSection" class="d-flex">
 				<select id="categorySelector">
-					<option value="" selected>Toutes</option>
+					<option value="" selected>Toutes catégories</option>
 					{% for category in categories %}
-						<option value="{{ category.name }}">{{ category.name|capitalize }}</option>
+						<option value="{{ category.id }}">{{ category.name|capitalize }}</option>
 					{% endfor %}
+				</select>
+				<select id="cookingTypeSelector" class="ms-4">
+					<option value="" selected>Toutes cuissons</option>
+					<option value="Robot_cuiseur">Robot_cuiseur</option>
+					<option value="Four">Four</option>
+					<option value="Sans_cuisson">Sans_cuisson</option>
+					<option value="Vapeur">Vapeur</option>
+					<option value="Gaz">Gaz</option>
+					<option value="Autocuiseur">Autocuiseur</option>
+					<option value="Autre">Autre</option>
+				</select>
+				<select id="typeSelector" class="ms-4">
+					<option value="" disabled selected hidden>Type</option>
+					<option value="">Tous</option>
+					<option value="Entrée">Entrée</option>
+					<option value="Plat">Plat</option>
+					<option value="Dessert">Dessert</option>
+					<option value="Sauce">Sauce</option>
+					<option value="Autre">Autre</option>
 				</select>
 			</section>
 			<section id="recipesSection">

@@ -72,6 +72,14 @@
 			{{ form_widget(form.name) }}
 			{{ form_errors(form.name) }}
 
+			{{ form_label(form.type, 'Type') }}
+			{{ form_widget(form.type) }}
+			{{ form_errors(form.type) }}
+
+			{{ form_label(form.cookingType, 'Type de cuisson') }}
+			{{ form_widget(form.cookingType) }}
+			{{ form_errors(form.cookingType) }}
+
 			<div class="d-flex">
 				{{ form_label(form.category, 'Catégorie') }}
 				<a href="{{ path('add_category') }}" class="mx-2">

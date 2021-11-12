@@ -25,11 +25,6 @@ class Recipe
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $category;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $duration;
@@ -54,6 +49,22 @@ class Recipe
      */
     private $recipeFoods;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cookingType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function __construct()
     {
         $this->middayPlannings = new ArrayCollection();
@@ -75,18 +86,6 @@ class Recipe
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -201,6 +200,42 @@ class Recipe
                 $recipeFood->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCookingType(): ?string
+    {
+        return $this->cookingType;
+    }
+
+    public function setCookingType(string $cookingType): self
+    {
+        $this->cookingType = $cookingType;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

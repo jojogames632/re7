@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\FoodAmountType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RecipeType extends AbstractType
 {
@@ -20,10 +21,32 @@ class RecipeType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true
             ])
+            ->add('type', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Entrée' => 'Entrée',
+                    'Plat' => 'Plat',
+                    'Dessert' => 'Dessert',
+                    'Sauce' => 'Sauce',
+                    'Autre' => 'Autre'
+                ]
+            ])
             ->add('category', EntityType::class, [
                 'required' => true,
                 'class' => Category::class,
                 'choice_label' => 'name'
+            ])
+            ->add('cookingType', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Robot cuiseur' => 'Robot cuiseur',
+                    'Four' => 'Four',
+                    'Sans cuisson' => 'Sans cuisson',
+                    'Vapeur' => 'Vapeur',
+                    'Gaz' => 'Gaz',
+                    'Autocuiseur' => 'Autocuiseur',
+                    'Autre' => 'Autre'
+                ]
             ])
             ->add('duration', NumberType::class, [
                 'required' => true,
