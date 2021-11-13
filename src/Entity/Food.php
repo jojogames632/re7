@@ -25,19 +25,26 @@ class Food
     public $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    public $section;
-
-    /**
      * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="food", orphanRemoval=true)
      */
     private $recipeFoods;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Shopping::class, mappedBy="food", orphanRemoval=true)
+     */
+    private $shoppings;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Section::class, inversedBy="food")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $section;
 
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->recipeFoods = new ArrayCollection();
+        $this->shoppings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,18 +60,6 @@ class Food
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSection(): ?string
-    {
-        return $this->section;
-    }
-
-    public function setSection(string $section): self
-    {
-        $this->section = $section;
 
         return $this;
     }
@@ -95,6 +90,48 @@ class Food
                 $recipeFood->setFood(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Shopping[]
+     */
+    public function getShoppings(): Collection
+    {
+        return $this->shoppings;
+    }
+
+    public function addShopping(Shopping $shopping): self
+    {
+        if (!$this->shoppings->contains($shopping)) {
+            $this->shoppings[] = $shopping;
+            $shopping->setFood($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShopping(Shopping $shopping): self
+    {
+        if ($this->shoppings->removeElement($shopping)) {
+            // set the owning side to null (unless already changed)
+            if ($shopping->getFood() === $this) {
+                $shopping->setFood(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSection(): ?Section
+    {
+        return $this->section;
+    }
+
+    public function setSection(?Section $section): self
+    {
+        $this->section = $section;
 
         return $this;
     }

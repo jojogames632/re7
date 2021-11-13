@@ -24,7 +24,8 @@ form {
 	margin: auto;
 }
 
-input {
+input,
+select {
 	height: 20px;
 	background-color: #212528;
 	border-color: #FFC108;

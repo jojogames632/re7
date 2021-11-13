@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211112122148 extends AbstractMigration
+final class Version20211113091237 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,14 +20,12 @@ final class Version20211112122148 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE INDEX IDX_DA88B13712469DE2 ON recipe (category_id)');
+        $this->addSql('ALTER TABLE food CHANGE section_id section_id INT NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE recipe DROP FOREIGN KEY FK_DA88B13712469DE2');
-        $this->addSql('DROP INDEX IDX_DA88B13712469DE2 ON recipe');
-        $this->addSql('ALTER TABLE recipe ADD category VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, DROP category_id');
+        $this->addSql('ALTER TABLE food CHANGE section_id section_id INT DEFAULT NULL');
     }
 }

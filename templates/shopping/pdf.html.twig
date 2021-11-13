@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de courses PDF{% endblock %}
+{% block stylesheets %}
+	<style>
+		* {
+			color: red;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+    <main>
+		<table>
+			<thead>
+				<tr>
+					<th>Rayon</th>
+					<th>Aliment</th>
+					<th>Quantité</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if shoppingArray|length > 0 %}
+					{% for food in shoppingArray %}
+						<tr>
+							<td class="d-flex justify-content-center">
+								{{ food[0] }}
+							</td>
+							<td class="d-flex justify-content-center">
+								{{ food[1] }}
+							</td>
+							<td class="d-flex justify-content-center">
+								{{ food[2] }} {{ food[3] }}
+							</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<p class="text-center">Aucun repas planifié..</p> 
+				{% endif %}
+			</tobdy>
+		</table>
+    </main>
+{% endblock %}

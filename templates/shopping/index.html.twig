@@ -97,6 +97,9 @@
                 <p class="text-center">Aucun repas planifié..</p> 
             {% endif %}
         </section>
+        <p class="text-center mt-5">
+            <a href="{{ path('generate_pdf', { 'planningOwner' : planningOwner }) }}" class="btn btn-sm btn-warning">Générer un PDF</a>
+        </p>
     </main>
 {% endblock %}
 

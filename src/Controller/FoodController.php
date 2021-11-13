@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Food;
+use App\Entity\Section;
 use App\Form\FoodType;
+use App\Form\SectionType;
 use App\Repository\FoodRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +38,38 @@ class FoodController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Aliment ajouté avec succès');
+
+            return $this->redirectToRoute('foods');
         }
 
         return $this->render('food/index.html.twig', [
             'foods' => $foods,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add-section", name="add_section")
+     */
+    public function addSection(Request $request): Response
+    {
+        $section = new Section();
+
+        $form = $this->createForm(SectionType::class, $section);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $section->setName(ucfirst($form->get('name')->getData()));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($section);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('foods');
+        }
+
+        return $this->render('food/addSection.html.twig', [
             'form' => $form->createView()
         ]);
     }

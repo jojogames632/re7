@@ -1,10 +1,10 @@
 {% extends "recipe/index.html.twig" %}
 
-{% block title %} Créer une catégorie {% endblock %}
+{% block title %} Créer un rayon {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/addCategory.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/addSection.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -17,7 +17,7 @@
 				{# Desktop nav #}
 				<ul class="d-flex justify-content-between w-100">
 					<li>
-						<a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+						<a href="{{ path('home') }}" class="text-decoration-none text-warning fs-4 fw-bold">Recettes</a>
 					</li>
 					<li>
 						<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
@@ -26,7 +26,7 @@
 						<a href="{{ path('shopping') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
 					</li>
 					<li>
-						<a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+						<a href="{{ path('foods') }}" class="text-decoration-none text-white fs-4 fw-bold">Aliments</a>
 					</li>
 				</ul>
 			</div>
@@ -41,7 +41,7 @@
 					<ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
 						{# Mobile nav #}
 						<li>
-							<a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Recettes</a>
+							<a href="{{ path('home') }}" class="text-decoration-none text-warning fs-4 fw-bold">Recettes</a>
 						</li>
 						<li>
 							<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
@@ -50,7 +50,7 @@
 							<a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
 						</li>
 						<li>
-							<a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+							<a href="{{ path('foods') }}" class="text-decoration-none text-white fs-4 fw-bold">Aliments</a>
 						</li>
 					</ul>
 				</div>
@@ -58,7 +58,7 @@
 		</nav>
 	</header>
 	<main>
-		<h1 id="title" class="text-center mt-5 text-white fs-2">Créer une catégorie</h1>
+		<h1 id="title" class="text-center mt-5 text-white fs-2">Créer un rayon</h1>
 
 		{{ form_start(form) }}
 
@@ -67,7 +67,7 @@
 			{{ form_errors(form.name) }}
 
 			<div class="d-flex justify-content-around mt-3">
-				<a href="{{ path('add_recipe') }}" class="btn btn-sm btn-outline-warning">Annuler</a>
+				<a href="{{ path('foods') }}" class="btn btn-sm btn-outline-warning">Annuler</a>
 				<button type="submit" class="btn btn-sm btn-outline-warning">Créer</button>
 			</div>
 
