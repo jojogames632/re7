@@ -45,7 +45,7 @@ class Recipe
     private $eveningPlannings;
 
     /**
-     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="Recipe", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="recipe", orphanRemoval=true)
      */
     private $recipeFoods;
 

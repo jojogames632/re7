@@ -30,7 +30,7 @@ class ShoppingRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findOneByFoodAndUnit($foodId, $unit, $owner)
+    public function findOneByFoodUnitAndOwner($foodId, $unit, $owner)
     {
         return $this->createQueryBuilder('s')
             ->where('s.owner = :owner')

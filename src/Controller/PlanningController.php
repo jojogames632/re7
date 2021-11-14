@@ -78,7 +78,7 @@ class PlanningController extends AbstractController
         $recipeFoods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
         foreach ($recipeFoods as $recipeFood) {
             // get the line and substract
-            $shoppingRow = $shoppingRepository->findOneByFoodAndUnit($recipeFood->getFood(), $recipeFood->getUnit(), $owner);
+            $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($recipeFood->getFood(), $recipeFood->getUnit(), $owner);
             $shoppingRow->setQuantity($shoppingRow->getQuantity() - $recipeFood->getQuantity() * $multiplier);
             $entityManager->persist($shoppingRow);
             $entityManager->flush();

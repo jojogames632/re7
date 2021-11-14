@@ -109,7 +109,7 @@ class RecipeController extends AbstractController
                 // stop doublon for addition
                 if (in_array($foodId, $shoppingFoodsId)) {
 
-                    $shoppingRow = $shoppingRepository->findOneByFoodAndUnit($foodId, $food->unit, $owner);
+                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($foodId, $food->unit, $owner);
                     
                     // line found --> addition
                     if ($shoppingRow) {
@@ -383,5 +383,90 @@ class RecipeController extends AbstractController
         return $this->render('recipe/addCookingType.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/delete-recipe/{id<\d+>}", name="delete_recipe")
+     */
+    public function deleteRecipe(int $id, RecipeFoodRepository $recipeFoodRepository, ShoppingRepository $shoppingRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository)
+    {
+        if (!$recipe = $recipeRepository->find($id)) {
+            throw $this->createNotFoundException('Cette recette n\'a pas été trouvée');
+        }
+        
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // midday
+        $planningRows = $planningRepository->findBy(['middayRecipe' => $recipe]);
+        if ($planningRows) {
+            foreach ($planningRows as $row) {
+                $owner = $row->getOwner();
+                $persons = $row->getMiddayPersons();
+                // clean planning
+                $row->setMiddayRecipe(null);
+                $row->setMiddayPersons(null);
+                $entityManager->persist($row);
+
+                // update shopping
+                $multiplier = $persons / $recipe->getPersons();
+                
+                $recipeFoods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
+                foreach ($recipeFoods as $recipeFood) {
+                    // get the line and substract
+                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($recipeFood->getFood(), $recipeFood->getUnit(), $owner);
+                    $shoppingRow->setQuantity($shoppingRow->getQuantity() - $recipeFood->getQuantity() * $multiplier);
+                    $entityManager->persist($shoppingRow);
+                    $entityManager->flush();
+                    
+                    // del if 0 quantity
+                    if ($shoppingRow->getQuantity() == 0) {
+                        $entityManager->remove($shoppingRow);
+                        $entityManager->flush();
+                    }
+                }              
+            }
+        }
+
+        // evening
+        $planningRows = $planningRepository->findBy(['eveningRecipe' => $recipe]);
+        if ($planningRows) {
+            foreach ($planningRows as $row) {
+                $owner = $row->getOwner();
+                $persons = $row->getMiddayPersons();
+                // clean planning
+                $row->setEveningRecipe(null);
+                $row->setEveningPersons(null);
+                $entityManager->persist($row);
+
+                // update shopping
+                $multiplier = $persons / $recipe->getPersons();
+                
+                $recipeFoods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
+                foreach ($recipeFoods as $recipeFood) {
+                    // get the line and substract
+                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($recipeFood->getFood(), $recipeFood->getUnit(), $owner);
+                    $shoppingRow->setQuantity($shoppingRow->getQuantity() - $recipeFood->getQuantity() * $multiplier);
+                    $entityManager->persist($shoppingRow);
+                    $entityManager->flush();
+                    
+                    // del if 0 quantity
+                    if ($shoppingRow->getQuantity() == 0) {
+                        $entityManager->remove($shoppingRow);
+                        $entityManager->flush();
+                    }
+                }    
+            }
+        }
+
+        // delete food's recipe
+        $recipeFoods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
+        foreach ($recipeFoods as $recipeFood) {
+            $entityManager->remove($recipeFood);
+        }
+        
+        $entityManager->remove($recipe);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
     }
 }
