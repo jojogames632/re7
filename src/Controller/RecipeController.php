@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
 use App\Entity\Shopping;
+use App\Form\AddFoodToRecipeType;
 use App\Form\CategoryType;
 use App\Form\RecipeType;
 use App\Form\UpdateFoodInRecipeType;
@@ -197,19 +198,38 @@ class RecipeController extends AbstractController
     /**
      * @Route("/recipe-details/{id<\d+>}", name="recipe_details")
      */
-    public function showRecipeDetails(int $id, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository)
+    public function showRecipeDetails(int $id, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, request $request)
     {
         if (!$recipe = $recipeRepository->find($id)) {
             throw $this->createNotFoundException(sprintf('La recette avec l\'id %s n\'existe pas', $id));
         }
 
-        $foods = $recipeFoodRepository->findBy([
-            'recipe' => $recipe
-        ]);
+        $recipeFood = new RecipeFood();
+        $form = $this->createForm(AddFoodToRecipeType::class, $recipeFood);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipeFood->setRecipe($recipe);
+            $food = $form['food']->getData();
+            $recipeFood->setFoodName($food->getName());
+            $recipeFood->setPersons($recipe->getPersons());
+            $recipeFood->setSection($food->getSection());
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($recipeFood);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipe_details', [
+                'id' => $id
+            ]);
+        }
+
+        $foods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
 
         return $this->render('recipe/recipeDetails.html.twig', [
             'recipe' => $recipe,
-            'foods' => $foods
+            'foods' => $foods,
+            'form' => $form->createView()
         ]);
     }
 

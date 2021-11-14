@@ -17,6 +17,18 @@ main {
 	margin: auto;
 }
 
+form {
+	display: flex;
+}
+
+input,
+select {
+	background-color: #212528;
+	border-color: #FFC108;
+	color: white;
+	width: 100%;
+}
+
 @media screen and (min-width: 600px) and (max-width: 999px) {
 	.recipeFoodsSection {
 		width: 60vw;

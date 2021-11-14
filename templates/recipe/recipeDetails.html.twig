@@ -98,6 +98,18 @@
 					</div>
 				</div>
 			{% endfor %}
+			{{ form_start(form) }}
+				<div class="row w-100 mt-3">
+					<div class="col-5 d-flex justify-content-center">{{ form_widget(form.food) }}</div>
+					<div class="col-2 d-flex justify-content-center">{{ form_widget(form.quantity) }}</div>
+					<div class="col-2 d-flex justify-content-center">{{ form_widget(form.unit) }}</div>
+					<div class="col-2">
+						<button type="submit" class="btn btn-sm btn-outline-warning">Ajouter</button>
+					</div>
+				</div>
+
+			{{ form_end(form) }}
+			
 		</section>
 	</main>
 {% endblock %}
