@@ -7,6 +7,7 @@ use App\Entity\Section;
 use App\Form\FoodType;
 use App\Form\SectionType;
 use App\Repository\FoodRepository;
+use App\Repository\RecipeFoodRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,5 +73,26 @@ class FoodController extends AbstractController
         return $this->render('food/addSection.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/delete-food/{id<\d+>}", name="delete_food")
+     */
+    public function deleteFood(int $id, request $request, FoodRepository $foodRepository, RecipeFoodRepository $recipeFoodRepository)
+    {  
+        if (!$food = $foodRepository->find($id)) {
+            throw $this->createNotFoundException('Cette aliment n\'a pas été trouvée');
+        }
+
+        if ($recipeFoodRepository->findBy(['food' => $food])) {
+            $this->addFlash('danger', 'Cet aliment fait déja parti d\'une recette, vous ne pouvez pas le supprimer');
+        }
+        else {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($food);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('foods');
     }
 }
