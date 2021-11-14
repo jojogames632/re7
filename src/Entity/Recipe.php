@@ -50,20 +50,22 @@ class Recipe
     private $recipeFoods;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cookingType;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CookingType::class, inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cookingType;
 
     public function __construct()
     {
@@ -204,30 +206,6 @@ class Recipe
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getCookingType(): ?string
-    {
-        return $this->cookingType;
-    }
-
-    public function setCookingType(string $cookingType): self
-    {
-        $this->cookingType = $cookingType;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -236,6 +214,30 @@ class Recipe
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCookingType(): ?CookingType
+    {
+        return $this->cookingType;
+    }
+
+    public function setCookingType(?CookingType $cookingType): self
+    {
+        $this->cookingType = $cookingType;
 
         return $this;
     }

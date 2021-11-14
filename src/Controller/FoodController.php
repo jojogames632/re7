@@ -29,7 +29,7 @@ class FoodController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             // replace space by _
-            $foodName = htmlspecialchars($_POST['food']['name']);
+            $foodName = ucfirst($form['name']->getData());
             $noSpaceFoodName = str_replace(' ', '_', $foodName);
             $food->setName($noSpaceFoodName);
 
@@ -60,7 +60,7 @@ class FoodController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $section->setName(ucfirst($form->get('name')->getData()));
+            $section->setName(ucfirst($form['name']->getData()));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($section);

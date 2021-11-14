@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\CookingType;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
 use App\Entity\Shopping;
+use App\Entity\Type;
 use App\Form\AddFoodToRecipeType;
 use App\Form\CategoryType;
+use App\Form\CookingTypeType;
 use App\Form\RecipeType;
+use App\Form\TypeType;
 use App\Form\UpdateFoodInRecipeType;
 use App\Form\UpdateRecipeType;
 use App\Repository\CategoryRepository;
@@ -219,9 +223,7 @@ class RecipeController extends AbstractController
             $entityManager->persist($recipeFood);
             $entityManager->flush();
 
-            return $this->redirectToRoute('recipe_details', [
-                'id' => $id
-            ]);
+            return $this->redirectToRoute('recipe_details', [ 'id' => $id ]);
         }
 
         $foods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
@@ -324,6 +326,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setName(ucfirst($form['name']->getData()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
@@ -332,6 +335,52 @@ class RecipeController extends AbstractController
         }
 
         return $this->render('recipe/addCategory.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add-type", name="add_type")
+     */
+    public function addType(Request $request)
+    {   
+        $type = new Type();
+        $form = $this->createForm(TypeType::class, $type);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $type->setName(ucfirst($form['name']->getData()));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($type);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('add_recipe');
+        }
+
+        return $this->render('recipe/addType.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add-cookingType", name="add_cookingType")
+     */
+    public function addCookingType(Request $request)
+    {   
+        $cookingType = new CookingType();
+        $form = $this->createForm(CookingTypeType::class, $cookingType);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cookingType->setName(ucfirst($form['name']->getData()));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cookingType);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('add_recipe');
+        }
+
+        return $this->render('recipe/addCookingType.html.twig', [
             'form' => $form->createView()
         ]);
     }
