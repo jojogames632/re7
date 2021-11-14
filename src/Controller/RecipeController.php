@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
+use App\Entity\Shopping;
 use App\Form\CategoryType;
 use App\Form\RecipeType;
 use App\Form\UpdateFoodInRecipeType;
@@ -14,6 +15,7 @@ use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
+use App\Repository\ShoppingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +26,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
+    public function index(ShoppingRepository $shoppingRepository, RecipeFoodRepository $recipeFoodRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
     { 
         $categories = $categoryRepository->findAll();
         $owners = $planningRepository->findAllOwners();
@@ -58,6 +60,8 @@ class RecipeController extends AbstractController
             $for = htmlspecialchars(intval($_POST['for']));
             $recipeName = htmlspecialchars($_POST['recipeName']);
 
+            // add recipe to planning /////////////////////////////////////////////// script part 1
+
             $recipe = $recipeRepository->findOneByName($recipeName);
             $planning = $planningRepository->findOneByNameAndOwner($day, $owner);
             if ($when === 'midi') {
@@ -72,6 +76,69 @@ class RecipeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($planning);
             $entityManager->flush();
+
+            // add recipe to shopping list /////////////////////////////////////////// script part 2
+
+            $foods = [];
+            $currentRecipeFoods = $recipeFoodRepository->findBy([
+                'recipe' => $recipe
+            ]);
+            foreach ($currentRecipeFoods as $currentRecipeFood) {
+                $foods[] = $currentRecipeFood;
+            }
+
+            // for each food in current recipe
+            foreach ($foods as $food) {
+
+                // get multiplier
+                $defaultRecipePersons = $food->getPersons();
+                $multiplier = $for / $defaultRecipePersons;
+
+                $foodId = $food->food->getId();
+
+                $shoppingFoodsId = [];
+                $shoppingRows = $shoppingRepository->findAll();
+                foreach ($shoppingRows as $row) {
+                    $shoppingFoodsId[] = $row->getFood()->getId();
+                }
+                // stop doublon for addition
+                if (in_array($foodId, $shoppingFoodsId)) {
+
+                    $shoppingRow = $shoppingRepository->findOneByFoodAndUnit($foodId, $food->unit, $owner);
+                    
+                    // line found --> addition
+                    if ($shoppingRow) {
+                        $currentQuantity = $shoppingRow->getQuantity();
+                        $shoppingRow->setQuantity($currentQuantity + $food->quantity * $multiplier);
+                        $entityManager->persist($shoppingRow);
+                        $entityManager->flush();
+                    }
+                    // different units --> new line
+                    else {
+                        $shopping = new Shopping();
+                        $shopping->setSection($food->getSection());
+                        $shopping->setFood($food->getFood());
+                        $shopping->setQuantity($food->getQuantity() * $multiplier);
+                        $shopping->setUnit($food->getUnit());
+                        $shopping->setOwner($owner);
+
+                        $entityManager->persist($shopping);
+                        $entityManager->flush();
+                    }
+                }
+                // no doublon -> new line
+                else {
+                    $shopping = new Shopping();
+                    $shopping->setSection($food->getSection());
+                    $shopping->setFood($food->getFood());
+                    $shopping->setQuantity($food->getQuantity() * $multiplier);
+                    $shopping->setUnit($food->getUnit());
+                    $shopping->setOwner($owner);
+
+                    $entityManager->persist($shopping);
+                    $entityManager->flush();
+                }
+            }
         }
 
         return $this->render('recipe/recipes.html.twig', [
@@ -107,7 +174,7 @@ class RecipeController extends AbstractController
                     $recipeFood->setFood($food);
                     $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
                     $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
-                    $recipeFood->setSection($food->section);
+                    $recipeFood->setSection($food->getSection());
                     $recipeFood->setFoodName($food->name);
                     $recipeFood->setPersons($recipe->getPersons());
 

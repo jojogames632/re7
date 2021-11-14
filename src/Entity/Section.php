@@ -34,10 +34,16 @@ class Section
      */
     private $food;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RecipeFood::class, mappedBy="section")
+     */
+    private $recipeFood;
+
     public function __construct()
     {
         $this->shoppings = new ArrayCollection();
         $this->food = new ArrayCollection();
+        $this->recipeFood = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +117,36 @@ class Section
             // set the owning side to null (unless already changed)
             if ($food->getSection() === $this) {
                 $food->setSection(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecipeFood[]
+     */
+    public function getRecipeFood(): Collection
+    {
+        return $this->recipeFood;
+    }
+
+    public function addRecipeFood(RecipeFood $recipeFood): self
+    {
+        if (!$this->recipeFood->contains($recipeFood)) {
+            $this->recipeFood[] = $recipeFood;
+            $recipeFood->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeFood(RecipeFood $recipeFood): self
+    {
+        if ($this->recipeFood->removeElement($recipeFood)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeFood->getSection() === $this) {
+                $recipeFood->setSection(null);
             }
         }
 

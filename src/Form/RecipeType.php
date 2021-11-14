@@ -50,6 +50,9 @@ class RecipeType extends AbstractType
             ])
             ->add('duration', NumberType::class, [
                 'required' => true,
+                'attr' => [
+                    'value' => 40
+                ]
             ])
             ->add('persons', NumberType::class, [
                 'required' => true,

@@ -19,32 +19,28 @@ class ShoppingRepository extends ServiceEntityRepository
         parent::__construct($registry, Shopping::class);
     }
 
-    // /**
-    //  * @return Shopping[] Returns an array of Shopping objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllFilteredBySection($owner)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('s.owner = :owner')
+            ->setParameter(':owner', $owner)
+            ->orderBy('s.section', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Shopping
+    public function findOneByFoodAndUnit($foodId, $unit, $owner)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('s.owner = :owner')
+            ->setParameter(':owner', $owner)
+            ->andWhere('s.food = :foodId')
+            ->setParameter(':foodId', $foodId)
+            ->andWhere('s.unit = :unit')
+            ->setParameter(':unit', $unit)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

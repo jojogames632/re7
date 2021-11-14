@@ -76,20 +76,20 @@
                 <div class="col-3 text-warning d-flex justify-content-center">Quantité</div>
                 <div class="col-3 text-warning d-flex justify-content-center">Unité</div>
             </div>
-            {% if shoppingArray|length > 0 %}
-                {% for food in shoppingArray %}
+            {% if shoppingRows|length > 0 %}
+                {% for food in shoppingRows %}
                     <div class="row">
                         <div class="col-3 d-flex justify-content-center">
-                            {{ food[0] }}
+                            {{ food.section.name }}
                         </div>
                         <div class="col-3 d-flex justify-content-center">
-                            {{ food[1] }}
+                            {{ food.food.name }}
                         </div>
                         <div class="col-3 d-flex justify-content-center">
-                            {{ food[2] }}
+                            {{ food.quantity }}
                         </div>
                         <div class="col-3 d-flex justify-content-center">
-                            {{ food[3] }}
+                            {{ food.unit }}
                         </div>
                     </div>
                 {% endfor %}

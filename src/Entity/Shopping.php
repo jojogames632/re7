@@ -39,6 +39,11 @@ class Shopping
      */
     private $unit;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Shopping
     public function setUnit(string $unit): self
     {
         $this->unit = $unit;
+
+        return $this;
+    }
+
+    public function getOwner(): ?string
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(string $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
