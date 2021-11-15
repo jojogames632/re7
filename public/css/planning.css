@@ -16,7 +16,7 @@ main {
 	margin-top: calc(12vh - 80px);
 }
 
-#createPlanningText {
+#planningHeader {
 	margin-bottom: 130px;
 }
 
@@ -24,7 +24,7 @@ main {
 	background-color: #212528;
 	border: none;
 	color: white;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 .recipeName {
@@ -43,6 +43,16 @@ main {
 form {
 	display: flex;
 	flex-direction: column;
+}
+
+input,
+select {
+	background-color: #212528;
+	color: white;
+}
+
+.createPlanningInput {
+	width: 100%;
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {

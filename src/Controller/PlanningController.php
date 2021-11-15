@@ -7,11 +7,9 @@ use App\Form\PlanningType;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\ShoppingRepository;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PlanningController extends AbstractController
@@ -19,7 +17,7 @@ class PlanningController extends AbstractController
     /**
      * @Route("/planning/{planningOwner}", name="planning")
      */
-    public function index(PlanningRepository $planningRepository, RecipeFoodRepository $recipeFoodRepository, ShoppingRepository $shoppingRepository, Request $request, string $planningOwner = 'Christophe')
+    public function index(PlanningRepository $planningRepository, ShoppingRepository $shoppingRepository, Request $request, string $planningOwner = 'Christophe')
     {
         $owners = $planningRepository->findAllOwners();
         $entityManager = $this->getDoctrine()->getManager();
@@ -35,6 +33,26 @@ class PlanningController extends AbstractController
                     'owners' => $owners 
                 ])
             ]);
+        }
+
+        // create planning
+        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+        $planning = new Planning();
+
+        $form = $this->createForm(PlanningType::class, $planning);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($days as $day) {
+                $planning = new Planning();
+                $planning->setName($day);
+                $planning->setOwner($form['owner']->getData());
+                
+                $entityManager->persist($planning);
+            }
+            $entityManager->flush();
+
+            return $this->redirectToRoute('planning');
         }
 
         // delete planning
@@ -61,7 +79,8 @@ class PlanningController extends AbstractController
         return $this->render('planning/index.html.twig', [
             'days' => $days,
             'owners' => $owners,
-            'planningOwner' => $planningOwner
+            'planningOwner' => $planningOwner,
+            'form' => $form->createView()
         ]);
     }
 
@@ -112,35 +131,5 @@ class PlanningController extends AbstractController
         return $this->redirect($this->generateUrl('planning', [
             'planningOwner' => $owner
         ]));
-    }
-
-    /**
-     * @Route("create-planning", name="create_planning")
-     */
-    public function createPlanning(Request $request)
-    {
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $planning = new Planning();
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(PlanningType::class, $planning);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            foreach ($days as $day) {
-                $planning = new Planning();
-                $planning->setName($day);
-                $planning->setOwner($form['owner']->getData());
-                
-                $entityManager->persist($planning);
-            }
-            $entityManager->flush();
-
-            return $this->redirectToRoute('planning');
-        }
-
-        return $this->render('planning/createPlanning.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 }
