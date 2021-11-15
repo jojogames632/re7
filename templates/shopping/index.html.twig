@@ -17,16 +17,19 @@
                 {# Desktop nav #}
                 <ul class="d-flex justify-content-between w-100">
                     <li>
-                        <a href="{{ path('home') }}" class="text-decoration-none text-warning fs-4 fw-bold">Recettes</a>
+                        <a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Liste des recettes</a>
                     </li>
                     <li>
-                        <a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+                        <a href="{{ path('add_recipe') }}" class="text-decoration-none text-white fs-4 fw-bold">Créer une recette</a>
                     </li>
                     <li>
-                        <a href="#" class="text-decoration-none text-white fs-4 fw-bold">Liste de courses</a>
+                        <a href="{{ path('planning') }}" class="text-decoration-none text-white fs-4 fw-bold">Planning</a>
                     </li>
                     <li>
-                        <a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+                        <a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('foods') }}" class="text-decoration-none text-white fs-4 fw-bold">Aliments</a>
                     </li>
                 </ul>
             </div>
@@ -41,16 +44,19 @@
                     <ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
                         {# Mobile nav #}
                         <li>
-                            <a href="{{ path('home') }}" class="text-decoration-none text-warning fs-4 fw-bold">Recettes</a>
+                            <a href="{{ path('home') }}" class="text-decoration-none text-white fs-4 fw-bold">Liste des recettes</a>
                         </li>
                         <li>
-                            <a href="{{ path('planning') }}" class="text-decoration-none text-warning fs-4 fw-bold">Planning</a>
+                            <a href="{{ path('add_recipe') }}" class="text-decoration-none text-white fs-4 fw-bold">Créer une recette</a>
                         </li>
                         <li>
-                            <a href="#" class="text-decoration-none text-white fs-4 fw-bold">Liste de courses</a>
+                            <a href="{{ path('planning') }}" class="text-decoration-none text-white fs-4 fw-bold">Planning</a>
                         </li>
                         <li>
-                            <a href="{{ path('foods') }}" class="text-decoration-none text-warning fs-4 fw-bold">Aliments</a>
+                            <a href="#" class="text-decoration-none text-warning fs-4 fw-bold">Liste de courses</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('foods') }}" class="text-decoration-none text-white fs-4 fw-bold">Aliments</a>
                         </li>
                     </ul>
                 </div>

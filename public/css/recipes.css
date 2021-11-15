@@ -15,6 +15,10 @@ main {
 	text-overflow: ellipsis;
 }
 
+.addToPlanningBtn:hover {
+	cursor: pointer;
+}
+
 #addToPlanningSection {
 	display: none;
 }
