@@ -19,9 +19,10 @@ class PlanningController extends AbstractController
     /**
      * @Route("/planning/{planningOwner}", name="planning")
      */
-    public function index(PlanningRepository $planningRepository, Request $request, string $planningOwner = 'Christophe')
+    public function index(PlanningRepository $planningRepository, RecipeFoodRepository $recipeFoodRepository, ShoppingRepository $shoppingRepository, Request $request, string $planningOwner = 'Christophe')
     {
         $owners = $planningRepository->findAllOwners();
+        $entityManager = $this->getDoctrine()->getManager();
 
         if ($owner = $request->get('owner')) {
             $days = $planningRepository->getPlanningOf($owner);
@@ -34,6 +35,25 @@ class PlanningController extends AbstractController
                     'owners' => $owners 
                 ])
             ]);
+        }
+
+        // delete planning
+        if (isset($_POST['deletePlanningOf'])) {
+            $owner = htmlspecialchars($_POST['deletePlanningOf']);
+            $planningRows = $planningRepository->findBy(['owner' => $owner]);
+            $shoppingRows = $shoppingRepository->findBy(['owner' => $owner]);
+
+            // planning
+            foreach ($planningRows as $planningRow) {
+                $entityManager->remove($planningRow);
+            }
+            // shopping
+            foreach ($shoppingRows as $shoppingRow) {
+                $entityManager->remove($shoppingRow);  
+            }
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('planning', ['planningOwner' => $planningOwner]));
         }
         
         $days = $planningRepository->getPlanningOf($planningOwner);

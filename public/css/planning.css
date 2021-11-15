@@ -40,6 +40,11 @@ main {
 	font-size: 12px;
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+}
+
 @media screen and (min-width: 600px) and (max-width: 799px) {
 	#planningSection {
 		width: 90vw;
