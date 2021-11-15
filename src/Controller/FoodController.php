@@ -6,6 +6,7 @@ use App\Entity\Food;
 use App\Entity\Section;
 use App\Form\FoodType;
 use App\Form\SectionType;
+use App\Form\UpdateFoodType;
 use App\Repository\FoodRepository;
 use App\Repository\RecipeFoodRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -78,7 +79,7 @@ class FoodController extends AbstractController
     /**
      * @Route("/delete-food/{id<\d+>}", name="delete_food")
      */
-    public function deleteFood(int $id, request $request, FoodRepository $foodRepository, RecipeFoodRepository $recipeFoodRepository)
+    public function deleteFood(int $id, FoodRepository $foodRepository, RecipeFoodRepository $recipeFoodRepository)
     {  
         if (!$food = $foodRepository->find($id)) {
             throw $this->createNotFoundException('Cette aliment n\'a pas été trouvée');
@@ -94,5 +95,30 @@ class FoodController extends AbstractController
         }
 
         return $this->redirectToRoute('foods');
+    }
+
+    /**
+     * @Route("/update-food/{id<\d+>}", name="update_food")
+     */
+    public function updateFood(int $id, request $request, FoodRepository $foodRepository, RecipeFoodRepository $recipeFoodRepository)
+    {  
+        if (!$food = $foodRepository->find($id)) {
+            throw $this->createNotFoundException('Cette aliment n\'a pas été trouvée');
+        }
+
+        $form = $this->createForm(UpdateFoodType::class, $food);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($food);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('foods');
+        }
+
+        return $this->render('food/updateFood.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
