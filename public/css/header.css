@@ -1,5 +1,6 @@
 header {
 	height: 80px;
+	border-bottom: 1px solid white;
 }
 
 #mobileNav {
@@ -13,13 +14,17 @@ header {
 }
 
 img {
-	height: 80px;
-	width: 80px;
+	height: 70px;
+	width: 70px;
 }
 
 .mobileUl {
 	margin-top: 30vh;
 	height: 30vh;
+}
+
+ul {
+	margin: 0;
 }
 
 #burgerBtn,
