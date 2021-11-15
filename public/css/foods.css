@@ -6,22 +6,19 @@ main {
 	overflow: scroll;
 }
 
-.foodsSection {
-	margin: auto;
-}
-
 .foodRowsContainer {
 	max-height: 35vh;
 	overflow: scroll;
 }
 
+.foodsSection,
+.formSection {
+	margin: auto;
+}
+
 form {
 	display: flex;
 	flex-direction: column;
-}
-
-.formSection {
-	margin: auto;
 }
 
 input,
@@ -97,5 +94,14 @@ label {
 
 	.foodRowsContainer {
 		max-height: 70vh;
+	}
+
+	.mainRow {
+		justify-content: center;
+	}
+
+	.foodsSection,
+	.formSection {
+		margin: 0;
 	}
 }
