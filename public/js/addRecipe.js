@@ -10,6 +10,11 @@ for (let i = 0; i < foodSelect1.options.length; i++) {
 	foods.push(foodSelect1.options[i].childNodes[0].textContent);
 }
 
+let foodsId = [];
+for (let i = 0; i < foodSelect1.options.length; i++) {
+	foodsId.push(foodSelect1.options[i].value);
+}
+
 let unitSelector1 = document.getElementById('unit1');
 let units = [];
 for (let i = 0; i < unitSelector1.length; i++) {
@@ -26,9 +31,9 @@ const addFields = () => {
 	select.id = "food" + fieldsCount;
 	select.name = "food" + fieldsCount;
 	select.required = "required"
-	for (i = 0; i < foods.length; i++) {
+	for (i = 0; i < foodsId.length; i++) {
 		let option = document.createElement('option');
-		option.value = foods[i];
+		option.value = foodsId[i];
 		option.textContent = foods[i];
 		select.appendChild(option);
 	}

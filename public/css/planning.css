@@ -55,6 +55,10 @@ select {
 	width: 100%;
 }
 
+.planningTitle {
+	font-size: 18px;
+}
+
 @media screen and (min-width: 600px) and (max-width: 799px) {
 	#planningSection {
 		width: 90vw;
@@ -94,5 +98,13 @@ select {
 
 	.recipeName {
 		font-size: 20px;
+	}
+
+	.planningTitle {
+		font-size: 22px;
+	}
+
+	#planningSelect {
+		font-size: 25px;
 	}
 }

@@ -101,7 +101,7 @@
             <div class="row" id="planningHeader">
                 {# left header #}
                 <div class="col-4 d-flex flex-column align-items-center text-center">
-                    <p class="text-primary">Créer un planning</p>
+                    <p class="text-primary planningTitle">Créer un planning</p>
                     {{ form_start(form) }}
 
                         {{ form_widget(form.owner, { 'attr' : { 'class' : 'border-primary createPlanningInput' }}) }}
@@ -125,7 +125,7 @@
                 </div>
                 {# right header #}
                 <div class="col-4 d-flex flex-column align-items-center text-center">
-                    <p class="text-danger">Supprimer un planning</p>
+                    <p class="text-danger planningTitle">Supprimer un planning</p>
                     <form method="post">
                         <select id="deletePlanningOf" name="deletePlanningOf" class="mb-3 border-danger">
                             <option value="" selected hidden disabled></option>

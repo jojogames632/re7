@@ -2,9 +2,10 @@
 
 {% block title %}Liste de courses PDF{% endblock %}
 {% block stylesheets %}
+	{{ parent() }}
 	<style>
-		* {
-			color: red;
+		table {
+			text-align: center;
 		}
 	</style>
 {% endblock %}
@@ -20,17 +21,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if shoppingArray|length > 0 %}
-					{% for food in shoppingArray %}
+				{% if shoppingRows|length > 0 %}
+					{% for row in shoppingRows %}
 						<tr>
 							<td class="d-flex justify-content-center">
-								{{ food[0] }}
+								{{ row.section.name }}
 							</td>
 							<td class="d-flex justify-content-center">
-								{{ food[1] }}
+								{{ row.food.name }}
 							</td>
 							<td class="d-flex justify-content-center">
-								{{ food[2] }} {{ food[3] }}
+								{{ row.quantity }} {{ row.unit }}
 							</td>
 						</tr>
 					{% endfor %}
@@ -40,4 +41,8 @@
 			</tobdy>
 		</table>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
 {% endblock %}

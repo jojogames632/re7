@@ -158,7 +158,7 @@
 					<span class="text-white mb-2">Aliment</span>
 					<select id="food1" name="food1" required>
 						{% for food in foods %}
-							<option value={{ food.name }}>{{ food.name }}</option>
+							<option value="{{ food.id }}">{{ food.name }} - {{ food.section.name }}</option>
 						{% endfor %}
 					</select>
 				</div>

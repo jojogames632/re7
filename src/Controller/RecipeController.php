@@ -172,10 +172,11 @@ class RecipeController extends AbstractController
 
             for ($i = 1; $i <= $foodFieldsCount; $i++) {
                 if (htmlspecialchars($_POST['quantity' . $i]) > 0) {
+                    $foodId = htmlspecialchars($_POST['food' . $i]);
+                    $food = $foodRepository->find($foodId);
+                    
                     $recipeFood = new RecipeFood();
                     $recipeFood->setRecipe($recipe);
-
-                    $food = $foodRepository->findOneByName(htmlspecialchars($_POST['food' . $i]));
                     $recipeFood->setFood($food);
                     $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
                     $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
