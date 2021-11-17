@@ -16,7 +16,7 @@ input,
 select {
 	height: 20px;
 	margin-bottom: 10px;
-	background-color: #212528;
+	background-color: #2b2e30;
 	border-color: #FFC108;
 	color: white;
 }
@@ -40,6 +40,12 @@ li {
 
 #addFieldsBtn:hover {
 	cursor: pointer;
+}
+
+#recipeInfosContainer {
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 25px;
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {

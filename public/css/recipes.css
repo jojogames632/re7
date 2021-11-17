@@ -37,6 +37,7 @@ main {
 	background-color: #2b2e30;
 	border-radius: 15px;
 	padding: 7px;
+	box-shadow: 3px 5px 10px 0px rgba(255,255,255,0.4);
 }
 
 input,
