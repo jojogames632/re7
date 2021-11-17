@@ -4,7 +4,7 @@ main {
 	overflow: scroll;
 }
 
-form {
+#recipeInfosContainer {
 	display: flex;
 	flex-direction: column;
 	width: 80vw;
@@ -32,8 +32,10 @@ li {
 }
 
 #foodInputsContainer {
+	width: 100vw;
 	height: 28vh;
 	overflow-x: scroll;
+	margin: auto;
 }
 
 #addFieldsBtn:hover {
@@ -41,27 +43,39 @@ li {
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
-	form {
-		width: 70vw;
+	#recipeInfosContainer {
+		width: 50vw;
+	}
+
+	#foodInputsContainer {
+		width: 80vw;
 	}
 }
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
-	form {
-		width: 50vw;
+	#recipeInfosContainer {
+		width: 30vw;
+	}
+
+	#foodInputsContainer {
+		width: 70vw;
 	}
 }
 
 @media screen and (min-width: 1000px) {
-	form {
-		width: 30vw;
+	#recipeInfosContainer {
+		width: 20vw;
 		margin: auto;
 		margin-top: 35px;
 	}
 
+	#foodInputsContainer {
+		width: 40vw;
+	}
+
 	input,
 	select {
-		height: 30px;
+		height: 25px;
 		margin-bottom: 20px;
 	}
 	label {

@@ -106,52 +106,55 @@
 
 		{{ form_start(form) }}
 
-			{{ form_label(form.name, 'Nom') }}
-			{{ form_widget(form.name) }}
-			{{ form_errors(form.name) }}
+			<div id="recipeInfosContainer">
+				{{ form_label(form.name, 'Nom') }}
+				{{ form_widget(form.name) }}
+				{{ form_errors(form.name) }}
 
-			<div class="d-flex">
-				{{ form_label(form.type, 'Type') }}
-				<a href="{{ path('add_type') }}" class="mx-2">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success" viewBox="0 0 16 16">
-						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-					</svg>
-				</a>
+				<div class="d-flex">
+					{{ form_label(form.type, 'Type') }}
+					<a href="{{ path('add_type') }}" class="mx-2">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{{ form_widget(form.type) }}
+				{{ form_errors(form.type) }}
+
+				<div class="d-flex">
+					{{ form_label(form.cookingType, 'Type de cuisson') }}
+					<a href="{{ path('add_cookingType') }}" class="mx-2">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{{ form_widget(form.cookingType) }}
+				{{ form_errors(form.cookingType) }}
+
+				<div class="d-flex">
+					{{ form_label(form.category, 'Catégorie') }}
+					<a href="{{ path('add_category') }}" class="mx-2">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{{ form_widget(form.category) }}
+				{{ form_errors(form.category) }}
+
+				{{ form_label(form.duration, 'Durée') }}
+				{{ form_widget(form.duration) }}
+				{{ form_errors(form.duration) }}
+
+				{{ form_label(form.persons, 'Pour') }}
+				{{ form_widget(form.persons) }}
+				{{ form_errors(form.persons) }}
 			</div>
-			{{ form_widget(form.type) }}
-			{{ form_errors(form.type) }}
 
-			<div class="d-flex">
-				{{ form_label(form.cookingType, 'Type de cuisson') }}
-				<a href="{{ path('add_cookingType') }}" class="mx-2">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success" viewBox="0 0 16 16">
-						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-					</svg>
-				</a>
-			</div>
-			{{ form_widget(form.cookingType) }}
-			{{ form_errors(form.cookingType) }}
+			<p class="text-center text-warning mt-3">Aliments</p>
 
-			<div class="d-flex">
-				{{ form_label(form.category, 'Catégorie') }}
-				<a href="{{ path('add_category') }}" class="mx-2">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success" viewBox="0 0 16 16">
-						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-					</svg>
-				</a>
-			</div>
-			{{ form_widget(form.category) }}
-			{{ form_errors(form.category) }}
-
-			{{ form_label(form.duration, 'Durée') }}
-			{{ form_widget(form.duration) }}
-			{{ form_errors(form.duration) }}
-
-			{{ form_label(form.persons, 'Pour') }}
-			{{ form_widget(form.persons) }}
-			{{ form_errors(form.persons) }}
-
-			<p class="text-center text-warning mt-3">Aliments</p>	
 			<div id="foodInputsContainer" class="row">
 
 				<div class="col-6 d-flex flex-column align-items-center" id="foodCol">
@@ -188,9 +191,9 @@
 				</svg>
 			</p>
 
-			<div class="d-flex justify-content-around mt-4">
-				<a href="{{ path('home') }}" class="btn btn-sm btn-outline-warning">Annuler</a>
-				<button type="submit" class="btn btn-sm btn-outline-warning">Créer</button>
+			<div class="d-flex justify-content-center mt-4">
+				<a href="{{ path('home') }}" class="btn btn-sm btn-outline-warning me-3">Annuler</a>
+				<button type="submit" class="btn btn-sm btn-outline-warning ms-3">Créer</button>
 			</div>
 
 		{{ form_end(form) }}

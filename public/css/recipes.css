@@ -30,10 +30,19 @@ main {
 	margin-top: 50px;
 }
 
+/* design */
+#recipesSection,
+#addToPlanningSection,
+#filtersSection {
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 5px;
+}
+
 input,
 select {
 	height: 20px;
-	background-color: #212528;
+	background-color: #2b2e30;
 	border-color: #FFC108;
 	color: white;
 }
@@ -55,7 +64,19 @@ select {
 	text-overflow: ellipsis;
 }
 
+#filtersSection {
+	margin: auto;
+}
+
+#recipeTitle {
+	margin-top: 20px;
+}
+
 @media screen and (min-width: 600px) and (max-width: 999px) {
+	#filtersSection {
+		width: 65vw;
+	}
+	
 	#recipesSection {
 		width: 70vw;
 		margin: auto;
@@ -70,6 +91,10 @@ select {
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
+	#filtersSection {
+		width: 40vw;
+	}
+	
 	#recipesSection {
 		width: 40vw;
 		margin: auto;
@@ -90,10 +115,6 @@ select {
 
 	.recipeNameCol {
 		font-size: 20px;
-	}
-
-	#recipeTitle {
-		margin-top: 20px;
 	}	
 }
 
@@ -101,6 +122,8 @@ select {
 	#recipesSection {
 		width: 40vw;
 		max-height: 55vh;
+		margin: auto;
+		margin-top: 50px;
 	}
 
 	#addToPlanningSection {
@@ -117,8 +140,8 @@ select {
 	.recipeNameCol {
 		font-size: 20px;
 	}
-
-	#recipeTitle {
-		margin-top: 20px;
+	
+	#filtersSection {
+		width: 27vw;
 	}
 }
