@@ -5,6 +5,8 @@ const categorySelector = document.getElementById('categorySelector');
 const cookingTypeSelector = document.getElementById('cookingTypeSelector');
 const typeSelector = document.getElementById('typeSelector');
 
+const foodSelector = document.getElementById('foodSelector');
+
 const Url = new URL(window.location.href);
 
 let category = "";
@@ -37,6 +39,18 @@ typeSelector.addEventListener('change', (e) => {
 	type = e.target.value
 	fetching(e);	
 });
+
+foodSelector.addEventListener('change', (e) => {
+	fetch(Url.pathname + "?foodId=" + e.target.value + "&ajax=1", {
+		headers: {
+			'X-Requested-Width': 'XMLHttpRequest'
+		}
+	}).then(response => 
+		response.json()
+	).then(data => {
+		recipesSection.innerHTML = data.content;
+	}).catch(e => alert(e));	
+})
 
 recipeTitleInput.addEventListener('input', (e) => { 
 	fetch(Url.pathname + "?title=" + e.target.value + "&ajax=1", {

@@ -32,23 +32,40 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(CookingTypeRepository $cookingTypeRepository, TypeRepository $typeRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
+    public function index(RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository, CookingTypeRepository $cookingTypeRepository, TypeRepository $typeRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
     { 
         $categories = $categoryRepository->findAll();
         $cookingTypes = $cookingTypeRepository->findAll();
         $types = $typeRepository->findAll();
         $owners = $planningRepository->findAllOwners();
+        $foods = $foodRepository->findAll();
 
         $category = $request->get('category');
         $cookingType = $request->get('cookingType');
         $type = $request->get('type');
         $title = $request->get('title');
+        $foodId = $request->get('foodId');
 
-        if ($title != null) {
-            $recipes = $recipeRepository->getRecipesWithTitle($title);
+        if ($foodId) {
+            $recipeFoodRows = $recipeFoodRepository->findByFood($foodId);
+            $recipesId = [];
+            foreach ($recipeFoodRows as $row) {
+                $recipesId[] = $row->getRecipe()->getId();
+            }
+            $distinctRecipesId = array_unique($recipesId);
+
+            $recipes = [];
+            foreach ($distinctRecipesId as $id) {
+                $recipes[] = $recipeRepository->find($id);
+            }
         }
         else {
-            $recipes = $recipeRepository->getRecipesWithFilters($category, $cookingType, $type); 
+            if ($title) {
+                $recipes = $recipeRepository->getRecipesWithTitle($title);
+            }
+            else {
+                $recipes = $recipeRepository->getRecipesWithFilters($category, $cookingType, $type); 
+            }
         }
 
         if ($request->get('ajax')) {
@@ -58,7 +75,6 @@ class RecipeController extends AbstractController
                 ])
             ]);
         }
-
         $recipes = $recipeRepository->findAllAsc();
 
         if (isset($_POST['owner']) && isset($_POST['day']) && isset($_POST['when']) && isset($_POST['for'])) {
@@ -90,7 +106,8 @@ class RecipeController extends AbstractController
             'categories' => $categories,
             'cookingTypes' => $cookingTypes,
             'types' => $types,
-            'owners' => $owners
+            'owners' => $owners,
+            'foods' => $foods
         ]);
     }
 
