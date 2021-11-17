@@ -4,15 +4,25 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<style>
+		h1 {
+			font-size: 25px;
+		}
 		table {
 			text-align: center;
+		}
+		caption {
+			font-weight: bold;
+			font-size: 20px;
+			margin-bottom: 20px;
 		}
 	</style>
 {% endblock %}
 
 {% block body %}
     <main>
+		<h1>{{ planningOwner }}</h1>
 		<table>
+			<caption>{{ "now"|date('d/m/Y')}}</caption> 
 			<thead>
 				<tr>
 					<th>Rayon</th>
