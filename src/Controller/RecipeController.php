@@ -31,7 +31,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(ShoppingRepository $shoppingRepository, RecipeFoodRepository $recipeFoodRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
+    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
     { 
         $categories = $categoryRepository->findAll();
         $owners = $planningRepository->findAllOwners();
@@ -65,8 +65,7 @@ class RecipeController extends AbstractController
             $for = htmlspecialchars(intval($_POST['for']));
             $recipeName = htmlspecialchars($_POST['recipeName']);
 
-            // add recipe to planning /////////////////////////////////////////////// script part 1
-
+            // add recipe to planning
             $recipe = $recipeRepository->findOneByName($recipeName);
             $planning = $planningRepository->findOneByNameAndOwner($day, $owner);
             if ($when === 'midi') {
@@ -81,69 +80,6 @@ class RecipeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($planning);
             $entityManager->flush();
-
-            // add recipe to shopping list /////////////////////////////////////////// script part 2
-
-            $foods = [];
-            $currentRecipeFoods = $recipeFoodRepository->findBy([
-                'recipe' => $recipe
-            ]);
-            foreach ($currentRecipeFoods as $currentRecipeFood) {
-                $foods[] = $currentRecipeFood;
-            }
-
-            // for each food in current recipe
-            foreach ($foods as $food) {
-
-                // get multiplier
-                $defaultRecipePersons = $food->getPersons();
-                $multiplier = $for / $defaultRecipePersons;
-
-                $foodId = $food->food->getId();
-
-                $shoppingFoodsId = [];
-                $shoppingRows = $shoppingRepository->findAll();
-                foreach ($shoppingRows as $row) {
-                    $shoppingFoodsId[] = $row->getFood()->getId();
-                }
-                // stop doublon for addition
-                if (in_array($foodId, $shoppingFoodsId)) {
-
-                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($foodId, $food->unit, $owner);
-                    
-                    // line found --> addition
-                    if ($shoppingRow) {
-                        $currentQuantity = $shoppingRow->getQuantity();
-                        $shoppingRow->setQuantity($currentQuantity + $food->quantity * $multiplier);
-                        $entityManager->persist($shoppingRow);
-                        $entityManager->flush();
-                    }
-                    // different units --> new line
-                    else {
-                        $shopping = new Shopping();
-                        $shopping->setSection($food->getSection());
-                        $shopping->setFood($food->getFood());
-                        $shopping->setQuantity($food->getQuantity() * $multiplier);
-                        $shopping->setUnit($food->getUnit());
-                        $shopping->setOwner($owner);
-
-                        $entityManager->persist($shopping);
-                        $entityManager->flush();
-                    }
-                }
-                // no doublon -> new line
-                else {
-                    $shopping = new Shopping();
-                    $shopping->setSection($food->getSection());
-                    $shopping->setFood($food->getFood());
-                    $shopping->setQuantity($food->getQuantity() * $multiplier);
-                    $shopping->setUnit($food->getUnit());
-                    $shopping->setOwner($owner);
-
-                    $entityManager->persist($shopping);
-                    $entityManager->flush();
-                }
-            }
         }
 
         return $this->render('recipe/recipes.html.twig', [
@@ -401,30 +337,10 @@ class RecipeController extends AbstractController
         $planningRows = $planningRepository->findBy(['middayRecipe' => $recipe]);
         if ($planningRows) {
             foreach ($planningRows as $row) {
-                $owner = $row->getOwner();
-                $persons = $row->getMiddayPersons();
                 // clean planning
                 $row->setMiddayRecipe(null);
                 $row->setMiddayPersons(null);
-                $entityManager->persist($row);
-
-                // update shopping
-                $multiplier = $persons / $recipe->getPersons();
-                
-                $recipeFoods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
-                foreach ($recipeFoods as $recipeFood) {
-                    // get the line and substract
-                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($recipeFood->getFood(), $recipeFood->getUnit(), $owner);
-                    $shoppingRow->setQuantity($shoppingRow->getQuantity() - $recipeFood->getQuantity() * $multiplier);
-                    $entityManager->persist($shoppingRow);
-                    $entityManager->flush();
-                    
-                    // del if 0 quantity
-                    if ($shoppingRow->getQuantity() == 0) {
-                        $entityManager->remove($shoppingRow);
-                        $entityManager->flush();
-                    }
-                }              
+                $entityManager->persist($row);           
             }
         }
 
@@ -432,30 +348,10 @@ class RecipeController extends AbstractController
         $planningRows = $planningRepository->findBy(['eveningRecipe' => $recipe]);
         if ($planningRows) {
             foreach ($planningRows as $row) {
-                $owner = $row->getOwner();
-                $persons = $row->getMiddayPersons();
                 // clean planning
                 $row->setEveningRecipe(null);
                 $row->setEveningPersons(null);
                 $entityManager->persist($row);
-
-                // update shopping
-                $multiplier = $persons / $recipe->getPersons();
-                
-                $recipeFoods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
-                foreach ($recipeFoods as $recipeFood) {
-                    // get the line and substract
-                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($recipeFood->getFood(), $recipeFood->getUnit(), $owner);
-                    $shoppingRow->setQuantity($shoppingRow->getQuantity() - $recipeFood->getQuantity() * $multiplier);
-                    $entityManager->persist($shoppingRow);
-                    $entityManager->flush();
-                    
-                    // del if 0 quantity
-                    if ($shoppingRow->getQuantity() == 0) {
-                        $entityManager->remove($shoppingRow);
-                        $entityManager->flush();
-                    }
-                }    
             }
         }
 
