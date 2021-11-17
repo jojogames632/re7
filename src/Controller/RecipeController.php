@@ -6,7 +6,6 @@ use App\Entity\Category;
 use App\Entity\CookingType;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
-use App\Entity\Shopping;
 use App\Entity\Type;
 use App\Form\AddFoodToRecipeType;
 use App\Form\CategoryType;
@@ -16,11 +15,13 @@ use App\Form\TypeType;
 use App\Form\UpdateFoodInRecipeType;
 use App\Form\UpdateRecipeType;
 use App\Repository\CategoryRepository;
+use App\Repository\CookingTypeRepository;
 use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\ShoppingRepository;
+use App\Repository\TypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +32,11 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
+    public function index(CookingTypeRepository $cookingTypeRepository, TypeRepository $typeRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
     { 
         $categories = $categoryRepository->findAll();
+        $cookingTypes = $cookingTypeRepository->findAll();
+        $types = $typeRepository->findAll();
         $owners = $planningRepository->findAllOwners();
 
         $category = $request->get('category');
@@ -85,6 +88,8 @@ class RecipeController extends AbstractController
         return $this->render('recipe/recipes.html.twig', [
             'recipes' => $recipes,
             'categories' => $categories,
+            'cookingTypes' => $cookingTypes,
+            'types' => $types,
             'owners' => $owners
         ]);
     }
