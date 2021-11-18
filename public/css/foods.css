@@ -14,6 +14,19 @@ main {
 .foodsSection,
 .formSection {
 	margin: auto;
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 7px;
+	border: 1px solid rgb(77, 76, 76);
+	box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 1);
+}
+
+.foodsSection {
+	padding: 25px;
+}
+
+.formSection {
+	max-height: 250px;
 }
 
 form {
@@ -24,7 +37,7 @@ form {
 input,
 select {
 	height: 20px;
-	background-color: #212528;
+	background-color: #2b2e30;
 	border-color: #FFC108;
 	margin-bottom: 10px;
 	color: white;

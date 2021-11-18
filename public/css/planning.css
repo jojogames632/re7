@@ -6,10 +6,6 @@ main {
 	overflow: scroll;
 }
 
-.title {
-	font-size: 30px;
-}
-
 #planningSection,
 #planningHeader {
 	font-size: 14px;
@@ -18,21 +14,17 @@ main {
 
 #planningHeader {
 	margin-top: 100px;
-	margin-bottom: 130px;
+	margin-bottom: 60px;
 }
 
 #planningSelect {
-	background-color: #2b2e30;
+	background-color: #212528;
 	border: none;
-	font-size: 16px;
+	font-size: 20px;
 }
 
 .recipeName {
 	font-size: 10px;
-}
-
-.deleteRecipeBtn {
-	margin-left: 5px;
 }
 
 .dayName,
