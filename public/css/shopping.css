@@ -5,45 +5,78 @@ main {
 	overflow: scroll;
 }
 
-#shoppingSection {
-	margin: auto;
-	max-height: 75vh;
-	overflow: scroll;
+#listSection {
+	max-height: 70vh;
+	overflow-y: scroll;
 }
 
 #planningSelect {
 	color: white;
 	border: none;
-	background-color: #212528;
+	background-color: #2b2e30;
+}
+
+#listSection,
+#selectContainer,
+#pdfContainer {
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 10px;
+	border: 1px solid rgb(77, 76, 76);
+	box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 1);
+}
+
+#selectContainer {
+	width: 25vw;
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
-	#shoppingSection {
+	#listSection {
 		width: 75vw;
+	}
+	
+	#selectContainer {
+		width: 25vw;
 	}
 }
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
-	#shoppingSection {
+	#listSection {
 		width: 65vw;
+	}
+
+	#selectContainer {
+		width: 25vw;
 	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
-	#shoppingSection {
+	#listSection {
 		width: 55vw;
+	}
+
+	#selectContainer {
+		width: 15vw;
 	}
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1799px) {
-	#shoppingSection {
+	#listSection {
 		width: 45vw;
+	}
+
+	#selectContainer {
+		width: 12vw;
 	}
 }
 
 @media screen and (min-width: 1800px) {
-	#shoppingSection {
+	#listSection {
 		width: 40vw;
+	}
+
+	#selectContainer {
+		width: 10vw;
 	}
 }
 

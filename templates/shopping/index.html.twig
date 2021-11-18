@@ -96,9 +96,9 @@
         </nav>
     </header>
     <main>
-        <section id="shoppingSection" class="row d-flex justify-content-center mt-5">
+        <section class="d-flex flex-column align-items-center mt-5">
 
-            <div class="d-flex justify-content-center mb-5" id="selectContainer">
+            <section class="d-flex justify-content-center mb-5" id="selectContainer">
                 <select id="planningSelect">
                     {% for owner in owners %}
                         <option value="{{ owner['owner'] }}" {{ owner['owner'] == planningOwner ? 'selected' : null }}>
@@ -106,34 +106,36 @@
                         </option>
                     {% endfor %}
                 </select>
-            </div>
+            </section>
 
-            <div class="row mb-3 border-bottom border-warning pb-3">
-                <div class="col-3 text-warning d-flex justify-content-center">Rayon</div>
-                <div class="col-3 text-warning d-flex justify-content-center">Aliment</div>
-                <div class="col-3 text-warning d-flex justify-content-center">Quantité</div>
-                <div class="col-3 text-warning d-flex justify-content-center">Unité</div>
-            </div>
-            {% if shoppingRows|length > 0 %}
-                {% for food in shoppingRows %}
-                    <div class="row">
-                        <div class="col-3 d-flex justify-content-center">
-                            {{ food.section.name }}
+            <section id="listSection" class="mb-3">
+                <div class="row mb-3 border-bottom border-warning pb-3">
+                    <div class="col-3 text-warning d-flex justify-content-center">Rayon</div>
+                    <div class="col-3 text-warning d-flex justify-content-center">Aliment</div>
+                    <div class="col-3 text-warning d-flex justify-content-center">Quantité</div>
+                    <div class="col-3 text-warning d-flex justify-content-center">Unité</div>
+                </div>
+                {% if shoppingRows|length > 0 %}
+                    {% for food in shoppingRows %}
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center">
+                                {{ food.section.name }}
+                            </div>
+                            <div class="col-3 d-flex justify-content-center">
+                                {{ food.food.name }}
+                            </div>
+                            <div class="col-3 d-flex justify-content-center">
+                                {{ food.quantity }}
+                            </div>
+                            <div class="col-3 d-flex justify-content-center">
+                                {{ food.unit }}
+                            </div>
                         </div>
-                        <div class="col-3 d-flex justify-content-center">
-                            {{ food.food.name }}
-                        </div>
-                        <div class="col-3 d-flex justify-content-center">
-                            {{ food.quantity }}
-                        </div>
-                        <div class="col-3 d-flex justify-content-center">
-                            {{ food.unit }}
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p class="text-center">Aucun repas planifié..</p> 
-            {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center">Aucun repas planifié..</p> 
+                {% endif %}
+            </section>
         </section>
         <p class="text-center mt-5">
             <a href="{{ path('generate_pdf', { 'planningOwner' : planningOwner }) }}" class="btn btn-sm btn-warning">Générer un PDF</a>
