@@ -10,13 +10,14 @@ main {
 	font-size: 30px;
 }
 
-#planningSection {
+#planningSection,
+#planningHeader {
 	font-size: 14px;
 	margin: auto;
-	margin-top: calc(12vh - 80px);
 }
 
 #planningHeader {
+	margin-top: 100px;
 	margin-bottom: 130px;
 }
 
@@ -47,7 +48,7 @@ form {
 
 input,
 select {
-	background-color: #212528;
+	background-color: #2b2e30;
 	color: white;
 }
 
@@ -59,32 +60,52 @@ select {
 	font-size: 18px;
 }
 
+#planningSection {
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 3px 5px 10px 0px rgba(255,255,255,0.18);
+}
+
+.headerPart {
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 7px;
+	box-shadow: 3px 5px 10px 0px rgba(255,255,255,0.18);
+}
+
+
 @media screen and (min-width: 600px) and (max-width: 799px) {
-	#planningSection {
+	#planningSection,
+	#planningHeader {
 		width: 90vw;
 	}
 }
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
-	#planningSection {
+	#planningSection,
+	#planningHeader {
 		width: 80vw;
 	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
-	#planningSection {
+	#planningSection,
+	#planningHeader {
 		width: 70vw;
 	}
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1799px) {
-	#planningSection {
+	#planningSection,
+	#planningHeader {
 		width: 60vw;
 	}
 }
 
 @media screen and (min-width: 1800px) {
-	#planningSection {
+	#planningSection,
+	#planningHeader {
 		width: 55vw;
 	}
 }
