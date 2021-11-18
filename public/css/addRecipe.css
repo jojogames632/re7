@@ -42,10 +42,18 @@ li {
 	cursor: pointer;
 }
 
-#recipeInfosContainer {
+.btnContainer {
+	width: 100vw;
+	margin: auto;
+}
+
+#recipeInfosContainer,
+#foodInputsContainer,
+.btnContainer {
 	background-color: #2b2e30;
 	border-radius: 15px;
 	padding: 25px;
+	box-shadow: 3px 5px 10px 0px rgba(255,255,255,0.18);
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
@@ -55,6 +63,10 @@ li {
 
 	#foodInputsContainer {
 		width: 80vw;
+	}
+
+	.btnContainer {
+		width: 30vw;
 	}
 }
 
@@ -66,9 +78,42 @@ li {
 	#foodInputsContainer {
 		width: 70vw;
 	}
+
+	.btnContainer {
+		width: 25vw;
+	}
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px) and (max-width: 1399px) {
+	#recipeInfosContainer {
+		width: 20vw;
+		margin: auto;
+		margin-top: 35px;
+	}
+
+	#foodInputsContainer {
+		width: 40vw;
+	}
+
+	.btnContainer {
+		width: 20vw;
+	}
+
+	input,
+	select {
+		height: 25px;
+		margin-bottom: 20px;
+	}
+	label {
+		font-size: 20px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.btnContainer {
+		width: 12vw;
+	}
+
 	#recipeInfosContainer {
 		width: 20vw;
 		margin: auto;
@@ -88,4 +133,3 @@ li {
 		font-size: 20px;
 	}
 }
-
