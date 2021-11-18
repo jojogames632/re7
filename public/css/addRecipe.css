@@ -53,7 +53,8 @@ li {
 	background-color: #2b2e30;
 	border-radius: 15px;
 	padding: 25px;
-	box-shadow: 3px 5px 10px 0px rgba(255,255,255,0.18);
+	border: 1px solid rgb(77, 76, 76);
+	box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 1);
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
