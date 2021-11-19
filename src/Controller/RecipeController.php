@@ -121,6 +121,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newRecipe->setName(ucfirst($form['name']->getData()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($newRecipe);
             $entityManager->flush();

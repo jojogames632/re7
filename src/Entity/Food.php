@@ -6,9 +6,14 @@ use App\Repository\FoodRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=FoodRepository::class)
+ * @UniqueEntity(
+ *      fields={"name"},
+ *      message="Cet aliment a déjà été créé"
+ * )
  */
 class Food
 {
@@ -20,7 +25,7 @@ class Food
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     public $name;
 

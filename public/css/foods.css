@@ -11,6 +11,14 @@ main {
 	overflow: scroll;
 }
 
+#alertContainer {
+	background-color: #2b2e30;
+}
+
+li {
+	color: red;
+}
+
 .foodsSection,
 .formSection {
 	margin: auto;
@@ -26,7 +34,7 @@ main {
 }
 
 .formSection {
-	max-height: 250px;
+	max-height: 310px;
 }
 
 form {

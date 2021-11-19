@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 {% for message in app.flashes('danger') %}
-                    <div id="alertContainer" class="alert alert-danger bg-dark border-0 text-danger" role="alert">
+                    <div id="alertContainer" class="alert alert-danger border-0 text-danger" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -138,12 +138,14 @@
             <section class="formSection col d-flex justify-content-center align-items-center">
                 {{ form_start(form) }}
                     {% for message in app.flashes('success') %}
-                        <div id="alertContainer" class="alert alert-success bg-dark border-0 text-center text-success" role="alert">
+                        <div id="alertContainer" class="alert alert-success border-0 text-center text-success" role="alert">
                             {{ message }}
                         </div>
                     {% endfor %}
                     {{ form_label(form.name, 'Nom') }}
                     {{ form_widget(form.name) }}
+                    <span class="mb-2 mt-0">{{ form_errors(form.name) }}</span>
+
                     
                     <div class="d-flex">
                         {{ form_label(form.section, 'Rayon') }}
