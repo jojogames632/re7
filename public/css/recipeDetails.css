@@ -17,6 +17,10 @@ main {
 	margin: auto;
 }
 
+svg {
+	cursor: pointer;
+}
+
 form {
 	display: flex;
 }

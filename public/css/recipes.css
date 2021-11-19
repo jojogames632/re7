@@ -94,11 +94,11 @@ select {
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
 	#filtersSection {
-		width: 40vw;
+		width: 43vw;
 	}
 	
 	#recipesSection {
-		width: 40vw;
+		width: 50vw;
 		margin: auto;
 		margin-top: 50px;
 		max-height: 55vh;
@@ -144,6 +144,6 @@ select {
 	}
 	
 	#filtersSection {
-		width: 27vw;
+		width: 30vw;
 	}
 }

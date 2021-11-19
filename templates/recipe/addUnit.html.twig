@@ -1,10 +1,10 @@
 {% extends "recipe/index.html.twig" %}
 
-{% block title %} Détails de la recette {% endblock %}
+{% block title %} Créer une unité {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/recipeDetails.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/addUnit.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -96,66 +96,20 @@
 		</nav>
 	</header>
 	<main>
-		<h2 class="my-4 text-center">
-			{{ recipe.name }}
-			<a href="{{ path('update_recipe', { 'id' : recipe.id }) }}">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill text-warning" viewBox="0 0 16 16">
-					<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-				</svg>
-			</a>
-		</h2>
-		<p class="text-center mb-3 recipeInfo"><span class="text-warning">Type : </span>{{ recipe.type.name }}</p>
-		<p class="text-center mb-3 recipeInfo"><span class="text-warning">Catégorie : </span>{{ recipe.category.name }}</p>
-		<p class="text-center mb-3 recipeInfo"><span class="text-warning">Cuisson : </span>{{ recipe.cookingType.name }}</p>
-		<p class="text-center mb-3 recipeInfo"><span class="text-warning">Durée : </span>{{ recipe.duration }} minutes</p>
-		<p class="text-center mb-5 recipeInfo"><span class="text-warning">Pour : </span>{{ recipe.persons }} personnes</p>
+		<h1 id="title" class="text-center mt-5 text-white fs-2">Créer une unité</h1>
 
-		<section class="recipeFoodsSection">
-			<div class="row border-bottom border-warning pb-3 mb-3">
-				<div class="col-5 text-warning d-flex justify-content-center">Aliment</div>
-				<div class="col-2 text-warning d-flex justify-content-center">quantité</div>
-				<div class="col-2 text-warning d-flex justify-content-center align-items-center">
-					unité
-					<a href="{{ path('add_unit', { 'id' : recipe.id }) }}" class="ms-2">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-success mb-1" viewBox="0 0 16 16">
-							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-						</svg>
-					</a>
-				</div>
+		{{ form_start(form) }}
+
+			{{ form_label(form.name, 'Nom') }}
+			{{ form_widget(form.name) }}
+			{{ form_errors(form.name) }}
+
+			<div class="d-flex justify-content-around mt-3">
+				<a href="{{ path('recipe_details', { 'id' : id }) }}" class="btn btn-sm btn-outline-warning">Annuler</a>
+				<button type="submit" class="btn btn-sm btn-outline-warning">Créer</button>
 			</div>
-			{% for food in foods %}
-				<div class="row mb-2">
-					<div class="col-5 d-flex justify-content-center">{{ food.foodName }}</div>
-					<div class="col-2 d-flex justify-content-center">{{ food.quantity }}</div>
-					<div class="col-2 d-flex justify-content-center">{{ food.unit.name }}</div>
-					<div class="col-2 d-flex justify-content-between align-items-center">
-						<a href="{{ path('update_food_in_recipe', { 'id' : food.id, 'recipeId' : recipe.id }) }}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill text-warning" viewBox="0 0 16 16">
-								<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-							</svg>
-						</a>
-						<a href="{{ path('delete_food_in_recipe', { 'id' : food.id, 'recipeId' : recipe.id }) }}" onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet aliment?')">
-							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-circle text-danger" viewBox="0 0 16 16">
-								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-								<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-							</svg>
-						</a>
-					</div>
-				</div>
-			{% endfor %}
-			{{ form_start(form) }}
-				<div class="row w-100 mt-3">
-					<div class="col-5 d-flex justify-content-center">{{ form_widget(form.food) }}</div>
-					<div class="col-2 d-flex justify-content-center">{{ form_widget(form.quantity) }}</div>
-					<div class="col-2 d-flex justify-content-center">{{ form_widget(form.unit) }}</div>
-					<div class="col-2">
-						<button type="submit" class="btn btn-sm btn-outline-warning">Ajouter</button>
-					</div>
-				</div>
 
-			{{ form_end(form) }}
-			
-		</section>
+		{{ form_end(form) }}
 	</main>
 {% endblock %}
 

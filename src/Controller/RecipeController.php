@@ -7,11 +7,13 @@ use App\Entity\CookingType;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
 use App\Entity\Type;
+use App\Entity\Unit;
 use App\Form\AddFoodToRecipeType;
 use App\Form\CategoryType;
 use App\Form\CookingTypeType;
 use App\Form\RecipeType;
 use App\Form\TypeType;
+use App\Form\UnitType;
 use App\Form\UpdateFoodInRecipeType;
 use App\Form\UpdateRecipeType;
 use App\Repository\CategoryRepository;
@@ -317,6 +319,30 @@ class RecipeController extends AbstractController
 
         return $this->render('recipe/addCookingType.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/add-unit/{id<\d+>}", name="add_unit")
+     */
+    public function addUnit(int $id, Request $request)
+    {   
+        $unit = new Unit();
+        $form = $this->createForm(UnitType::class, $unit);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $unit->setName(ucfirst($form['name']->getData()));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($unit);
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('recipe_details', ['id' => $id]));
+        }
+
+        return $this->render('recipe/addUnit.html.twig', [
+            'form' => $form->createView(),
+            'id' => $id
         ]);
     }
 
