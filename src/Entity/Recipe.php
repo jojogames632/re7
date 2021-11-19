@@ -6,9 +6,14 @@ use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
+ * @UniqueEntity(
+ *      fields={"name"},
+ *      message="Une recette avec le même nom a déjà été créée"
+ * )
  */
 class Recipe
 {
@@ -20,7 +25,7 @@ class Recipe
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 

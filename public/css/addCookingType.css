@@ -21,6 +21,10 @@ input {
 	color: white;
 }
 
+li {
+	color: red;
+}
+
 label {
 	margin-bottom: 5px;
 }

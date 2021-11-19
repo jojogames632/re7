@@ -22,8 +22,7 @@ class AddFoodToRecipeType extends AbstractType
                 'choice_label' => 'name'
             ])
             ->add('quantity', NumberType::class, [
-                'required' => true,
-                'data' => 1
+                'required' => true
             ])
             ->add('unit', ChoiceType::class, [
                 'required' => true,
