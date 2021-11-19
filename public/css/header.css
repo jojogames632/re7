@@ -54,3 +54,15 @@ ul {
 		display: none;
 	}
 }
+
+@media screen and (min-width: 1000px) and (max-width: 1399px) {
+	.desktopNav li {
+		font-size: 15px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.desktopNav li {
+		font-size: 20px;
+	}
+}
