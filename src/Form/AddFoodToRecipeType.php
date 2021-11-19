@@ -35,7 +35,9 @@ class AddFoodToRecipeType extends AbstractType
                     'l' => 'l',
                     'pièce' => 'pièce',
                     'pincée' => 'pincée',
-                    'poignée' => 'poignée'
+                    'poignée' => 'poignée',
+                    'C.S.' => 'C.S.',
+                    'C.C.' => 'C.C.'
                 ]
             ])
         ;

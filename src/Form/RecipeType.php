@@ -41,7 +41,7 @@ class RecipeType extends AbstractType
             ->add('duration', NumberType::class, [
                 'required' => true,
                 'attr' => [
-                    'value' => 40
+                    'value' => 1
                 ]
             ])
             ->add('persons', NumberType::class, [

@@ -4,14 +4,6 @@ main {
 	overflow: scroll;
 }
 
-#recipeInfosContainer {
-	display: flex;
-	flex-direction: column;
-	width: 80vw;
-	margin: auto;
-	margin-top: 35px;
-}
-
 input,
 select {
 	height: 20px;
@@ -47,6 +39,10 @@ li {
 	margin: auto;
 }
 
+#recipeInfosContainer {
+	margin: auto;
+}
+
 #recipeInfosContainer,
 #foodInputsContainer,
 .btnContainer {
@@ -55,6 +51,11 @@ li {
 	padding: 25px;
 	border: 1px solid rgb(77, 76, 76);
 	box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 1);
+}
+
+.createRecipeBtn {
+	width: 100%;
+	margin: auto;
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
@@ -73,7 +74,7 @@ li {
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
 	#recipeInfosContainer {
-		width: 30vw;
+		width: 50vw;
 	}
 
 	#foodInputsContainer {
@@ -87,9 +88,7 @@ li {
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
 	#recipeInfosContainer {
-		width: 20vw;
-		margin: auto;
-		margin-top: 35px;
+		width: 50vw;
 	}
 
 	#foodInputsContainer {
@@ -116,8 +115,7 @@ li {
 	}
 
 	#recipeInfosContainer {
-		width: 20vw;
-		margin: auto;
+		width: 40vw;
 		margin-top: 35px;
 	}
 

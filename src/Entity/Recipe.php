@@ -27,11 +27,6 @@ class Recipe
     /**
      * @ORM\Column(type="integer")
      */
-    private $duration;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $persons;
 
     /**
@@ -67,6 +62,11 @@ class Recipe
      */
     private $cookingType;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $duration;
+
     public function __construct()
     {
         $this->middayPlannings = new ArrayCollection();
@@ -88,18 +88,6 @@ class Recipe
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
 
         return $this;
     }
@@ -238,6 +226,18 @@ class Recipe
     public function setCookingType(?CookingType $cookingType): self
     {
         $this->cookingType = $cookingType;
+
+        return $this;
+    }
+
+    public function getDuration(): ?float
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(float $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

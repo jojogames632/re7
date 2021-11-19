@@ -114,54 +114,29 @@ class RecipeController extends AbstractController
     /**
      * @Route("/add-recipe", name="add_recipe")
      */
-    public function addRecipe(Request $request, FoodRepository $foodRepository)
+    public function addRecipe(Request $request, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository)
     {
-        $foods = $foodRepository->getSortedFoods();
-
-        $recipe = new Recipe();
-        
-        $form = $this->createForm(RecipeType::class, $recipe);
-        $form->handleRequest($request);        
+        $newRecipe = new Recipe();
+        $form = $this->createForm(recipeType::class, $newRecipe);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $foodFieldsCount = (count($_POST) - 1) / 3;
             $entityManager = $this->getDoctrine()->getManager();
-
-            for ($i = 1; $i <= $foodFieldsCount; $i++) {
-                if (htmlspecialchars($_POST['quantity' . $i]) > 0) {
-                    $foodId = htmlspecialchars($_POST['food' . $i]);
-                    $food = $foodRepository->find($foodId);
-                    
-                    $recipeFood = new RecipeFood();
-                    $recipeFood->setRecipe($recipe);
-                    $recipeFood->setFood($food);
-                    $recipeFood->setQuantity(htmlspecialchars($_POST['quantity' . $i]));
-                    $recipeFood->setUnit(htmlspecialchars($_POST['unit' . $i]));
-                    $recipeFood->setSection($food->getSection());
-                    $recipeFood->setFoodName($food->name);
-                    $recipeFood->setPersons($recipe->getPersons());
-
-                    $entityManager->persist($recipeFood);
-                }
-            }
-
-            $entityManager->persist($recipe);
+            $entityManager->persist($newRecipe);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Recette ajoutée avec succès !');
+            return $this->redirect($this->generateUrl('recipe_details', [ 'id' => $newRecipe->getId()]));
         }
 
         return $this->render('recipe/addRecipe.html.twig', [
             'form' => $form->createView(),
-            'foods' => $foods
         ]);
     }
 
     /**
      * @Route("/recipe-details/{id<\d+>}", name="recipe_details")
      */
-    public function showRecipeDetails(int $id, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, request $request)
+    public function showRecipeDetails(int $id = 1, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, request $request)
     {
         if (!$recipe = $recipeRepository->find($id)) {
             throw $this->createNotFoundException(sprintf('La recette avec l\'id %s n\'existe pas', $id));
