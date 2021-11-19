@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Food;
 use App\Entity\Section;
+use App\Repository\SectionRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +22,11 @@ class FoodType extends AbstractType
             ->add('section', EntityType::class, [
                 'required' => true,
                 'class' => Section::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'query_builder' => function (SectionRepository $sr) {
+                    return $sr->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                }
             ])
         ;
     }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Food;
 use App\Entity\RecipeFood;
+use App\Repository\FoodRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,7 +20,11 @@ class AddFoodToRecipeType extends AbstractType
             ->add('food', EntityType::class, [
                 'required' => true,
                 'class' => Food::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'query_builder' => function (FoodRepository $fr) {
+                    return $fr->createQueryBuilder('f')
+                        ->orderBy('f.name', 'ASC');
+                }
             ])
             ->add('quantity', NumberType::class, [
                 'required' => true
