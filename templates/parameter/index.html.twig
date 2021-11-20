@@ -108,7 +108,169 @@
         </nav>
     </header>
     <main>
+		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 p-3 mt-5" id="mainRow">
+			<div class="col mb-3">
+				<div class="d-flex justify-content-center">
+					<p class="paramTitle text-center text-warning fs-4">Types</p>
+					<a href="{{ path('add_type') }}" class="ms-3 mt-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-warning" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{% for message in app.flashes('type') %}
+					<div id="alertContainer" class="alert alert-danger border-0 text-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{% for type in types %}
+					<div class="row mb-2">
+						<div class="col-8 d-flex justify-content-start">
+							{{ type.name }}
+						</div>
+						<a href="{{ path('update_type', { 'id' : type.id }) }}" class="col-2 d-flex justify-content-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill text-warning" viewBox="0 0 16 16">
+								<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+							</svg>
+						</a>
+						<a href="{{ path('delete_type', { 'id' : type.id }) }}" class="col-2 d-flex justify-content-center" onclick="return confirm('Êtes-vous sûre de vouloir supprimer ce type ?')">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+							</svg>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col mb-3">
+				<div class="d-flex justify-content-center">
+					<p class="paramTitle text-center text-warning fs-4">Types de cuisson</p>
 
+					<a href="{{ path('add_cookingType') }}" class="ms-3 mt-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-warning" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{% for message in app.flashes('cookingType') %}
+					<div id="alertContainer" class="alert alert-danger border-0 text-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{% for cookingType in cookingTypes %}
+					<div class="row mb-2">
+						<div class="col-8 d-flex justify-content-start">
+							{{ cookingType.name }}
+						</div>
+						<a href="{{ path('update_cookingType', { 'id' : cookingType.id }) }}" class="col-2 d-flex justify-content-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill text-warning" viewBox="0 0 16 16">
+								<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+							</svg>
+						</a>
+						<a href="{{ path('delete_cookingType', { 'id' : cookingType.id }) }}" class="col-2 d-flex justify-content-center" onclick="return confirm('Êtes-vous sûre de vouloir supprimer ce type de cuisson ?')">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+							</svg>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col mb-3">
+				<div class="d-flex justify-content-center">
+					<p class="paramTitle text-center text-warning fs-4">Catégories</p>
+					<a href="{{ path('add_category') }}" class="ms-3 mt-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-warning" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{% for message in app.flashes('category') %}
+					<div id="alertContainer" class="alert alert-danger border-0 text-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{% for category in categories %}
+					<div class="row mb-2">
+						<div class="col-8 d-flex justify-content-start">
+							{{ category.name }}
+						</div>
+						<a href="{{ path('update_category', { 'id' : category.id }) }}" class="col-2 d-flex justify-content-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill text-warning" viewBox="0 0 16 16">
+								<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+							</svg>
+						</a>
+						<a href="{{ path('delete_category', { 'id' : category.id }) }}" class="col-2 d-flex justify-content-center" onclick="return confirm('Êtes-vous sûre de vouloir supprimer cette catégorie ?')">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+							</svg>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col mb-3">
+				<div class="d-flex justify-content-center">
+					<p class="paramTitle text-center text-warning fs-4">Unités</p>
+					<a href="{{ path('add_unit') }}" class="ms-3 mt-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-warning" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{% for message in app.flashes('unit') %}
+					<div id="alertContainer" class="alert alert-danger border-0 text-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{% for unit in units %}
+					<div class="row mb-2">
+						<div class="col-8 d-flex justify-content-start">
+							{{ unit.name }}
+						</div>
+						<a href="{{ path('update_unit', { 'id' : unit.id }) }}" class="col-2 d-flex justify-content-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill text-warning" viewBox="0 0 16 16">
+								<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+							</svg>
+						</a>
+						<a href="{{ path('delete_unit', { 'id' : unit.id }) }}" class="col-2 d-flex justify-content-center" onclick="return confirm('Êtes-vous sûre de vouloir supprimer cette unité ?')">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+							</svg>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col mb-3">
+				<div class="d-flex justify-content-center">
+					<p class="paramTitle text-center text-warning fs-4">Rayons</p>
+					<a href="{{ path('add_section') }}" class="ms-3 mt-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill text-warning" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
+				</div>
+				{% for message in app.flashes('section') %}
+					<div id="alertContainer" class="alert alert-danger border-0 text-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{% for section in sections %}
+					<div class="row mb-2">
+						<div class="col-8 d-flex justify-content-start">
+							{{ section.name }}
+						</div>
+						<a href="{{ path('update_section', { 'id' : section.id }) }}" class="col-2 d-flex justify-content-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill text-warning" viewBox="0 0 16 16">
+								<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+							</svg>
+						</a>
+						<a href="{{ path('delete_section', { 'id' : section.id }) }}" class="col-2 d-flex justify-content-center" onclick="return confirm('Êtes-vous sûre de vouloir supprimer ce rayon ?')">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+							</svg>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
     </main>
 {% endblock %}
 

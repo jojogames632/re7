@@ -23,29 +23,11 @@ li {
 	list-style: none;
 }
 
-#foodInputsContainer {
-	width: 100vw;
-	height: 28vh;
-	overflow-x: scroll;
-	margin: auto;
-}
-
-#addFieldsBtn:hover {
-	cursor: pointer;
-}
-
-.btnContainer {
-	width: 100vw;
-	margin: auto;
-}
-
 #recipeInfosContainer {
 	margin: auto;
 }
 
-#recipeInfosContainer,
-#foodInputsContainer,
-.btnContainer {
+#recipeInfosContainer {
 	background-color: #2b2e30;
 	border-radius: 15px;
 	padding: 25px;
@@ -62,41 +44,17 @@ li {
 	#recipeInfosContainer {
 		width: 50vw;
 	}
-
-	#foodInputsContainer {
-		width: 80vw;
-	}
-
-	.btnContainer {
-		width: 30vw;
-	}
 }
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
 	#recipeInfosContainer {
 		width: 50vw;
 	}
-
-	#foodInputsContainer {
-		width: 70vw;
-	}
-
-	.btnContainer {
-		width: 25vw;
-	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
 	#recipeInfosContainer {
 		width: 50vw;
-	}
-
-	#foodInputsContainer {
-		width: 40vw;
-	}
-
-	.btnContainer {
-		width: 20vw;
 	}
 
 	input,
@@ -110,17 +68,10 @@ li {
 }
 
 @media screen and (min-width: 1400px) {
-	.btnContainer {
-		width: 12vw;
-	}
 
 	#recipeInfosContainer {
 		width: 40vw;
 		margin-top: 35px;
-	}
-
-	#foodInputsContainer {
-		width: 40vw;
 	}
 
 	input,

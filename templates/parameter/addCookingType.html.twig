@@ -1,10 +1,10 @@
 {% extends "recipe/index.html.twig" %}
 
-{% block title %} Créer un type {% endblock %}
+{% block title %} Créer un type de cuisson {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/addType.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/addCookingType.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -108,7 +108,7 @@
 		</nav>
 	</header>
 	<main>
-		<h1 id="title" class="text-center mt-5 text-white fs-2">Créer un type</h1>
+		<h1 id="title" class="text-center mt-5 text-white fs-2">Créer un type de cuisson</h1>
 
 		{{ form_start(form) }}
 
@@ -117,7 +117,7 @@
 			{{ form_errors(form.name) }}
 
 			<div class="d-flex justify-content-around mt-3">
-				<a href="{{ path('add_recipe') }}" class="btn btn-sm btn-outline-warning">Annuler</a>
+				<a href="{{ path('parameters') }}" class="btn btn-sm btn-outline-warning">Annuler</a>
 				<button type="submit" class="btn btn-sm btn-outline-warning">Créer</button>
 			</div>
 

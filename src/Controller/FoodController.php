@@ -51,32 +51,6 @@ class FoodController extends AbstractController
     }
 
     /**
-     * @Route("/add-section", name="add_section")
-     */
-    public function addSection(Request $request): Response
-    {
-        $section = new Section();
-
-        $form = $this->createForm(SectionType::class, $section);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $section->setName(ucfirst($form['name']->getData()));
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($section);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('foods');
-        }
-
-        return $this->render('food/addSection.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/delete-food/{id<\d+>}", name="delete_food")
      */
     public function deleteFood(int $id, FoodRepository $foodRepository, RecipeFoodRepository $recipeFoodRepository)

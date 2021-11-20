@@ -1,0 +1,42 @@
+main {
+	height: calc(100vh - 80px);
+	background-color: #212528;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	color: white;
+}
+
+#mainRow > div {
+	background-color: #2b2e30;
+	border-radius: 15px;
+	padding: 25px;
+	border: 1px solid rgb(77, 76, 76);
+	box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 1);
+	max-height: 50vh;
+	overflow-y: scroll;
+}
+
+svg {
+	min-width: 16px;
+	max-width: 16px;
+}
+
+#alertContainer {
+	background-color: #2b2e30;
+}
+
+li {
+	color: red;
+}
+
+@media screen and (min-width: 1000px) {
+	#mainRow > div {
+		width: 18%;
+		margin-right: 25px;
+	}
+
+	#mainRow {
+		display: flex;
+		justify-content: center;
+	}
+}
