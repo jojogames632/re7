@@ -139,7 +139,9 @@ class ShoppingController extends AbstractController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $fichier = 'Liste-de-courses.pdf';
-        $dompdf->stream($fichier);
+        $dompdf->stream($fichier, [
+            'Attachment' => false
+        ]);
         
         return $this->redirect($this->generateUrl('shopping', [
             'planningOwner' => $planningOwner
