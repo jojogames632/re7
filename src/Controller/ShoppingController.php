@@ -120,7 +120,7 @@ class ShoppingController extends AbstractController
     /**
      * @Route("/generate-pdf/{planningOwner}", name="generate_pdf")
      */
-    public function generatePdf(string $planningOwner, ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository): Response
+    public function generatePdf(string $planningOwner, ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository)
     {
         $shoppingRows = $shoppingRepository->findAllFilteredBySection($planningOwner);
         $owners = $planningRepository->findAllOwners();
@@ -138,13 +138,8 @@ class ShoppingController extends AbstractController
         $dompdf->loadHtml($html->getContent());
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $fichier = 'Liste-de-courses.pdf';
-        $dompdf->stream($fichier, [
+        $dompdf->stream('Liste-de-courses.pdf', [
             'Attachment' => false
         ]);
-        
-        return $this->redirect($this->generateUrl('shopping', [
-            'planningOwner' => $planningOwner
-        ]));
     }
 }
