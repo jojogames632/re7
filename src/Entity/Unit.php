@@ -34,9 +34,15 @@ class Unit
      */
     private $recipeFood;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Shopping::class, mappedBy="unit")
+     */
+    private $shoppings;
+
     public function __construct()
     {
         $this->recipeFood = new ArrayCollection();
+        $this->shoppings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,36 @@ class Unit
             // set the owning side to null (unless already changed)
             if ($recipeFood->getUnit() === $this) {
                 $recipeFood->setUnit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Shopping[]
+     */
+    public function getShoppings(): Collection
+    {
+        return $this->shoppings;
+    }
+
+    public function addShopping(Shopping $shopping): self
+    {
+        if (!$this->shoppings->contains($shopping)) {
+            $this->shoppings[] = $shopping;
+            $shopping->setUnit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShopping(Shopping $shopping): self
+    {
+        if ($this->shoppings->removeElement($shopping)) {
+            // set the owning side to null (unless already changed)
+            if ($shopping->getUnit() === $this) {
+                $shopping->setUnit(null);
             }
         }
 

@@ -37,12 +37,12 @@ class Shopping
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $unit;
+    private $owner;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="shoppings")
      */
-    private $owner;
+    private $unit;
 
     public function getId(): ?int
     {
@@ -85,18 +85,6 @@ class Shopping
         return $this;
     }
 
-    public function getUnit(): ?string
-    {
-        return $this->unit;
-    }
-
-    public function setUnit(string $unit): self
-    {
-        $this->unit = $unit;
-
-        return $this;
-    }
-
     public function getOwner(): ?string
     {
         return $this->owner;
@@ -105,6 +93,18 @@ class Shopping
     public function setOwner(string $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getUnit(): ?Unit
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?Unit $unit): self
+    {
+        $this->unit = $unit;
 
         return $this;
     }

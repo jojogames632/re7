@@ -36,7 +36,7 @@ class UpdateRecipeType extends AbstractType
                 'class' => CookingType::class,
                 'choice_label' => 'name'
             ])
-            ->add('duration', NumberType::class, [
+            ->add('duration', TextType::class, [
                 'required' => true,
             ])
             ->add('persons', NumberType::class, [
