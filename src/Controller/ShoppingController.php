@@ -131,10 +131,7 @@ class ShoppingController extends AbstractController
             'planningOwner' => $planningOwner
         ]);
 
-        $options = new Options();
-        $options->set('defaultFont', 'Palatino');
-
-        $dompdf = new Dompdf($options);
+        $dompdf = new Dompdf();
         $dompdf->loadHtml($html->getContent());
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
