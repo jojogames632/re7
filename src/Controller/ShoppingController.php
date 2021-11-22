@@ -18,7 +18,7 @@ class ShoppingController extends AbstractController
     /**
      * @Route("/shopping/{planningOwner}", name="shopping")
      */
-    public function index(ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository, RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository, string $planningOwner = 'Christophe'): Response
+    public function index(ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository, RecipeFoodRepository $recipeFoodRepository, string $planningOwner = 'Christophe'): Response
     { 
         $owners = $planningRepository->findAllOwners();
         $entityManager = $this->getDoctrine()->getManager();
@@ -120,7 +120,7 @@ class ShoppingController extends AbstractController
     /**
      * @Route("/generate-pdf/{planningOwner}", name="generate_pdf")
      */
-    public function generatePdf(string $planningOwner, ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository)
+    public function generatePdf(string $planningOwner, ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository): Response
     {
         $shoppingRows = $shoppingRepository->findAllFilteredBySection($planningOwner);
         $owners = $planningRepository->findAllOwners();
