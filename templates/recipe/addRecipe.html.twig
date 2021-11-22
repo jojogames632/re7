@@ -1,6 +1,6 @@
 {% extends "recipe/index.html.twig" %}
 
-{% block title %} Liste des recettes {% endblock %}
+{% block title %} Ajouter une recette {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
@@ -116,9 +116,9 @@
 					{{ form_widget(form.name) }}
 					{{ form_errors(form.name) }}
 
-					{{ form_label(form.type, 'Type') }}
-					{{ form_widget(form.type) }}
-					{{ form_errors(form.type) }}
+					{{ form_label(form.recipeType, 'Type') }}
+					{{ form_widget(form.recipeType) }}
+					{{ form_errors(form.recipeType) }}
 
 					
 					{{ form_label(form.cookingType, 'Type de cuisson') }}

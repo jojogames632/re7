@@ -56,12 +56,6 @@ class Recipe
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="recipes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $type;
-
-    /**
      * @ORM\ManyToOne(targetEntity=CookingType::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -71,6 +65,12 @@ class Recipe
      * @ORM\Column(type="string")
      */
     private $duration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=RecipeType::class, inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $recipeType;
 
     public function __construct()
     {
@@ -211,18 +211,6 @@ class Recipe
         return $this;
     }
 
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getCookingType(): ?CookingType
     {
         return $this->cookingType;
@@ -243,6 +231,18 @@ class Recipe
     public function setDuration(string $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getRecipeType(): ?RecipeType
+    {
+        return $this->recipeType;
+    }
+
+    public function setRecipeType(?RecipeType $recipeType): self
+    {
+        $this->recipeType = $recipeType;
 
         return $this;
     }

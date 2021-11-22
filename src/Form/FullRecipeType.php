@@ -5,20 +5,18 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\CookingType;
 use App\Entity\Recipe;
-use App\Entity\Type;
+use App\Entity\RecipeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\FoodAmountType;
 use App\Repository\CategoryRepository;
 use App\Repository\CookingTypeRepository;
-use App\Repository\TypeRepository;
+use App\Repository\RecipeTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class RecipeType extends AbstractType
+class FullRecipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -26,11 +24,11 @@ class RecipeType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true
             ])
-            ->add('type', EntityType::class, [
+            ->add('recipeType', EntityType::class, [
                 'required' => true,
-                'class' => Type::class,
+                'class' => RecipeType::class,
                 'choice_label' => 'name',
-                'query_builder' => function (TypeRepository $tr) {
+                'query_builder' => function (RecipeTypeRepository $tr) {
                     return $tr->createQueryBuilder('t')
                         ->orderBy('t.name', 'ASC');
                 }

@@ -2,18 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use App\Entity\CookingType;
 use App\Entity\Recipe;
 use App\Entity\RecipeFood;
-use App\Entity\Type;
-use App\Entity\Unit;
 use App\Form\AddFoodToRecipeType;
-use App\Form\CategoryType;
-use App\Form\CookingTypeType;
-use App\Form\RecipeType;
-use App\Form\TypeType;
-use App\Form\UnitType;
+use App\Form\FullRecipeType;
 use App\Form\UpdateFoodInRecipeType;
 use App\Form\UpdateRecipeType;
 use App\Repository\CategoryRepository;
@@ -23,7 +15,7 @@ use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\ShoppingRepository;
-use App\Repository\TypeRepository;
+use App\Repository\RecipeTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,11 +26,11 @@ class RecipeController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function index(RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository, CookingTypeRepository $cookingTypeRepository, TypeRepository $typeRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
+    public function index(RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository, CookingTypeRepository $cookingTypeRepository, RecipeTypeRepository $recipeTypeRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository, CategoryRepository $categoryRepository, Request $request)
     { 
         $categories = $categoryRepository->findAll();
         $cookingTypes = $cookingTypeRepository->findAll();
-        $types = $typeRepository->findAll();
+        $types = $recipeTypeRepository->findAll();
         $owners = $planningRepository->findAllOwners();
         $foods = $foodRepository->findAll();
 
@@ -116,10 +108,10 @@ class RecipeController extends AbstractController
     /**
      * @Route("/add-recipe", name="add_recipe")
      */
-    public function addRecipe(Request $request, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository)
+    public function addRecipe(Request $request)
     {
         $newRecipe = new Recipe();
-        $form = $this->createForm(recipeType::class, $newRecipe);
+        $form = $this->createForm(FullRecipeType::class, $newRecipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

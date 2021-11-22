@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Food;
-use App\Entity\Section;
 use App\Form\FoodType;
-use App\Form\SectionType;
 use App\Form\UpdateFoodType;
 use App\Repository\FoodRepository;
 use App\Repository\RecipeFoodRepository;
@@ -74,7 +72,7 @@ class FoodController extends AbstractController
     /**
      * @Route("/update-food/{id<\d+>}", name="update_food")
      */
-    public function updateFood(int $id, request $request, FoodRepository $foodRepository, RecipeFoodRepository $recipeFoodRepository)
+    public function updateFood(int $id, request $request, FoodRepository $foodRepository)
     {  
         if (!$food = $foodRepository->find($id)) {
             throw $this->createNotFoundException('Cette aliment n\'a pas été trouvée');

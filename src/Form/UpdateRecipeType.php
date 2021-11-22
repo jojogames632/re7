@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Type;
+use App\Entity\RecipeType;
 use App\Entity\CookingType;
 
 class UpdateRecipeType extends AbstractType
@@ -21,9 +21,9 @@ class UpdateRecipeType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true
             ])
-            ->add('type', EntityType::class, [
+            ->add('recipeType', EntityType::class, [
                 'required' => true,
-                'class' => Type::class,
+                'class' => RecipeType::class,
                 'choice_label' => 'name'
             ])
             ->add('category', EntityType::class, [

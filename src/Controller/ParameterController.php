@@ -5,24 +5,24 @@ namespace App\Controller;
 use App\Form\CategoryType;
 use App\Form\CookingTypeType;
 use App\Form\SectionType;
-use App\Form\TypeType;
 use App\Form\UnitType;
 use App\Entity\Category;
 use App\Entity\CookingType;
-use App\Entity\Type;
+use App\Entity\RecipeType;
 use App\Entity\Unit;
 use App\Entity\Section;
+use App\Form\recipeTypeType;
 use App\Form\UpdateCookingTypeType;
+use App\Form\UpdateRecipeTypeType;
 use App\Form\UpdateSectionType;
-use App\Form\UpdateTypeType;
 use App\Form\UpdateUnitType;
 use App\Repository\CategoryRepository;
 use App\Repository\CookingTypeRepository;
 use App\Repository\FoodRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
+use App\Repository\RecipeTypeRepository;
 use App\Repository\SectionRepository;
-use App\Repository\TypeRepository;
 use App\Repository\UnitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,9 +34,9 @@ class ParameterController extends AbstractController
     /**
      * @Route("/parameters", name="parameters")
      */
-    public function index(TypeRepository $typeRepository, CookingTypeRepository $cookingTypeRepository, CategoryRepository $categoryRepository, UnitRepository $unitRepository, SectionRepository $sectionRepository): Response
+    public function index(RecipeTypeRepository $recipeTypeRepository, CookingTypeRepository $cookingTypeRepository, CategoryRepository $categoryRepository, UnitRepository $unitRepository, SectionRepository $sectionRepository): Response
     {
-        $types = $typeRepository->findAll();
+        $types = $recipeTypeRepository->findAll();
         $cookingTypes = $cookingTypeRepository->findAll();
         $categories = $categoryRepository->findAll();
         $units = $unitRepository->findAll();
@@ -79,8 +79,8 @@ class ParameterController extends AbstractController
      */
     public function addType(Request $request)
     {   
-        $type = new Type();
-        $form = $this->createForm(TypeType::class, $type);
+        $type = new RecipeType();
+        $form = $this->createForm(recipeTypeType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -173,13 +173,13 @@ class ParameterController extends AbstractController
     /**
      * @Route("/update-type/{id<\d+>}", name="update_type")
      */
-    public function updateType(int $id, TypeRepository $typeRepository, Request $request): Response
+    public function updateType(int $id, RecipeTypeRepository $recipeTypeRepository, Request $request): Response
     {
-        if (!$type = $typeRepository->find($id)) {
+        if (!$type = $recipeTypeRepository->find($id)) {
             throw $this->createNotFoundException(sprintf('Le type avec l\'id %s n\'existe pas', $id));
         }
 
-        $form = $this->createForm(UpdateTypeType::class, $type);
+        $form = $this->createForm(UpdateRecipeTypeType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -298,13 +298,13 @@ class ParameterController extends AbstractController
     /**
      * @Route("/delete-type/{id<\d+>}", name="delete_type")
      */
-    public function deleteType(int $id, TypeRepository $typeRepository, RecipeRepository $recipeRepository): Response
+    public function deleteType(int $id, RecipeTypeRepository $recipeTypeRepository, RecipeRepository $recipeRepository): Response
     {
-        if (!$type = $typeRepository->find($id)) {
+        if (!$type = $recipeTypeRepository->find($id)) {
             throw $this->createNotFoundException(sprintf('Le type avec l\'id %s n\'existe pas', $id));
         }
 
-        if ($recipeRepository->findByType($type)) {
+        if ($recipeRepository->findByRecipeType($type)) {
             $this->addFlash('type', 'Ce type fait déja parti d\'une recette, vous ne pouvez pas le supprimer');
         }
         else {

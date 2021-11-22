@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeRepository;
+use App\Repository\RecipeTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass=TypeRepository::class)
+ * @ORM\Entity(repositoryClass=RecipeTypeRepository::class)
  * @UniqueEntity(
  *      fields={"name"},
- *      message="Ce type a déjà été créé"
- * )
+ *      message="Un type avec le même nom a déjà été créé"
+ * )    
  */
-class Type
+class RecipeType
 {
     /**
      * @ORM\Id
@@ -30,7 +30,7 @@ class Type
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="type")
+     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="recipeType")
      */
     private $recipes;
 
@@ -68,7 +68,7 @@ class Type
     {
         if (!$this->recipes->contains($recipe)) {
             $this->recipes[] = $recipe;
-            $recipe->setType($this);
+            $recipe->setRecipeType($this);
         }
 
         return $this;
@@ -78,8 +78,8 @@ class Type
     {
         if ($this->recipes->removeElement($recipe)) {
             // set the owning side to null (unless already changed)
-            if ($recipe->getType() === $this) {
-                $recipe->setType(null);
+            if ($recipe->getRecipeType() === $this) {
+                $recipe->setRecipeType(null);
             }
         }
 
