@@ -142,8 +142,6 @@ class ShoppingController extends AbstractController
             'Attachment' => false
         ]);
         
-        return $this->redirect($this->generateUrl('shopping', [
-            'planningOwner' => $planningOwner
-        ]));
+        return new Response();
     }
 }
