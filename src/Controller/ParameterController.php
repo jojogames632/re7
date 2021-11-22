@@ -130,7 +130,6 @@ class ParameterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $unit->setName(ucfirst($form['name']->getData()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($unit);
             $entityManager->flush();
