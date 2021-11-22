@@ -14,7 +14,6 @@ use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\RecipeRepository;
-use App\Repository\ShoppingRepository;
 use App\Repository\RecipeTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -131,7 +130,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("/recipe-details/{id<\d+>}", name="recipe_details")
      */
-    public function showRecipeDetails(int $id = 1, RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, request $request)
+    public function showRecipeDetails(RecipeRepository $recipeRepository, RecipeFoodRepository $recipeFoodRepository, request $request, int $id = 1)
     {
         if (!$recipe = $recipeRepository->find($id)) {
             throw $this->createNotFoundException(sprintf('La recette avec l\'id %s n\'existe pas', $id));
@@ -248,7 +247,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("/delete-recipe/{id<\d+>}", name="delete_recipe")
      */
-    public function deleteRecipe(int $id, RecipeFoodRepository $recipeFoodRepository, ShoppingRepository $shoppingRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository)
+    public function deleteRecipe(int $id, RecipeFoodRepository $recipeFoodRepository, RecipeRepository $recipeRepository, PlanningRepository $planningRepository)
     {
         if (!$recipe = $recipeRepository->find($id)) {
             throw $this->createNotFoundException('Cette recette n\'a pas été trouvée');
