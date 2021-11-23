@@ -147,3 +147,14 @@ select {
 		width: 30vw;
 	}
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#recipesSection::-webkit-scrollbar {
+	display: none;
+}
+  
+/* Hide scrollbar for IE, Edge and Firefox */
+#recipesSection {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
