@@ -78,6 +78,13 @@ select {
 	}
 }
 
+/* low height screens */
+@media screen and (max-height: 1000px) {
+	.recipeFoodsSection {
+		max-height: 20vh;
+	}
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .recipeFoodsSection::-webkit-scrollbar {
 	display: none;

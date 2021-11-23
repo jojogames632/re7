@@ -35,9 +35,10 @@ class RecipeController extends AbstractController
 
         $category = $request->get('category');
         $cookingType = $request->get('cookingType');
-        $type = $request->get('type');
         $title = $request->get('title');
         $foodId = $request->get('foodId');
+        $typeId = $request->get('type');
+        $type = $typeId ? $recipeTypeRepository->find($typeId) : null;
 
         if ($foodId) {
             $recipeFoodRows = $recipeFoodRepository->findByFood($foodId);

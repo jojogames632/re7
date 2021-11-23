@@ -52,7 +52,7 @@ class RecipeRepository extends ServiceEntityRepository
             ->setParameter(':cookingType', $cookingType);
         } 
         if ($type != null) {
-            $query->andWhere('r.type = :type')
+            $query->andWhere('r.recipeType = :type')
             ->setParameter(':type', $type);
         } 
             
