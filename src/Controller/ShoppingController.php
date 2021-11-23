@@ -137,7 +137,7 @@ class ShoppingController extends AbstractController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream('Liste-de-courses.pdf', [
-            'Attachment' => false
+            'Attachment' => true
         ]);
         
         return new Response();
