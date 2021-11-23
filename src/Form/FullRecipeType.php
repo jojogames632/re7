@@ -24,6 +24,9 @@ class FullRecipeType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true
             ])
+            ->add('reference', TextType::class, [
+                'required' => false,
+            ])
             ->add('recipeType', EntityType::class, [
                 'required' => true,
                 'class' => RecipeType::class,

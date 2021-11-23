@@ -23,6 +23,8 @@ svg {
 
 form {
 	display: flex;
+	margin: auto;
+	background-color: brown;
 }
 
 input,
