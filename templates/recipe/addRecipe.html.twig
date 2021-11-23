@@ -111,10 +111,15 @@
 		{{ form_start(form) }}
 
 			<div class="row row-cols-1 row-cols-lg-2 mt-5" id="recipeInfosContainer">
-				<div class="col d-flex flex-column">
+				<div id="recipeNameContainer">
 					{{ form_label(form.name, 'Nom') }}
 					{{ form_widget(form.name) }}
 					{{ form_errors(form.name) }}
+				</div>
+				<div class="col d-flex flex-column">
+					{{ form_label(form.reference, 'Référence') }}
+					{{ form_widget(form.reference) }}
+					{{ form_errors(form.reference) }}
 
 					{{ form_label(form.recipeType, 'Type') }}
 					{{ form_widget(form.recipeType) }}

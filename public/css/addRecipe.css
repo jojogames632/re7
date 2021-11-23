@@ -23,6 +23,11 @@ li {
 	list-style: none;
 }
 
+#recipeNameContainer {
+	max-height: 20px;
+	background-color: crimson;
+}
+
 #recipeInfosContainer {
 	margin: auto;
 }
@@ -68,7 +73,6 @@ li {
 }
 
 @media screen and (min-width: 1400px) {
-
 	#recipeInfosContainer {
 		width: 40vw;
 		margin-top: 35px;
