@@ -68,11 +68,17 @@ svg {
 	}
 }
 
+@media screen and (min-width: 800px) and (max-width: 999px) {
+	.formSection,
+	.foodsSection {
+		width: 100%;
+	}
+}
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
 	.formSection,
 	.foodsSection {
-		width: 70%;
+		width: 100%;
 	}
 }
 
