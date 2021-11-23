@@ -6,6 +6,10 @@ main {
 	color: white;
 }
 
+#mainRow {
+	margin: auto;
+}
+
 #mainRow > div {
 	background-color: #2b2e30;
 	border-radius: 15px;
@@ -38,6 +42,14 @@ li {
 	#mainRow {
 		display: flex;
 		justify-content: center;
+	}
+}
+
+@media screen and (min-width: 767px) and (max-width: 999px) {
+	#mainRow > div {
+		width: 30%;
+		margin-right: 12px;
+		margin-left: 12px;
 	}
 }
 
