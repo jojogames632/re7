@@ -7,7 +7,7 @@ use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\ShoppingRepository;
 use Dompdf\Dompdf;
-use Dompdf\Autoloader;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -130,7 +130,9 @@ class ShoppingController extends AbstractController
             'planningOwner' => $planningOwner
         ]);
 
-        $dompdf = new Dompdf();
+        $options = new Options();
+        $options->set('defaultFont', 'Courier');
+        $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html->getContent());
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
