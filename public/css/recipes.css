@@ -2,7 +2,7 @@ main {
 	height: calc(100vh - 80px);
 	background-color: #212528;
 	color: white;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 .recipeContainer {
