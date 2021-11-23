@@ -154,7 +154,7 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('recipe_details', [ 'id' => $id ]);
         }
 
-        $foods = $recipeFoodRepository->findBy(['recipe' => $recipe]);
+        $foods = $recipeFoodRepository->findByRecipeFilteredById($recipe);
 
         return $this->render('recipe/recipeDetails.html.twig', [
             'recipe' => $recipe,

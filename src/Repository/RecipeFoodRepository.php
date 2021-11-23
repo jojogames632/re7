@@ -18,4 +18,15 @@ class RecipeFoodRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RecipeFood::class);
     }
+
+    public function findByRecipeFilteredById($recipe)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.food = :recipe')
+            ->setParameter(':recipe', $recipe)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    } 
 }
