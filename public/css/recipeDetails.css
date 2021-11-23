@@ -3,7 +3,7 @@ main {
 	background-color: #212528;
 	color: white;
 	width: 100vw;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 .clockImage {
@@ -11,8 +11,13 @@ main {
 	width: 20px;
 }
 
+.recipeFoodsHeader {
+	margin: auto;
+	max-height: 65px;
+}
+
 .recipeFoodsSection {
-	height: 40vh;
+	max-height: 40vh;
 	overflow-y: scroll;
 	margin: auto;
 }
@@ -23,8 +28,9 @@ svg {
 
 form {
 	display: flex;
+	justify-content: center;
+	width: 90%;
 	margin: auto;
-	background-color: brown;
 }
 
 input,
@@ -36,31 +42,39 @@ select {
 }
 
 @media screen and (min-width: 600px) and (max-width: 999px) {
-	.recipeFoodsSection {
+	.recipeFoodsSection,
+	.recipeFoodsHeader {
 		width: 60vw;
 	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
-	.recipeFoodsSection {
+	.recipeFoodsSection,
+	.recipeFoodsHeader {
 		width: 50vw;
 	}
 }
 
 @media screen and (min-width: 1400px) {
-	.recipeFoodsSection {
+	.recipeFoodsSection,
+	.recipeFoodsHeader {
 		width: 40vw;
 	}
 }
 
 /* All desktop */
 @media screen and (min-width: 1000px) {
-	.recipeFoodsSection {
+	.recipeFoodsSection,
+	.recipeFoodsHeader {
 		height: 60vh;
 	}
 
 	.recipeInfo {
 		font-size: 20px;
+	}
+
+	form {
+		width: 50%;
 	}
 }
 

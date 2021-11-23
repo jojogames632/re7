@@ -122,12 +122,14 @@
 		<p class="text-center mb-3 recipeInfo"><span class="text-warning">Durée : </span>{{ recipe.duration }}</p>
 		<p class="text-center mb-5 recipeInfo"><span class="text-warning">Pour : </span>{{ recipe.persons }} personnes</p>
 
-		<section class="recipeFoodsSection">
+		<section class="recipeFoodsHeader">
 			<div class="row border-bottom border-warning pb-3 mb-3">
 				<div class="col-5 text-warning d-flex justify-content-center">Aliment</div>
 				<div class="col-2 text-warning d-flex justify-content-center">quantité</div>
 				<div class="col-2 text-warning d-flex justify-content-center">unité</div>
 			</div>
+		</section>
+		<section class="recipeFoodsSection">
 			{% for food in foods %}
 				<div class="row mb-2">
 					<div class="col-5 d-flex justify-content-center">{{ food.foodName }}</div>
@@ -150,7 +152,7 @@
 			{% endfor %}
 		</section>
 		{{ form_start(form) }}
-			<div class="row mt-3">
+			<div class="row mt-3 d-flex justify-content-between">
 				<div class="col-5 d-flex justify-content-center">{{ form_widget(form.food) }}</div>
 				<div class="col-2 d-flex justify-content-center">{{ form_widget(form.quantity) }}</div>
 				<div class="col-2 d-flex justify-content-center">{{ form_widget(form.unit) }}</div>
