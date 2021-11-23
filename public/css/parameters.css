@@ -25,6 +25,11 @@ svg {
 	max-width: 16px;
 }
 
+.burgerCol > #burgerBtn {
+	min-width: 40px;
+	min-height: 40px;
+}
+
 #alertContainer {
 	background-color: #2b2e30;
 }

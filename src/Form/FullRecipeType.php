@@ -51,7 +51,7 @@ class FullRecipeType extends AbstractType
                         ->orderBy('c.name', 'ASC');
                 }
             ])
-            ->add('duration', NumberType::class, [
+            ->add('duration', TextType::class, [
                 'required' => true,
                 'attr' => [
                     'value' => 1

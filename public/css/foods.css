@@ -30,7 +30,8 @@ li {
 	box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 1);
 }
 
-.foodsSection {
+.foodsSection,
+.formSection {
 	padding: 25px;
 }
 
@@ -56,23 +57,22 @@ label {
 	margin-bottom: 5px;
 }
 
+svg {
+	min-width: 16px;
+	min-height: 16px;
+}
+
 @media screen and (max-width: 1000px) {
 	.title {
 		display: none;
 	}
 }
 
-@media screen and (min-width: 600px) and (max-width: 799px) {
-	.formSection,
-	.foodsSection {
-		width: 60%;
-	}
-}
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
 	.formSection,
 	.foodsSection {
-		width: 50%;
+		width: 70%;
 	}
 }
 
