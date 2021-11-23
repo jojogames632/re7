@@ -31,7 +31,7 @@ class RecipeController extends AbstractController
         $cookingTypes = $cookingTypeRepository->findAll();
         $types = $recipeTypeRepository->findAll();
         $owners = $planningRepository->findAllOwners();
-        $foods = $foodRepository->findAll();
+        $foods = $foodRepository->getSortedFoods();
 
         $category = $request->get('category');
         $cookingType = $request->get('cookingType');
