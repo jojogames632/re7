@@ -22,7 +22,7 @@ class RecipeFoodRepository extends ServiceEntityRepository
     public function findByRecipeFilteredById($recipe)
     {
         return $this->createQueryBuilder('p')
-            ->where('p.food = :recipe')
+            ->where('p.recipe = :recipe')
             ->setParameter(':recipe', $recipe)
             ->orderBy('p.id', 'DESC')
             ->getQuery()

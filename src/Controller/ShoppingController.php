@@ -68,7 +68,7 @@ class ShoppingController extends AbstractController
                     // stop doublon for addition
                     if (in_array($foodId, $shoppingFoodsId)) {
 
-                        $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($foodId, $food->unit, $owner['owner']);
+                        $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($foodId, $food->getUnit(), $owner['owner']);
                         
                         // line found --> addition
                         if ($shoppingRow) {
