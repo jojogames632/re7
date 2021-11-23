@@ -7,6 +7,7 @@ use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\ShoppingRepository;
 use Dompdf\Dompdf;
+use Dompdf\Autoloader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
