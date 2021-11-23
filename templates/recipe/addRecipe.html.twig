@@ -109,43 +109,43 @@
 	</header>
 	<main>
 		{{ form_start(form) }}
-
-			<div class="row row-cols-1 row-cols-lg-2 mt-5" id="recipeInfosContainer">
+			<div id="recipeInfosContainer">
 				<div id="recipeNameContainer">
 					{{ form_label(form.name, 'Nom') }}
 					{{ form_widget(form.name) }}
 					{{ form_errors(form.name) }}
 				</div>
-				<div class="col d-flex flex-column">
-					{{ form_label(form.reference, 'Référence') }}
-					{{ form_widget(form.reference) }}
-					{{ form_errors(form.reference) }}
+				<div class="row row-cols-1 row-cols-lg-2">
+					<div class="col d-flex flex-column">
+						{{ form_label(form.reference, 'Référence') }}
+						{{ form_widget(form.reference) }}
+						{{ form_errors(form.reference) }}
 
-					{{ form_label(form.recipeType, 'Type') }}
-					{{ form_widget(form.recipeType) }}
-					{{ form_errors(form.recipeType) }}
+						{{ form_label(form.recipeType, 'Type') }}
+						{{ form_widget(form.recipeType) }}
+						{{ form_errors(form.recipeType) }}
 
-					
-					{{ form_label(form.cookingType, 'Type de cuisson') }}
-					{{ form_widget(form.cookingType) }}
-					{{ form_errors(form.cookingType) }}
+						{{ form_label(form.cookingType, 'Type de cuisson') }}
+						{{ form_widget(form.cookingType) }}
+						{{ form_errors(form.cookingType) }}
+					</div>
+					<div class="col d-flex flex-column">
+						{{ form_label(form.category, 'Catégorie') }}
+						{{ form_widget(form.category) }}
+						{{ form_errors(form.category) }}
+
+						{{ form_label(form.duration, 'Durée (en heure)') }}
+						{{ form_widget(form.duration) }}
+						{{ form_errors(form.duration) }}
+
+						{{ form_label(form.persons, 'Pour') }}
+						{{ form_widget(form.persons) }}
+						{{ form_errors(form.persons) }}
+					</div>
+					<a href="{{ path('recipe_details') }}" class="text-decoration-none createRecipeBtn mt-3 d-flex justify-content-center">
+						<button type="submit" class="btn btn-outline-warning">Créer</button>
+					</a>
 				</div>
-				<div class="col d-flex flex-column">
-					{{ form_label(form.category, 'Catégorie') }}
-					{{ form_widget(form.category) }}
-					{{ form_errors(form.category) }}
-
-					{{ form_label(form.duration, 'Durée (en heure)') }}
-					{{ form_widget(form.duration) }}
-					{{ form_errors(form.duration) }}
-
-					{{ form_label(form.persons, 'Pour') }}
-					{{ form_widget(form.persons) }}
-					{{ form_errors(form.persons) }}
-				</div>
-				<a href="{{ path('recipe_details') }}" class="text-decoration-none createRecipeBtn mt-3 d-flex justify-content-center">
-					<button type="submit" class="btn btn-outline-warning">Créer</button>
-				</a>
 			</div>
 		{{ form_end(form) }}
 	</main>

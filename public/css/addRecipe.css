@@ -24,12 +24,13 @@ li {
 }
 
 #recipeNameContainer {
-	max-height: 20px;
-	background-color: crimson;
+	width: 50%;
+	margin: auto;
 }
 
 #recipeInfosContainer {
 	margin: auto;
+	margin-top: 35px;
 }
 
 #recipeInfosContainer {
@@ -75,7 +76,6 @@ li {
 @media screen and (min-width: 1400px) {
 	#recipeInfosContainer {
 		width: 40vw;
-		margin-top: 35px;
 	}
 
 	input,
