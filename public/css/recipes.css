@@ -13,6 +13,13 @@ main {
 	overflow-x: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	font-size: 16px;
+}
+
+.removeRecipeBtn,
+.addToPlanningBtn {
+	height: 17px;
+	width: 17px;
 }
 
 .addToPlanningBtn:hover {
@@ -24,7 +31,7 @@ main {
 }
 
 #recipesSection {
-	max-height: 50vh;
+	max-height: 30vh;
 	overflow-x: scroll;
 	width: 100vw;
 	margin-top: 50px;
@@ -83,7 +90,6 @@ select {
 		width: 70vw;
 		margin: auto;
 		margin-top: 50px;
-		max-height: 55vh;
 	}
 
 	#addToPlanningSection {
@@ -101,7 +107,6 @@ select {
 		width: 50vw;
 		margin: auto;
 		margin-top: 50px;
-		max-height: 55vh;
 	}
 
 	#addToPlanningSection {
@@ -123,7 +128,6 @@ select {
 @media screen and (min-width: 1400px) {
 	#recipesSection {
 		width: 40vw;
-		max-height: 55vh;
 		margin: auto;
 		margin-top: 50px;
 	}
@@ -145,6 +149,12 @@ select {
 	
 	#filtersSection {
 		width: 30vw;
+	}
+}
+
+@media screen and (min-height: 920px) {
+	#recipesSection {
+		max-height: 50vh;
 	}
 }
 
