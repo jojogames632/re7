@@ -24,8 +24,12 @@ li {
 }
 
 #recipeNameContainer {
-	width: 50%;
+	width: 75%;
 	margin: auto;
+}
+
+#recipeNameContainer input {
+	width: 100%;
 }
 
 #recipeInfosContainer {
