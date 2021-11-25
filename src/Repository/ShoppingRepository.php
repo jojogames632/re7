@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Shopping;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Food;
 
 /**
  * @method Shopping|null find($id, $lockMode = null, $lockVersion = null)

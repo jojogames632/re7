@@ -5,8 +5,39 @@ main {
 	overflow-y: scroll;
 }
 
-#listSection {
+form {
+	display: flex;
+	margin-top: 20px;
+	font-size: 12px;
+}
+
+input,
+select {
+	background-color: #212528;
+	border-color: #FFC108;
+	height: 30px;
+	color: white;
+	margin: 0 5px 0 5px;
+}
+
+.quantityInput,
+.unitInput {
+	width: 30px;
+}
+
+.foodInput {
+	width: 55px;
+}
+
+.bonusSvg {
+	min-width: 16px;
+	min-height: 16px;
+}
+
+#listSection,
+#bonusSection {
 	max-height: 70vh;
+	width: 100vw;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -19,7 +50,8 @@ main {
 
 #listSection,
 #selectContainer,
-#pdfContainer {
+#pdfContainer,
+#bonusSection {
 	background-color: #2b2e30;
 	border-radius: 15px;
 	padding: 10px;
@@ -28,41 +60,86 @@ main {
 }
 
 #selectContainer {
-	width: 25vw;
+	width: 33vw;
 }
 
 @media screen and (min-width: 600px) and (max-width: 799px) {
-	#listSection {
-		width: 75vw;
+	#listSection,
+	#bonusSection {
+		width: 90vw;
 	}
 	
 	#selectContainer {
 		width: 25vw;
 	}
+
+	input,
+	select {
+		margin: 0 25px 0 7px;
+	}
+
+	form {
+		font-size: 14px;
+	}
+
+	.quantityInput,
+	.unitInput {
+		width: 40px;
+	}
+	
+	.foodInput {
+		width: 80px;
+	}
 }
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
-	#listSection {
-		width: 65vw;
+	#listSection,
+	#bonusSection {
+		width: 80vw;
 	}
 
 	#selectContainer {
 		width: 25vw;
 	}
+
+	input,
+	select {
+		margin: 0 25px 0 7px;
+	}
+
+	form {
+		font-size: 14px;
+	}
+
+	.quantityInput,
+	.unitInput {
+		width: 40px;
+	}
+	
+	.foodInput {
+		width: 80px;
+	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
-	#listSection {
-		width: 55vw;
+	#listSection,
+	#bonusSection {
+		width: 45vw;
 	}
 
 	#selectContainer {
 		width: 15vw;
 	}
+
+	input,
+	select {
+		margin: 0 15px 0 5px;
+	}
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1799px) {
-	#listSection {
+	#listSection,
+	#bonusSection {
 		width: 45vw;
 	}
 
@@ -72,7 +149,8 @@ main {
 }
 
 @media screen and (min-width: 1800px) {
-	#listSection {
+	#listSection,
+	#bonusSection {
 		width: 40vw;
 	}
 
@@ -86,17 +164,20 @@ main {
 	input,
 	select {
 		height: 30px;
+		margin: 0 15px 0 7px;
 	}
 
-	input,
-	label,
-	select {
-		font-size: 20px;
+	form {
+		font-size: 14px;
 	}
 
-	#updateRecipeBtn {
-		font-size: 20px;
-		margin-top: 25px
+	.quantityInput,
+	.unitInput {
+		width: 50px;
+	}
+	
+	.foodInput {
+		width: 100px;
 	}
 }
 

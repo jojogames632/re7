@@ -39,10 +39,16 @@ class Unit
      */
     private $shoppings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Bonus::class, mappedBy="unit")
+     */
+    private $bonuses;
+
     public function __construct()
     {
         $this->recipeFood = new ArrayCollection();
         $this->shoppings = new ArrayCollection();
+        $this->bonuses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,6 +122,36 @@ class Unit
             // set the owning side to null (unless already changed)
             if ($shopping->getUnit() === $this) {
                 $shopping->setUnit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bonus[]
+     */
+    public function getBonuses(): Collection
+    {
+        return $this->bonuses;
+    }
+
+    public function addBonus(Bonus $bonus): self
+    {
+        if (!$this->bonuses->contains($bonus)) {
+            $this->bonuses[] = $bonus;
+            $bonus->setUnit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBonus(Bonus $bonus): self
+    {
+        if ($this->bonuses->removeElement($bonus)) {
+            // set the owning side to null (unless already changed)
+            if ($bonus->getUnit() === $this) {
+                $bonus->setUnit(null);
             }
         }
 

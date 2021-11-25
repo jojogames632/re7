@@ -45,11 +45,17 @@ class Food
      */
     private $section;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Bonus::class, mappedBy="food", orphanRemoval=true)
+     */
+    private $bonuses;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->recipeFoods = new ArrayCollection();
         $this->shoppings = new ArrayCollection();
+        $this->bonuses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,6 +143,36 @@ class Food
     public function setSection(?Section $section): self
     {
         $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bonus[]
+     */
+    public function getBonuses(): Collection
+    {
+        return $this->bonuses;
+    }
+
+    public function addBonus(Bonus $bonus): self
+    {
+        if (!$this->bonuses->contains($bonus)) {
+            $this->bonuses[] = $bonus;
+            $bonus->setFood($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBonus(Bonus $bonus): self
+    {
+        if ($this->bonuses->removeElement($bonus)) {
+            // set the owning side to null (unless already changed)
+            if ($bonus->getFood() === $this) {
+                $bonus->setFood(null);
+            }
+        }
 
         return $this;
     }

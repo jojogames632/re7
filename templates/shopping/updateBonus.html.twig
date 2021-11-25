@@ -1,22 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends "recipe/index.html.twig" %}
 
-{% block title %}Liste de courses{% endblock %}
+{% block title %} Mise à jour d'un supplément {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('css/header.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/shopping.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/updateBonus.css') }}" />
 {% endblock %}
 
 {% block body %}
-    <header class="bg-dark">
-        <nav class="row m-0 d-flex align-items-center">
-            <a class="col-1" href="{{ path('home') }}">
-                <img src="../images/re7-logo.png" alt="logo" />
-            </a>
-            <div class="col-10 align-items-center desktopNav">
-                {# Desktop nav #}
-                <ul class="d-flex justify-content-between w-100">
-                    <li class="d-flex align-items-center">
+	<header class="bg-dark">
+		<nav class="row m-0 d-flex align-items-center">
+			<a class="col-1" href="{{ path('home') }}">
+				<img src="../../images/re7-logo.png" alt="logo" />
+			</a>
+			<div class="col-10 align-items-center desktopNav">
+				{# Desktop nav #}
+				<ul class="d-flex justify-content-between w-100">
+					<li class="d-flex align-items-center">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul text-white" viewBox="0 0 16 16">
 							<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 						</svg>
@@ -35,10 +35,10 @@
 						<a href="{{ path('planning') }}" class="text-decoration-none text-white fw-bold ms-2">Planning</a>
 					</li>
 					<li class="d-flex align-items-center">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul text-warning" viewBox="0 0 16 16">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul text-white" viewBox="0 0 16 16">
 							<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 						</svg>
-						<a href="{{ path('shopping') }}" class="text-decoration-none text-warning fw-bold ms-2">Liste de courses</a>
+						<a href="{{ path('shopping') }}" class="text-decoration-none text-white fw-bold ms-2">Liste de courses</a>
 					</li>
 					<li class="d-flex align-items-center">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-apple text-white" viewBox="0 0 16 16">
@@ -53,19 +53,19 @@
 						</svg>
 						<a href="{{ path('parameters') }}" class="text-decoration-none text-white fw-bold ms-2">Paramètres</a>
 					</li>
-                </ul>
-            </div>
-            <div class="col justify-content-end align-items-center burgerCol">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list text-warning" id="burgerBtn" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                </svg>
-                <div id="mobileNav" class="bg-dark">
-                    <div class="d-flex justify-content-end px-2">
-                        <span class="text-warning fs-1 fw-bold" id="closeBtn">X</span>
-                    </div>
-                    <ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
-                        {# Mobile nav #}
-                        <li class="d-flex align-items-center">
+				</ul>
+			</div>
+			<div class="col justify-content-end align-items-center burgerCol">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list text-warning" id="burgerBtn" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+				</svg>
+				<div id="mobileNav" class="bg-dark">
+					<div class="d-flex justify-content-end px-2">
+						<span class="text-warning fs-1 fw-bold" id="closeBtn">X</span>
+					</div>
+					<ul class="d-flex flex-column align-items-center justify-content-between mobileUl">
+						{# Mobile nav #}
+						<li class="d-flex align-items-center">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul text-white" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 							</svg>
@@ -84,10 +84,10 @@
 							<a href="{{ path('planning') }}" class="text-decoration-none text-white fw-bold ms-2">Planning</a>
 						</li>
 						<li class="d-flex align-items-center">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul text-warning" viewBox="0 0 16 16">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul text-white" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 							</svg>
-							<a href="{{ path('shopping') }}" class="text-decoration-none text-warning fw-bold ms-2">Liste de courses</a>
+							<a href="{{ path('shopping') }}" class="text-decoration-none text-white fw-bold ms-2">Liste de courses</a>
 						</li>
 						<li class="d-flex align-items-center">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-apple text-white" viewBox="0 0 16 16">
@@ -102,133 +102,41 @@
 							</svg>
 							<a href="{{ path('parameters') }}" class="text-decoration-none text-white fw-bold ms-2">Paramètres</a>
 						</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <main>
-        {# selector #}
-        <div class="d-flex justify-content-center my-5 m-auto" id="selectContainer">
-            <select id="planningSelect" class="m-0">
-                {% for owner in owners %}
-                    <option value="{{ owner['owner'] }}" {{ owner['owner'] == planningOwner ? 'selected' : null }}>
-                        {{ owner['owner'] }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <section class="row row-cols-1 row-cols-lg-2 mt-5">
-            {# shopping list #}
-            <div class="col d-flex flex-column align-items-center">
-                <h2 class="text-center fs-5 mb-4">Courses du planning</h2> 
-                <section id="listSection" class="mb-3">
-                    <div class="row mb-3 border-bottom border-warning pb-3">
-                        <div class="col-3 text-warning d-flex justify-content-center">Rayon</div>
-                        <div class="col-3 text-warning d-flex justify-content-center">Aliment</div>
-                        <div class="col-3 text-warning d-flex justify-content-center">Quantité</div>
-                        <div class="col-3 text-warning d-flex justify-content-center">Unité</div>
-                    </div>
-                    {% if shoppingRows|length > 0 %}
-                        {% for food in shoppingRows %}
-                            <div class="row">
-                                <div class="col-3 d-flex justify-content-center">
-                                    {{ food.section.name }}
-                                </div>
-                                <div class="col-3 d-flex justify-content-center">
-                                    {{ food.food.name }}
-                                </div>
-                                <div class="col-3 d-flex justify-content-center">
-                                    {{ food.quantity }}
-                                </div>
-                                <div class="col-3 d-flex justify-content-center">
-                                    {{ food.unit.name }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p class="text-center">Aucun repas planifié..</p> 
-                    {% endif %}
-                </section>
-            </div>
-            {# bonus #}
-            <div class="col d-flex flex-column align-items-center">
-                <h2 class="text-center fs-5 mb-4">Suppléments</h2> 
-                <section id="bonusSection" class="mb-3">
-                    <div class="row mb-3 border-bottom border-warning pb-3">
-                        <div class="col-4 text-warning d-flex justify-content-center">Aliment</div>
-                        <div class="col-3 text-warning d-flex justify-content-center">Quantité</div>
-                        <div class="col-3 text-warning d-flex justify-content-center">Unité</div>
-                        <div class="col-2 text-white d-flex justify-content-center">Options</div>
-                    </div>
-                    {% if allBonus|length > 0 %}
-                        {% for bonus in allBonus %}
-                            <div class="row">
-                                <div class="col-4 d-flex justify-content-center">
-                                    {{ bonus.food.name }}
-                                </div>
-                                <div class="col-3 d-flex justify-content-center">
-                                    {{ bonus.quantity }}
-                                </div>
-                                <div class="col-3 d-flex justify-content-center">
-                                    {{ bonus.unit.name }}
-                                </div>
-                                <div class="col-2 d-flex justify-content-evenly">
-                                    <a href="{{ path('update_bonus', { 'id' : bonus.id }) }}" class="col-2 d-flex justify-content-center bonusSvg me-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill text-warning" viewBox="0 0 16 16">
-                                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ path('delete_bonus', { 'id' : bonus.id }) }}" class="col-2 d-flex justify-content-center bonusSvg" onclick="return confirm('Êtes-vous sûre de vouloir supprimer ce supplément ?')">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
-                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p class="text-center">Aucun supplément ajouté</p> 
-                    {% endif %}
-                </section>
-                {{ form_start(form) }}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<h1 class="text-center fs-3 title mt-4 mb-4">Modification d'un supplément</h1>		
+		<p class="text-center foodInfo">
+			<span class="text-warning">Aliment</span>
+			: {{ bonus.food.name }}
+		</p>
+		
+		{{ form_start(form) }}
 
-                    {{ form_row(form.food, { 
-                        'label' : 'Aliment', 
-                        'attr' : {
-                            'class' : 'foodInput'
-                        }
-                    }) }}
+			{{ form_label(form.quantity, 'Quantité') }}
+			{{ form_widget(form.quantity) }}
 
-                    {{ form_row(form.quantity, {
-                        'label' : 'Quantité',
-                        'attr' : {
-                            'class' : 'quantityInput'
-                        }
-                    }) }}
+			{{ form_label(form.unit, 'Unité') }}
+			{{ form_widget(form.unit) }}
 
-                    {{ form_row(form.unit, { 
-                        'label' : 'Unité',
-                        'attr' : {
-                            'class' : 'unitInput'
-                        }
-                    }) }}
-                    <a href="#">    
-                        <button type="submit" class="btn btn-sm btn-outline-warning">Ajouter</button>
-                    </a>
+			<div class="row d-flex justify-content-evenly mt-4">
+				<div class="col-2 d-flex align-items-center">
+					<a href="{{ path('shopping', { 'planningOwner' : bonus.owner }) }}" class="btn btn-sm btn-outline-warning updateFoodBtn">Annuler</a>
+				</div>
+				<div class="col-6 d-flex align-items-center">
+					<button type="submit" class="btn btn-outline-warning btn-sm updateFoodBtn">Valider les modifications</button>
+				</div>
+			</div>
 
-                {{ form_end(form) }}
-            </div>
-        </section>
-        {# pdf #}
-        <p class="text-center mt-5">
-            <a href="{{ path('generate_pdf', { 'planningOwner' : planningOwner }) }}" class="btn btn-sm btn-warning">Générer un PDF</a>
-        </p>
-    </main>
+		{{ form_end(form) }}
+
+	</main>
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
 	<script src="{{ asset('js/header.js') }}"></script>
-	<script src="{{ asset('js/shopping.js') }}"></script>
 {% endblock %}

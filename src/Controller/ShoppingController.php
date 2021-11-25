@@ -2,13 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Bonus;
 use App\Entity\Shopping;
+use App\Form\BonusType;
+use App\Form\UpdateBonusType;
+use App\Repository\BonusRepository;
+use App\Repository\FoodRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\RecipeFoodRepository;
 use App\Repository\ShoppingRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,7 +23,7 @@ class ShoppingController extends AbstractController
     /**
      * @Route("/shopping/{planningOwner}", name="shopping")
      */
-    public function index(ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository, RecipeFoodRepository $recipeFoodRepository, string $planningOwner = 'Christophe'): Response
+    public function index(Request $request, BonusRepository $bonusRepository, ShoppingRepository $shoppingRepository, PlanningRepository $planningRepository, RecipeFoodRepository $recipeFoodRepository, FoodRepository $foodRepository, string $planningOwner = 'Christophe'): Response
     { 
         $owners = $planningRepository->findAllOwners();
         $entityManager = $this->getDoctrine()->getManager();
@@ -105,14 +111,103 @@ class ShoppingController extends AbstractController
                 }
                 $index++;
             }
+
+            $allBonus = $bonusRepository->findByOwner($owner['owner']);
+
+            // Add bonus in shopping table
+            foreach ($allBonus as $bonusRow) {
+                $shoppingFoodsId = [];
+                $shoppingRows = $shoppingRepository->findAll();
+                foreach ($shoppingRows as $row) {
+                    $shoppingFoodsId[] = $row->getFood()->getId();
+                }
+                if (in_array($bonusRow->getFood()->getId(), $shoppingFoodsId)) {
+                    $shoppingRow = $shoppingRepository->findOneByFoodUnitAndOwner($bonusRow->getFood(), $bonusRow->getUnit(), $owner['owner']);
+                    // line found --> addition
+                    if ($shoppingRow) {
+                        $shoppingRow->setQuantity($shoppingRow->getQuantity() + $bonusRow->getQuantity());
+                        $entityManager->persist($shoppingRow);
+                        $entityManager->flush();
+                    }
+                    else {
+                        // differents units -> new line
+                        $shopping = new Shopping();
+                        $shopping->setSection($bonusRow->getSection());
+                        $shopping->setFood($bonusRow->getFood());
+                        $shopping->setQuantity($bonusRow->getQuantity());
+                        $shopping->setUnit($bonusRow->getUnit());
+                        $shopping->setOwner($bonusRow->getOwner());
+
+                        $entityManager->persist($shopping);
+                        $entityManager->flush();
+                    }
+                }
+                else {
+                    // no doublon -> new line
+                    $shopping = new Shopping();
+                    $shopping->setSection($bonusRow->getSection());
+                    $shopping->setFood($bonusRow->getFood());
+                    $shopping->setQuantity($bonusRow->getQuantity());
+                    $shopping->setUnit($bonusRow->getUnit());
+                    $shopping->setOwner($bonusRow->getOwner());
+
+                    $entityManager->persist($shopping);
+                    $entityManager->flush();
+                }
+            }
         }
 
         $shoppingRows = $shoppingRepository->findAllFilteredBySection($planningOwner);
+        $allBonus = $bonusRepository->findByOwner($planningOwner);
+
+        $bonus = new Bonus();
+        $form = $this->createForm(BonusType::class, $bonus);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $foodId = $bonus->getFood()->getId();
+            $bonusFoodsId = [];
+            $bonusRows = $bonusRepository->findByOwner($planningOwner);
+            foreach ($bonusRows as $row) {
+                $bonusFoodsId[] = $row->getFood()->getId();
+            }
+            if (in_array($foodId, $bonusFoodsId)) {
+                $bonusRow = $bonusRepository->findOneByFoodUnitAndOwner($bonus->getFood(), $bonus->getUnit(), $planningOwner);
+                // line found --> addition            
+                if ($bonusRow) {
+                    $bonusRow->setQuantity($bonusRow->getQuantity() + $bonus->getQuantity());
+                    $entityManager->persist($bonusRow);
+                    $entityManager->flush();
+                }
+                else {
+                    // differents units --> new line
+                    $bonus->setOwner($planningOwner);
+                    $section = $foodRepository->find($bonus->getFood())->getSection();
+                    $bonus->setSection($section);
+                    $entityManager->persist($bonus);
+                    $entityManager->flush(); 
+                }                
+            }
+            else {
+                // no doublon --> new line
+                $bonus->setOwner($planningOwner);
+                $section = $foodRepository->find($bonus->getFood())->getSection();
+                $bonus->setSection($section);
+                $entityManager->persist($bonus);
+                $entityManager->flush();
+            }
+
+            return $this->redirect($this->generateUrl('shopping', [
+                'planningOwner' => $planningOwner
+            ]));
+        }
 
         return $this->render('shopping/index.html.twig', [
             'shoppingRows' => $shoppingRows,
             'owners' => $owners,
-            'planningOwner' => $planningOwner
+            'planningOwner' => $planningOwner,
+            'allBonus' => $allBonus,
+            'form' => $form->createView()
         ]);
     }
 
@@ -131,7 +226,7 @@ class ShoppingController extends AbstractController
         ]);
 
         $options = new Options();
-        $options->set('defaultFont', 'Courier');
+        $options->set('defaultFont', 'Palatino');
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html->getContent());
         $dompdf->setPaper('A4', 'portrait');
@@ -141,5 +236,51 @@ class ShoppingController extends AbstractController
         ]);
         
         return new Response();
+    }
+
+    /**
+     * @Route("/update-bonus/{id<\d+>}", name="update_bonus")
+     */
+    public function updateBonus(int $id, Request $request, BonusRepository $bonusRepository)
+    {
+        if (!$bonus = $bonusRepository->find($id)) {
+            throw $this->createNotFoundException(sprintf('Le supplément avec l\'id %s n\'a pas été trouvé', $id));
+        }
+
+        $form = $this->createForm(UpdateBonusType::class, $bonus);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($bonus);
+            $entityManager->flush();
+            
+            return $this->redirect($this->generateUrl('shopping', [
+                'planningOwner' => $bonus->getOwner()
+            ]));
+        }
+
+        return $this->render('shopping/UpdateBonus.html.twig', [
+            'form' => $form->createView(),
+            'bonus' => $bonus
+        ]);
+    }
+
+    /**
+     * @Route("/delete-bonus/{id<\d+>}", name="delete_bonus")
+     */
+    public function deleteBonus(int $id, BonusRepository $bonusRepository) 
+    {
+        if (!$bonus = $bonusRepository->find($id)) {
+            throw $this->createNotFoundException(sprintf('Le supplément avec l\'id %s n\'a pas été trouvé', $id));
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($bonus);
+        $entityManager->flush();
+
+        return $this->redirect($this->generateUrl('shopping', [
+            'planningOwner' => $bonus->getOwner()
+        ]));
     }
 }

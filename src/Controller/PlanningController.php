@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Planning;
 use App\Form\PlanningType;
+use App\Repository\BonusRepository;
 use App\Repository\PlanningRepository;
 use App\Repository\ShoppingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ class PlanningController extends AbstractController
     /**
      * @Route("/planning/{planningOwner}", name="planning")
      */
-    public function index(PlanningRepository $planningRepository, Request $request, string $planningOwner = 'Christophe')
+    public function index(PlanningRepository $planningRepository, BonusRepository $bonusRepository, Request $request, string $planningOwner = 'Christophe')
     {
         $owners = $planningRepository->findAllOwners();
         $entityManager = $this->getDoctrine()->getManager();
@@ -76,9 +77,15 @@ class PlanningController extends AbstractController
             $owner = htmlspecialchars($_POST['deletePlanningOf']);
             $planningRows = $planningRepository->findBy(['owner' => $owner]);
 
-            // planning
+            // clean planning
             foreach ($planningRows as $planningRow) {
                 $entityManager->remove($planningRow);
+            }
+
+            // clean bonus
+            $bonusRows = $bonusRepository->findByOwner($owner);
+            foreach ($bonusRows as $row) {
+                $entityManager->remove($row);
             }
 
             $entityManager->flush();
