@@ -283,4 +283,25 @@ class ShoppingController extends AbstractController
             'planningOwner' => $bonus->getOwner()
         ]));
     }
+
+    /**
+     * @Route("/clean-bonus/{bonusOwner}", name="clean_bonus")
+     */
+    public function cleanBonus(string $bonusOwner, BonusRepository $bonusRepository) 
+    {
+        if (!$bonusRows = $bonusRepository->findByOwner($bonusOwner)) {
+            throw $this->createNotFoundException(sprintf('Le possésseur %s n\'a pas de supplément ou n\'existe pas', $bonusOwner));
+        }
+
+        foreach ($bonusRows as $row) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($row);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirect($this->generateUrl('shopping', [
+            'planningOwner' => $bonusOwner
+        ]));
+    }
 }
