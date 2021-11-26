@@ -17,7 +17,10 @@ class FoodType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'autofocus' => true
+                ]
             ])
             ->add('section', EntityType::class, [
                 'required' => true,

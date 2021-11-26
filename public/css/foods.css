@@ -8,7 +8,7 @@ main {
 }
 
 .foodsSection {
-	max-height: 50vh;
+	max-height: 33vh;
 	overflow-y: scroll;
 }
 
@@ -121,7 +121,7 @@ svg {
 	}
 
 	.foodRowsContainer {
-		max-height: 70vh;
+		max-height: 50vh;
 	}
 
 	.foodsSection {

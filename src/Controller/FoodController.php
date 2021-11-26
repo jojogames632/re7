@@ -27,19 +27,23 @@ class FoodController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             // replace space by _
             $foodName = ucfirst($form['name']->getData());
             $noSpaceFoodName = str_replace(' ', '_', $foodName);
             $food->setName($noSpaceFoodName);
+            
+            if (!$foodRepository->findOneByName($noSpaceFoodName)) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($food);
+                $entityManager->flush();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($food);
-            $entityManager->flush();
+                $this->addFlash('success', 'Aliment ajouté avec succès');
 
-            $this->addFlash('success', 'Aliment ajouté avec succès');
-
-            return $this->redirectToRoute('foods');
+                return $this->redirectToRoute('foods');
+            }
+            else {
+                $this->addFlash('danger', 'Cet aliment a déja été créé'); 
+            }
         }
 
         return $this->render('food/index.html.twig', [
