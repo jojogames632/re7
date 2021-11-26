@@ -132,7 +132,7 @@
                     {% for food in foods %}
                         <div class="row mb-2">
                             <div class="col-5 d-flex justify-content-center">
-                                {{ food.name }}
+                                {{ food.name|replace({ "_" : " "}) }}
                             </div>
                             <div class="col-5 d-flex justify-content-center">
                                 {{ food.section.name }}
