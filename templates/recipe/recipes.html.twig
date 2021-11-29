@@ -132,7 +132,7 @@
 					</select>
 				</div>
 				<select id="foodSelector" name="foodSelector" class="mt-4">
-					<option value="" selected hidden>Rercher par aliment</option>
+					<option value="" selected>Tous aliments</option>
 					{% for food in foods %}
 						<option value="{{ food.id }}">{{ food.name }} - ({{ food.section.name }})</option>
 					{% endfor %}
