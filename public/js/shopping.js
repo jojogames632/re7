@@ -1,5 +1,5 @@
 const planningSelect = document.getElementById('planningSelect');
 
 planningSelect.addEventListener('change', (e) => {
-	window.location.href = "http://symfony.localhost/shopping/" + e.target.value;
+	window.location.href = "https://family-re7.herokuapp.com/shopping/" + e.target.value;
 });
