@@ -85,21 +85,21 @@ svg {
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
 	.formSection,
 	.foodsSection {
-		width: 40%;
+		width: 45%;
 	}
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1799px) {
 	.formSection,
 	.foodsSection {
-		width: 30%;
+		width: 40%;
 	}
 }
 
 @media screen and (min-width: 1800px) {
 	.formSection,
 	.foodsSection {
-		width: 25%;
+		width: 30%;
 	}
 }
 
