@@ -45,7 +45,7 @@
 								{{ row.food.name }}
 							</td>
 							<td class="d-flex justify-content-center">
-								{{ row.quantity|number_format(2) }} {{ row.unit.name }}
+								{{ row.quantity|round(2, 'floor') }} {{ row.unit.name }}
 							</td>
 						</tr>
 					{% endfor %}

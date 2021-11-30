@@ -139,7 +139,7 @@
                                     {{ food.food.name }}
                                 </div>
                                 <div class="col-3 d-flex justify-content-center">
-                                    {{ food.quantity|number_format(2) }}
+                                    {{ food.quantity|round(2, 'floor') }}
                                 </div>
                                 <div class="col-3 d-flex justify-content-center">
                                     {{ food.unit.name }}
