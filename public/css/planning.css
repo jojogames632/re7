@@ -25,6 +25,7 @@ main {
 
 .recipeName {
 	font-size: 10px;
+	white-space: nowrap;
 }
 
 .dayName,
@@ -71,28 +72,28 @@ select {
 @media screen and (min-width: 600px) and (max-width: 799px) {
 	#planningSection,
 	#planningHeader {
-		width: 90vw;
+		width: 95vw;
 	}
 }
 
 @media screen and (min-width: 800px) and (max-width: 999px) {
 	#planningSection,
 	#planningHeader {
-		width: 80vw;
+		width: 95vw;
 	}
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1399px) {
 	#planningSection,
 	#planningHeader {
-		width: 70vw;
+		width: 95vw;
 	}
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1799px) {
 	#planningSection,
 	#planningHeader {
-		width: 60vw;
+		width: 85vw;
 	}
 }
 
@@ -111,7 +112,7 @@ select {
 	}
 
 	.recipeName {
-		font-size: 20px;
+		font-size: 16px;
 	}
 
 	.planningTitle {

@@ -1,9 +1,9 @@
 {% for day in days %}
 	<div class="dayContainer row mb-4 border-bottom border-warning pb-3">
-		<div class="col-3 text-warning dayName">
+		<div class="col-2 text-warning dayName">
 			{{ day.name }}
 		</div>
-		<div class="col-4 d-flex justify-content-evenly align-items-center recipeName">
+		<div class="col-5 d-flex justify-content-evenly align-items-center recipeName">
 			{{ day.middayRecipe.name ?? '-' }}
 			{% if day.middayRecipe.name is defined %}
 				<span class="text-warning">{{ day.middayPersons }}</span>
@@ -14,7 +14,7 @@
 				</a>
 			{% endif %}
 		</div>
-		<div class="col-4 d-flex justify-content-evenly align-items-center recipeName">
+		<div class="col-5 d-flex justify-content-evenly align-items-center recipeName">
 			{{ day.eveningRecipe.name ?? '-' }}
 			{% if day.eveningRecipe.name is defined %}
 			<span class="text-warning">{{ day.eveningPersons }}</span>
